@@ -1,0 +1,60 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+input, select {
+    margin-bottom: 10px;
+}
+
+#registerDiv {
+    display: none;
+}
+
+#loggedIn {
+    display: none;
+}
+
+#authenticationDivlal {
+    display: none;
+}
+
+#message, #loading {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    font-family: sans-serif;
+}
+
+.social {
+    padding: 2px;
+    background-color: white;
+}
+
+.toggle, .logout {
+    background-color: #008CBA;
+}
+
+input, select {
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    padding: 4px 4px;
+    resize: none;
+    width: 300px;
+    font-family: sans-serif;
+}

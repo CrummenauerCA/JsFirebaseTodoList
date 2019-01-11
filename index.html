@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" type="image/png" href="imgTodoListFavicon.png" />
+    <title>TodoList</title>
+</head>
+
+<body>
+    <div>
+        <img src="imgTodoList.png">
+    </div>
+    <div id="authenticationDiv">
+        <h4>Acesse sua conta para continuar</h4>
+
+        <label for="email">E-mail: </label>
+        <input type="email" id="email" placeholder="E-mail">
+        <br>
+        <label for="password">Senha: </label>
+        <input type="password" id="password" placeholder="Senha">
+        <br>
+
+        <img id="loading" src="imgLoading.gif">
+        <p id="message"></p>
+
+        <div id="accessDiv">
+            <button id="accessBtn">Acessar</button>
+            <p>
+                Não possui uma conta?
+                <button id="toggleRegister" class="toggle">Cadastrar uma nova conta</button>
+            </p>
+        </div>
+
+        <div id="registerDiv">
+            <button id="registerBtn">Cadastrar</button>
+            <p>
+                Já possui uma conta?
+                <button id="toggleAccess" class="toggle">Acesse sua conta</button>
+            </p>
+        </div>
+        <p>Ou acesse usando:<br>
+            <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img src="imgGithub.png"></button>
+            <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="imgGoogle.png"></button>
+            <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="imgUserSecret.png"></button>
+        </p>
+    </div>
+    <div id="loggedIn">
+        <div id="userInfo">
+            <img style="padding: 0;" id="userImg" width="32px" src="imgUserUnknown.png">
+            <p style="padding: 0;" id="userName"></p>
+            <p style="padding: 0;" id="userEmail"></p>
+            </p>
+        </div>
+        <h4>Lista de tarefas: </h4>
+        <ul id="todoList">
+
+        </ul>
+        <p>Adicionar mais tarefas:</p>
+
+        <label for="todo">Tarefa: </label>
+        <input type="text" id="todo" placeholder="Tarefa">
+        <br>
+        <label for="priority">Prioridade: </label>
+        <select id="priority" name="priority">
+            <option value="Altíssima">Altíssima</option>
+            <option value="Alta">Alta</option>
+            <option value="Média" selected>Média</option>
+            <option value="Baixa">Baixa</option>
+            <option value="Baixíssima">Baixíssima</option>
+        </select>
+        <br>
+
+        <button id="addTodoBtn">Adicionar tarefa</button><br><br>
+        <!--
+            <progress value="0" max="100" id="uploader"></progress><br>
+            <input type="file" value="Upload" id="fileButton"><br>
+            <button id="addButton">Enviar arquivo</button><br>
+        -->
+        <button id="logOutBtn" class="logout">Sair</button>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+    <script src="js/firebase.js"></script>
+    <script src="control.js"></script>
+</body>
+
+</html>
