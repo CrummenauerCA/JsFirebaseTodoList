@@ -1,5 +1,3 @@
-
-
 var authenticationDiv = document.getElementById('authenticationDiv');
 var loggedIn = document.getElementById('loggedIn');
 var userInfo = document.getElementById('userInfo');
@@ -8,6 +6,7 @@ var registerDiv = document.getElementById('registerDiv');
 
 var message = document.getElementById('message');
 var loading = document.getElementById('loading');
+loadingTodoList = document.getElementById('loadingTodoList');
 
 var toggleRegister = document.getElementById('toggleRegister');
 var toggleAccess = document.getElementById('toggleAccess');
@@ -38,36 +37,10 @@ toggleAccess.onclick = function () {
     accessDiv.style.display = 'block';
 }
 
-function mostrarTarefas(result) {
-    authenticationDiv.style.display = 'none';
-    if (result.user.isAnonymous) {
-        userImg.src = 'imgUserSecret.png';
-        userName.innerHTML = 'Usuário anônimo'
-    } else {
-        if (result.user.photoURL != null) {
-            userImg.src = result.user.photoURL;
-        }
-    
-        if (result.user.displayName != null) {
-            userName.innerHTML = result.user.displayName;
-        }
-    
-        if (result.user.email != null) {
-            userEmail.innerHTML = result.user.email;
-        }
-    }
-    loggedIn.style.display = 'block';
-    console.log(result);
-    loading.style.display = 'none';
-}
-
 accessBtn.onclick = function () {
     loading.style.display = 'inline';
     message.style.display = 'none';
     firebase.auth().signInWithEmailAndPassword(email.value, password.value)
-        .then(function (result) {
-            mostrarTarefas(result);
-        })
         .catch(function (error) {
             console.log(error);
             message.style.color = 'red';
@@ -81,9 +54,6 @@ registerBtn.onclick = function () {
     loading.style.display = 'inline';
     message.style.display = 'none';
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-        .then(function (result) {
-            mostrarTarefas(result);
-        })
         .catch(function (error) {
             console.log(error);
             message.style.color = 'red';
@@ -95,54 +65,72 @@ registerBtn.onclick = function () {
 
 logOutBtn.onclick = function () {
     firebase.auth().signOut()
-        .then(function () {
-            loggedIn.style.display = 'none';
-            email.value = '';
-            password.value = '';
-            authenticationDiv.style.display = 'block';
-            alert('Você saiu');
-        }, function (error) {
-            console.error(error.code);
-            alert("Houve um problema:" + error.code + error.message);
+        .catch(function (error) {
+            console.log(error);
+            alert('Falha ao sair');
         });
 }
 
-anonymousBtn.onclick = function() {
+anonymousBtn.onclick = function () {
     loading.style.display = 'inline';
     firebase.auth().signInAnonymously()
-    .then(function(result) {
-        mostrarTarefas(result);
-    })
-    .catch(function(error) {
-        console.error(error.code);
-        console.error(error.message);
-        alert('Falha ao autenticar...');
-    });
+        .catch(function (error) {
+            console.log(error);
+            alert('Falha na autenticação');
+            loading.style.display = 'none';
+        });
 }
 
-githubBtn.onclick = function() {
-    let provider = new firebase.auth.GithubAuthProvider();
-    signIn(provider);
-}
-
-googleBtn.onclick = function() {
-    let provider = new firebase.auth.GoogleAuthProvider();
-    signIn(provider);
-}
-
-function signIn(provider) {
+githubBtn.onclick = function () {
     loading.style.display = 'inline';
-    firebase.auth().signInWithPopup(provider)
-    .then(function(result) {
-        mostrarTarefas(result);
-        console.log(result);
-        var token = result.credential.accessToken;
-    })
-    .catch(function(error) {
-        console.log(error);
-        alert('Falha na autenticação');
-    });
+    firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider())
+        .catch(function (error) {
+            console.log(error);
+            alert('Falha na autenticação');
+            loading.style.display = 'none';
+        });
 }
+
+googleBtn.onclick = function () {
+    loading.style.display = 'inline';
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        .catch(function (error) {
+            console.log(error);
+            alert('Falha na autenticação');
+            loading.style.display = 'none';
+        });
+}
+
+// var token = result.credential.accessToken;
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        console.log(user);
+        authenticationDiv.style.display = 'none';
+        if (user.isAnonymous == true) {
+            userImg.src = 'imgUserSecret.png';
+            userName.innerHTML = 'Usuário anônimo'
+        } else {
+            if (user.photoURL != null) {
+                userImg.src = user.photoURL;
+            }
+
+            if (user.displayName != null) {
+                userName.innerHTML = user.displayName;
+            }
+
+            if (user.email != null) {
+                userEmail.innerHTML = user.email;
+            }
+        }
+        loggedIn.style.display = 'block';
+        loading.style.display = 'none';
+    } else {
+        loggedIn.style.display = 'none';
+        email.value = '';
+        password.value = '';
+        authenticationDiv.style.display = 'block';
+    }
+});
 
 /*
 // Storage
@@ -177,6 +165,28 @@ var priority = document.getElementById('priority');
 var todo = document.getElementById('todo');
 var addButton = document.getElementById('addButton');
 
+const dbObject = firebase.database().ref().child('todoList');
+
+addTodoBtn.onclick = function () {
+    var data = {
+        todo: todo.value,
+        priority: priority.value
+    }
+    return dbObject.push(data);
+}
+
+dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
+    console.log(dataSnapshot.val());
+    todoList.innerHTML = '';
+    dataSnapshot.forEach(function (item) {
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(item.val().todo + ' : ' + item.val().priority));
+        todoList.appendChild(li);
+    });
+    loadingTodoList.style.display = 'none';
+});
+
+/*
 addTodoBtn.onclick = function() {
     var data = {
         todo: todo.value,
@@ -193,3 +203,4 @@ firebase.database().ref('todoList').on('value', function (snap) {
         todoList.appendChild(li);
     });
 });
+*/

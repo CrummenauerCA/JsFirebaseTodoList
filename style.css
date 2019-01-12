@@ -15,15 +15,7 @@ input, select {
     display: none;
 }
 
-#loggedIn {
-    display: none;
-}
-
-#authenticationDivlal {
-    display: none;
-}
-
-#message, #loading {
+#message, #loading, #authenticationDiv, #loggedIn {
     display: none;
 }
 
