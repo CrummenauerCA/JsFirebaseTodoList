@@ -181,13 +181,22 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
     console.log(dataSnapshot.val());
     todoList.innerHTML = '';
     dataSnapshot.forEach(function (item) {
+        var value = item.val();
         var li = document.createElement('li');
-        li.appendChild(document.createTextNode(item.val().todo + ' : ' + item.val().priority) + '<a>');
-        li.id = item.key;
+        li.appendChild(document.createTextNode(value.todo + ' : ' + value.priority + ' '));
+        var liRemoveBtn = document.createElement('button');
+        liRemoveBtn.appendChild(document.createTextNode('x'));
+        liRemoveBtn.setAttribute('onclick', `removerTarefa(\"${item.key}\")`);
+        liRemoveBtn.setAttribute('class', 'remove');
+        li.appendChild(liRemoveBtn);
         todoList.appendChild(li);
     });
     loadingTodoList.style.display = 'none';
 });
+
+function removerTarefa(key) {
+    dbObject.child(key).remove();
+}
 
 /*
 addTodoBtn.onclick = function() {
