@@ -161,6 +161,7 @@ fileButton.addEventListener('change', function(e) {
     )
 })
 */
+
 // realTimeDatabase
 var todoList = document.getElementById('todoList');
 var priority = document.getElementById('priority');
@@ -183,36 +184,52 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
     dataSnapshot.forEach(function (item) {
         var value = item.val();
         var li = document.createElement('li');
-        li.appendChild(document.createTextNode(value.todo + ' : ' + value.priority + ' '));
+
+        var pLi = document.createElement('p');
+        pLi.appendChild(document.createTextNode(value.todo + ' : ' + value.priority + ' '));
+        pLi.id = item.key;
+        pLi.setAttribute('class', 'todo');
+        li.appendChild(pLi);
+
         var liRemoveBtn = document.createElement('button');
         liRemoveBtn.appendChild(document.createTextNode('x'));
-        liRemoveBtn.setAttribute('onclick', `removerTarefa(\"${item.key}\")`);
+        liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
+        liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
         liRemoveBtn.setAttribute('class', 'remove');
         li.appendChild(liRemoveBtn);
+
+        var liUpdateBtn = document.createElement('button');
+        liUpdateBtn.appendChild(document.createTextNode('↻'));
+        liUpdateBtn.setAttribute('onclick', `updateTodo(\"${item.key}\")`);
+        liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
+        liUpdateBtn.setAttribute('class', 'update');
+        li.appendChild(liUpdateBtn);
+
         todoList.appendChild(li);
     });
     loadingTodoList.style.display = 'none';
 });
 
-function removerTarefa(key) {
-    dbObject.child(key).remove();
-}
-
-/*
-addTodoBtn.onclick = function() {
-    var data = {
-        todo: todo.value,
-        priority: priority.value
+function removeTodo(key) {
+    var liSelected = document.getElementById(key);
+    var confirmation = confirm('Realmente deseja remover (' + liSelected.innerHTML + ')');
+    if (confirmation == true) {
+        dbObject.child(key).remove();
     }
-    return firebase.database().ref().child('todoList').push(data);
 }
 
-firebase.database().ref('todoList').on('value', function (snap) {
-    todoList.innerHTML = '';
-    snap.forEach(function (item) {
-        var li = document.createElement('li');
-        li.appendChild(document.createTextNode(item.val().todo + ' : ' + item.val().priority));
-        todoList.appendChild(li);
-    });
-});
-*/
+function updateTodo(key) {
+    if (todo.value != '') {
+        var liSelected = document.getElementById(key);
+        var confirmation = confirm('Realmente deseja atualizar de (' + liSelected.innerHTML + ') para (' + todo.value + ' : ' + priority.value + ')');
+        if (confirmation == true) {
+            var data = {
+                todo: todo.value,
+                priority: priority.value
+            }
+            dbObject.child(key).update(data);
+        }
+    } else {
+        alert('O formulário não pode estar vazio para atualizar a tarefa!');
+    }
+}
