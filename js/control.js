@@ -108,7 +108,7 @@ firebase.auth().onAuthStateChanged(user => {
         console.log(user);
         authenticationDiv.style.display = 'none';
         if (user.isAnonymous == true) {
-            userImg.src = 'imgUserSecret.png';
+            userImg.src = 'img/userSecret.png';
             userName.innerHTML = 'Usuário anônimo'
         } else {
             if (user.photoURL != null) {
@@ -133,34 +133,6 @@ firebase.auth().onAuthStateChanged(user => {
     }
     loadingTodoListGeneral.style.display = 'none';
 });
-
-/*
-// Storage
-let uploader = document.getElementById('uploader');
-let fileButton = document.getElementById('fileButton');
-
-fileButton.addEventListener('change', function(e) {
-    alert("alterou");
-    var file = e.target.files[0];
-
-    var storageRef = firebase.storage().ref('arquivos/' + file.name);
-
-    var task = storageRef.put(file);
-
-    task.on('state_changed',
-        function progress(snapshot) {
-            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploader.value = percentage;
-        },
-        function error(err) {
-            console.log(err);
-        },
-        function complete() {
-            alert('Envio completo!');
-        }
-    )
-})
-*/
 
 // realTimeDatabase
 var todoList = document.getElementById('todoList');
@@ -188,21 +160,21 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         var pLi = document.createElement('p');
         pLi.appendChild(document.createTextNode(value.todo + ' : ' + value.priority + ' '));
         pLi.id = item.key;
-        pLi.setAttribute('class', 'todo');
+        pLi.setAttribute('class', 'todoItemList');
         li.appendChild(pLi);
 
         var liRemoveBtn = document.createElement('button');
-        liRemoveBtn.appendChild(document.createTextNode('x'));
+        liRemoveBtn.appendChild(document.createTextNode('X'));
         liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
         liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
-        liRemoveBtn.setAttribute('class', 'remove');
+        liRemoveBtn.setAttribute('class', 'removeBtn');
         li.appendChild(liRemoveBtn);
 
         var liUpdateBtn = document.createElement('button');
-        liUpdateBtn.appendChild(document.createTextNode('↻'));
+        liUpdateBtn.appendChild(document.createTextNode('A'));
         liUpdateBtn.setAttribute('onclick', `updateTodo(\"${item.key}\")`);
         liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
-        liUpdateBtn.setAttribute('class', 'update');
+        liUpdateBtn.setAttribute('class', 'updateBtn');
         li.appendChild(liUpdateBtn);
 
         todoList.appendChild(li);
@@ -233,3 +205,31 @@ function updateTodo(key) {
         alert('O formulário não pode estar vazio para atualizar a tarefa!');
     }
 }
+
+/*
+// Storage
+let uploader = document.getElementById('uploader');
+let fileButton = document.getElementById('fileButton');
+
+fileButton.addEventListener('change', function(e) {
+    alert("alterou");
+    var file = e.target.files[0];
+
+    var storageRef = firebase.storage().ref('arquivos/' + file.name);
+
+    var task = storageRef.put(file);
+
+    task.on('state_changed',
+        function progress(snapshot) {
+            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploader.value = percentage;
+        },
+        function error(err) {
+            console.log(err);
+        },
+        function complete() {
+            alert('Envio completo!');
+        }
+    )
+})
+*/

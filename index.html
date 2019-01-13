@@ -31,7 +31,7 @@
             <button id="accessBtn">Acessar</button>
             <p>
                 Não possui uma conta?
-                <button id="toggleRegister" class="toggle">Cadastrar uma nova conta</button>
+                <button id="toggleRegister" class="toggleBtn">Cadastrar uma nova conta</button>
             </p>
         </div>
 
@@ -39,27 +39,29 @@
             <button id="registerBtn">Cadastrar</button>
             <p>
                 Já possui uma conta?
-                <button id="toggleAccess" class="toggle">Acesse sua conta</button>
+                <button id="toggleAccess" class="toggleBtn">Acesse sua conta</button>
             </p>
         </div>
         <p>Ou acesse usando:<br>
-            <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img src="img/github.png"></button>
-            <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
-            <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
+            <button class="socialBtn" id="githubBtn" title="Acessar com sua conta do Github"><img src="img/github.png"></button>
+            <button class="socialBtn" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
+            <button class="socialBtn" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
         </p>
     </div>
     <div id="loggedIn">
         <div id="userInfo">
-            <img style="padding: 0;" id="userImg" width="32px" src="img/userUnknown.png">
-            <p style="padding: 0;" id="userName"></p>
-            <p style="padding: 0;" id="userEmail"></p>
-            </p>
+            <img id="userImg" height="32" src="img/userUnknown.png">
+            <p id="userName"></p>
+            <p id="userEmail"></p>
+            <button id="logOutBtn" class="logoutBtn">Sair</button>
         </div>
         <hr>
-        <h4>Lista de tarefas: </h4>
+        <p><strong>Tarefas:</strong></p>
         <img id="loadingTodoList" src="img/loading.gif">
+
         <ul id="todoList">
         </ul>
+
         <hr>
         <p>Adicionar ou atualizar tarefa:</p>
 
@@ -80,7 +82,6 @@
             <input type="file" value="Upload" id="fileButton"><br>
             <button id="addButton">Enviar arquivo</button><br>
         -->
-        <button id="logOutBtn" class="logout">Sair</button>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
