@@ -50,3 +50,7 @@ input, select {
     width: 300px;
     font-family: sans-serif;
 }
+
+hr {
+    width: 40%;
+}

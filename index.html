@@ -3,14 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" type="image/png" href="imgTodoListFavicon.png" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/png" href="img/todoListFavicon.png"/>
     <title>TodoList</title>
 </head>
 
 <body>
     <div>
-        <img src="imgTodoList.png">
+        <img src="img/todoList.png">
+        <br>
+        <img id="loadingTodoListGeneral" src="img/loading.gif">
     </div>
     <div id="authenticationDiv">
         <h4>Acesse sua conta para continuar</h4>
@@ -22,7 +24,7 @@
         <input type="password" id="password" placeholder="Senha">
         <br>
 
-        <img id="loading" src="imgLoading.gif">
+        <img id="loading" src="img/loading.gif">
         <p id="message"></p>
 
         <div id="accessDiv">
@@ -41,22 +43,24 @@
             </p>
         </div>
         <p>Ou acesse usando:<br>
-            <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img src="imgGithub.png"></button>
-            <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="imgGoogle.png"></button>
-            <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="imgUserSecret.png"></button>
+            <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img src="img/github.png"></button>
+            <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
+            <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
         </p>
     </div>
     <div id="loggedIn">
         <div id="userInfo">
-            <img style="padding: 0;" id="userImg" width="32px" src="imgUserUnknown.png">
+            <img style="padding: 0;" id="userImg" width="32px" src="img/userUnknown.png">
             <p style="padding: 0;" id="userName"></p>
             <p style="padding: 0;" id="userEmail"></p>
             </p>
         </div>
+        <hr>
         <h4>Lista de tarefas: </h4>
-        <img id="loadingTodoList" src="imgLoading.gif">
+        <img id="loadingTodoList" src="img/loading.gif">
         <ul id="todoList">
         </ul>
+        <hr>
         <p>Adicionar mais tarefas:</p>
 
         <label for="todo">Tarefa: </label>
@@ -64,11 +68,9 @@
         <br>
         <label for="priority">Prioridade: </label>
         <select id="priority" name="priority">
-            <option value="Altíssima">Altíssima</option>
             <option value="Alta">Alta</option>
             <option value="Média" selected>Média</option>
             <option value="Baixa">Baixa</option>
-            <option value="Baixíssima">Baixíssima</option>
         </select>
         <br>
 
@@ -83,7 +85,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
     <script src="js/firebase.js"></script>
-    <script src="control.js"></script>
+    <script src="js/control.js"></script>
 </body>
 
 </html>

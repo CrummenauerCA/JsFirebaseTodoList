@@ -6,7 +6,8 @@ var registerDiv = document.getElementById('registerDiv');
 
 var message = document.getElementById('message');
 var loading = document.getElementById('loading');
-loadingTodoList = document.getElementById('loadingTodoList');
+var loadingTodoList = document.getElementById('loadingTodoList');
+var loadingTodoListGeneral = document.getElementById('loadingTodoListGeneral');
 
 var toggleRegister = document.getElementById('toggleRegister');
 var toggleAccess = document.getElementById('toggleAccess');
@@ -130,6 +131,7 @@ firebase.auth().onAuthStateChanged(user => {
         password.value = '';
         authenticationDiv.style.display = 'block';
     }
+    loadingTodoListGeneral.style.display = 'none';
 });
 
 /*
@@ -180,7 +182,8 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
     todoList.innerHTML = '';
     dataSnapshot.forEach(function (item) {
         var li = document.createElement('li');
-        li.appendChild(document.createTextNode(item.val().todo + ' : ' + item.val().priority));
+        li.appendChild(document.createTextNode(item.val().todo + ' : ' + item.val().priority) + '<a>');
+        li.id = item.key;
         todoList.appendChild(li);
     });
     loadingTodoList.style.display = 'none';
