@@ -7,7 +7,7 @@ body {
     font-family: sans-serif;
 }
 
-#message, #loading, #authenticationDiv, #registerDiv, #loggedIn {
+#message, #loading, #authenticationDiv, #registerDiv, #loggedIn, #uploaderFeedback {
     display: none;
 }
 

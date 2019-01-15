@@ -75,11 +75,17 @@
             <option value="Baixa">Baixa</option>
         </select>
         <br>
-
-        <button id="addTodoBtn">Adicionar tarefa</button><br><br>
+        <label for="img">Imagem: </label>
+        <input type="file" name="img" value="Upload" id="fileBtn"><br>
         <progress value="0" max="100" id="uploaderFeedback"></progress><br>
-        <input type="file" value="Upload" id="fileBtn"><br>
+        <button id="addTodoBtn">Adicionar tarefa</button><br><br>
+        
+        
+
+        <img id="imgUpload" width="40" src="" alt="">
     </div>
+
+    
 
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
     <script src="js/firebase.js"></script>

@@ -143,10 +143,56 @@ var addButton = document.getElementById('addButton');
 const dbObject = firebase.database().ref().child('todoList');
 
 addTodoBtn.onclick = function () {
+    var url = '';
+    let uploaderFeedback = document.getElementById('uploaderFeedback');
+    let fileBtn = document.getElementById('fileBtn');
+    var file = fileBtn.files[0];
+    var storageRef = firebase.storage().ref('arquivos/' + file.name);
+    var uploadTask = storageRef.put(file)
+    uploadTask.on('state_changed',
+        function (snapshot) {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploaderFeedback.style.display = 'inline';
+            uploaderFeedback.value = progress;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                    console.log('Upload is paused');
+                    break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                    console.log('Upload is running');
+                    break;
+            }
+        }, function (error) {
+            switch (error.code) {
+                case 'storage/unauthorized':
+                    // User doesn't have permission to access the object
+                    break;
+
+                case 'storage/canceled':
+                    // User canceled the upload
+                    break;
+                case 'storage/unknown':
+                    // Unknown error occurred, inspect error.serverResponse
+                    break;
+            }
+        }, function () {
+            // Upload completed successfully, now we can get the download URL
+            var imgUpload = document.getElementById('imgUpload');
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                console.log('File available at', downloadURL);
+                imgUpload.src = downloadURL;
+                url = downloadURL;
+            });
+        });
+
     var data = {
         todo: todo.value,
-        priority: priority.value
+        priority: priority.value,
+        imgUrl: url
     }
+    uploaderFeedback.style.display = 'none';
     return dbObject.push(data);
 }
 
@@ -205,29 +251,3 @@ function updateTodo(key) {
         alert('O formulário não pode estar vazio para atualizar a tarefa!');
     }
 }
-
-// Storage
-let uploaderFeedback = document.getElementById('uploaderFeedback');
-let fileBtn = document.getElementById('fileBtn');
-
-fileBtn.addEventListener('change', function(e) {
-    alert("alterou");
-    var file = e.target.files[0];
-
-    var storageRef = firebase.storage().ref('arquivos/' + file.name);
-
-    var task = storageRef.put(file);
-
-    task.on('state_changed',
-        function progress(snapshot) {
-            var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploaderFeedback.value = percentage;
-        },
-        function error(err) {
-            console.log(err);
-        },
-        function complete() {
-            alert('Envio completo!');
-        }
-    )
-})
