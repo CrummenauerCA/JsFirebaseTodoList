@@ -142,6 +142,8 @@ var addButton = document.getElementById('addButton');
 
 const dbObject = firebase.database().ref().child('todoList');
 
+var imgUpload = document.getElementById('imgUpload');
+
 addTodoBtn.onclick = function () {
     var url = '';
     let uploaderFeedback = document.getElementById('uploaderFeedback');
@@ -179,21 +181,19 @@ addTodoBtn.onclick = function () {
             }
         }, function () {
             // Upload completed successfully, now we can get the download URL
-            var imgUpload = document.getElementById('imgUpload');
+            
             uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
                 console.log('File available at', downloadURL);
-                imgUpload.src = downloadURL;
-                url = downloadURL;
+                var data = {
+                    todo: todo.value,
+                    priority: priority.value,
+                    imgUrl: downloadURL
+                }
+                uploaderFeedback.style.display = 'none';
+                return dbObject.push(data);
             });
         });
 
-    var data = {
-        todo: todo.value,
-        priority: priority.value,
-        imgUrl: url
-    }
-    uploaderFeedback.style.display = 'none';
-    return dbObject.push(data);
 }
 
 dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
@@ -202,6 +202,11 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
     dataSnapshot.forEach(function (item) {
         var value = item.val();
         var li = document.createElement('li');
+
+        var imgLi = document.createElement('img');
+        imgLi.height = 25;
+        imgLi.src = value.imgUrl;
+        li.appendChild(imgLi);
 
         var pLi = document.createElement('p');
         pLi.appendChild(document.createTextNode(value.todo + ' : ' + value.priority + ' '));
