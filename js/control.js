@@ -206,12 +206,11 @@ function updateTodo(key) {
     }
 }
 
-/*
 // Storage
-let uploader = document.getElementById('uploader');
-let fileButton = document.getElementById('fileButton');
+let uploaderFeedback = document.getElementById('uploaderFeedback');
+let fileBtn = document.getElementById('fileBtn');
 
-fileButton.addEventListener('change', function(e) {
+fileBtn.addEventListener('change', function(e) {
     alert("alterou");
     var file = e.target.files[0];
 
@@ -222,7 +221,7 @@ fileButton.addEventListener('change', function(e) {
     task.on('state_changed',
         function progress(snapshot) {
             var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploader.value = percentage;
+            uploaderFeedback.value = percentage;
         },
         function error(err) {
             console.log(err);
@@ -232,4 +231,3 @@ fileButton.addEventListener('change', function(e) {
         }
     )
 })
-*/
