@@ -7,7 +7,7 @@ body {
     font-family: sans-serif;
 }
 
-#message, #loading, #authenticationDiv, #registerDiv, #loggedIn, #uploaderFeedback {
+#message, #loading, #authenticationDiv, #registerDiv, #loggedIn, #uploaderFeedback, #updateBtns {
     display: none;
 }
 
@@ -31,7 +31,7 @@ button {
     background-color: white;
 }
 
-.toggleBtn, .logoutBtn, .updateBtn {
+.toggleBtn, .logoutBtn, .updateBtn, #cancelUpdateTodoBtn {
     background-color: #008CBA;
 }
 
@@ -42,7 +42,7 @@ button {
 .todoItemList, .removeBtn, .updateBtn {
     display: inline;
     margin: 0px 0px 2px 10px;
-    padding: 2px 7px;
+    padding: 3px 8px;
 }
 
 input, select {    

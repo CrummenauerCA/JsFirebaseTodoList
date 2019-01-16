@@ -32,4 +32,7 @@ var logOutBtn = document.getElementById('logOutBtn');
 var todoList = document.getElementById('todoList');
 var priority = document.getElementById('priority');
 var todo = document.getElementById('todo');
-var addButton = document.getElementById('addButton');
+var addTodoBtn = document.getElementById('addTodoBtn');
+var updateTodoBtn = document.getElementById('updateTodoBtn');
+
+var addUpdateTodoText = document.getElementById('addUpdateTodoText');

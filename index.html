@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" type="image/png" href="img/todoListFavicon.png" />
     <title>TodoList</title>
 </head>
+
 <body>
     <div>
         <img src="img/todoList.png">
@@ -51,12 +53,15 @@
         </div>
         <hr>
         <p><strong>Tarefas:</strong></p>
+
         <img id="loadingTodoList" src="img/loading.gif">
 
         <ul id="todoList">
         </ul>
         <hr>
-        <p>Adicionar ou atualizar tarefa:</p>
+    </div>
+    <div class="inputs">
+        <p id="addUpdateTodoText">Adicionar tarefa:</p>
         <label for="todo">Tarefa: </label>
         <input type="text" id="todo" placeholder="Tarefa">
         <br>
@@ -69,8 +74,15 @@
         <br>
         <label for="img">Imagem: </label>
         <input type="file" name="img" value="Upload" id="fileBtn"><br>
-        <progress value="0" max="100" id="uploaderFeedback"></progress><br>
-        <button id="addTodoBtn">Adicionar tarefa</button><br><br>
+        <progress value="0" max="100" id="uploaderFeedback"></progress>
+        <br>
+        <button id="addTodoBtn">Adicionar tarefa</button>
+        <br><br>
+        <div id="updateBtns">
+            <button id="updateTodoBtn">Atualizar tarefa</button>
+            <button id="cancelUpdateTodoBtn">Cancelar modificação</button>
+            <br><br>
+        </div>
     </div>
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
     <script src="js/firebase.js"></script>
@@ -79,4 +91,5 @@
     <script src="js/auth.js"></script>
     <script src="js/todo.js"></script>
 </body>
+
 </html>
