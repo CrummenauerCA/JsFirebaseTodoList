@@ -28,7 +28,6 @@ addTodoBtn.onclick = function () {
                     return dbObject.push(data);
                 });
         });
-
 }
 
 dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
@@ -79,11 +78,12 @@ function updateTodo(key) {
     loggedIn.style.display = 'none';
     updateBtns.style.display = 'block';
     addTodoBtn.style.display = 'none';
+    var liSelected = document.getElementById(key);
+    addUpdateTodoText.innerHTML = 'Atualizar tarefa: ' + liSelected.innerHTML;
+    alert(addUpdateTodoText);
 
     updateTodoBtn.onclick = function () {
         if (todo.value != '') {
-            var liSelected = document.getElementById(key);
-            addUpdateTodoText.innerHTML = 'Atualizar tarefa: ' + liSelected.innerHTML;
             var confirmation = confirm('Realmente deseja atualizar de (' + liSelected.innerHTML + ') para (' + todo.value + ' : ' + priority.value + ')');
             if (confirmation == true) {
 

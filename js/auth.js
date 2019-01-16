@@ -64,7 +64,6 @@ googleBtn.onclick = function () {
 
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        console.log(user);
         authenticationDiv.style.display = 'none';
         if (user.isAnonymous == true) {
             userImg.src = 'img/userSecret.png';
