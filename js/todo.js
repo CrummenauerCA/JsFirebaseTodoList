@@ -3,6 +3,7 @@ const dbObject = firebase.database().ref().child('todoList');
 var imgUpload = document.getElementById('imgUpload');
 
 addTodoBtn.onclick = function () {
+    loading.style.display = 'block';
     let uploaderFeedback = document.getElementById('uploaderFeedback');
     let fileBtn = document.getElementById('fileBtn');
     var file = fileBtn.files[0];
@@ -31,13 +32,15 @@ addTodoBtn.onclick = function () {
 }
 
 dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
+    loading.style.display = 'block';
     todoList.innerHTML = '';
     dataSnapshot.forEach(function (item) {
         var value = item.val();
         var li = document.createElement('li');
 
         var imgLi = document.createElement('img');
-        imgLi.height = 25;
+        imgLi.height = 26;
+        imgLi.width = 26;
         imgLi.src = value.imgUrl;
         li.appendChild(imgLi);
 
@@ -60,10 +63,9 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
         liUpdateBtn.setAttribute('class', 'updateBtn');
         li.appendChild(liUpdateBtn);
-
         todoList.appendChild(li);
     });
-    loadingTodoList.style.display = 'none';
+    loading.style.display = 'none';
 });
 
 function removeTodo(key) {
@@ -75,7 +77,7 @@ function removeTodo(key) {
 }
 
 function updateTodo(key) {
-    loggedIn.style.display = 'none';
+    userInfo.style.display = 'none';
     updateBtns.style.display = 'block';
     addTodoBtn.style.display = 'none';
     var liSelected = document.getElementById(key);
@@ -130,6 +132,6 @@ cancelUpdateTodoBtn.onclick = function () {
     loggedIn.style.display = 'block';
     updateBtns.style.display = 'none';
     addTodoBtn.style.display = 'inline';
-    loadingTodoList.style.display = 'none';
+    loading.style.display = 'none';
     todo.value = '';
 }

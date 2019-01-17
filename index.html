@@ -12,7 +12,7 @@
     <div>
         <img src="img/todoList.png">
     </div>
-    <div id="authenticationDiv">
+    <div id="authentication" class="startHidden">
         <h4>Acesse sua conta para continuar</h4>
         <label for="email">E-mail: </label>
         <input type="email" id="email" placeholder="E-mail">
@@ -20,16 +20,16 @@
         <label for="password">Senha: </label>
         <input type="password" id="password" placeholder="Senha">
         <br>
-        <img id="loading" src="img/loading.gif">
+
         <p id="message"></p>
-        <div id="accessDiv">
+        <div id="access">
             <button id="accessBtn">Acessar</button>
             <p>
                 Não possui uma conta?
                 <button id="toggleRegister" class="toggleBtn">Cadastrar uma nova conta</button>
             </p>
         </div>
-        <div id="registerDiv">
+        <div id="register" class="startHidden">
             <button id="registerBtn">Cadastrar</button>
             <p>
                 Já possui uma conta?
@@ -42,25 +42,24 @@
             <button class="socialBtn" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
         </p>
     </div>
-    <div id="loggedIn">
-        <div id="userInfo">
-            <img id="userImg" height="32" src="img/userUnknown.png">
-            <p id="userName"></p>
-            <p id="userEmail"></p>
-            <button id="logOutBtn" class="logoutBtn">Sair</button>
-        </div>
+
+    <div id="userInfo" class="startHidden">
+        <img id="userImg" height="32" src="img/userUnknown.png">
+        <p id="userName"></p>
+        <p id="userEmail"></p>
+        <button id="logOutBtn" class="logoutBtn">Sair</button>
         <hr>
         <p><strong>Tarefas:</strong></p>
-
-        <div id="loading">
-            <img id="loading" src="img/loading.gif">
-        </div>
-        
-        <ul id="todoList">
-        </ul>
-        <hr>
     </div>
-    <div class="inputs">
+
+    <div id="loading">
+        <img src="img/loading.gif">
+    </div>
+
+    <ul id="todoList" class="startHidden"></ul>
+
+    <div id="inputs" class="startHidden">
+        <hr>
         <p id="addUpdateTodoText">Adicionar tarefa:</p>
         <label for="todo">Tarefa: </label>
         <input type="text" id="todo" placeholder="Tarefa">
@@ -74,11 +73,11 @@
         <br>
         <label for="img">Imagem: </label>
         <input type="file" name="img" value="Upload" id="fileBtn"><br>
-        <progress value="0" max="100" id="uploaderFeedback"></progress>
+        <progress value="0" max="100" id="uploaderFeedback" class="startHidden"></progress>
         <br>
         <button id="addTodoBtn">Adicionar tarefa</button>
         <br><br>
-        <div id="updateBtns">
+        <div id="updateBtns" class="startHidden">
             <button id="updateTodoBtn">Atualizar tarefa</button>
             <button id="cancelUpdateTodoBtn">Cancelar modificação</button>
             <br><br>

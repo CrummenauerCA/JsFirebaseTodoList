@@ -1,9 +1,9 @@
 toggleRegister.onclick = function () {
-    accessDiv.style.display = 'none';
-    registerDiv.style.display = 'block';
+    access.style.display = 'none';
+    register.style.display = 'block';
 }
 
 toggleAccess.onclick = function () {
-    registerDiv.style.display = 'none';
-    accessDiv.style.display = 'block';
+    register.style.display = 'none';
+    access.style.display = 'block';
 }

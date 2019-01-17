@@ -57,23 +57,23 @@ function showError(error, message) {
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        authenticationDiv.style.display = 'none';
-        if (user.isAnonymous == true) {
+        authentication.style.display = 'none';
+        if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
             userName.innerHTML = 'Usuário anônimo'
             userEmail.innerHTML = '';
         } else {
-            userImg.src = user.photoURL ? user.photoURL : '';
+            userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
             userName.innerHTML = user.displayName ? user.displayName : '';
             userEmail.innerHTML = user.email ? user.email : '';
         }
-        loggedIn.style.display = 'block';
-        loading.style.display = 'none';
+        inputs.style.display = 'block';
+        todoList.style.display = 'block';
+        userInfo.style.display = 'block';
     } else {
-        loggedIn.style.display = 'none';
+        userInfo.style.display = 'none';
         email.value = '';
         password.value = '';
-        authenticationDiv.style.display = 'block';
+        authentication.style.display = 'block';
     }
-    loadingTodoListGeneral.style.display = 'none';
 });

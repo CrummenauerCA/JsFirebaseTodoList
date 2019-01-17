@@ -1,8 +1,9 @@
-var authenticationDiv = document.getElementById('authenticationDiv');
-var loggedIn = document.getElementById('loggedIn');
+var authentication = document.getElementById('authentication');
+var access = document.getElementById('access');
+var register = document.getElementById('register');
+
 var userInfo = document.getElementById('userInfo');
-var accessDiv = document.getElementById('accessDiv');
-var registerDiv = document.getElementById('registerDiv');
+var inputs = document.getElementById('inputs');
 
 var message = document.getElementById('message');
 var loading = document.getElementById('loading');

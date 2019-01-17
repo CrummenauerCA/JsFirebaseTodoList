@@ -7,7 +7,7 @@ body {
     font-family: sans-serif;
 }
 
-#message, #loading, #authenticationDiv, #registerDiv, #loggedIn, #uploaderFeedback, #updateBtns {
+.startHidden {
     display: none;
 }
 
@@ -63,8 +63,4 @@ p {
 
 img {
     border-radius: 12px;
-}
-
-.userInfo, #userInfo {
-    display: inline;
 }
