@@ -55,6 +55,7 @@ function showError(error, message) {
     loading.style.display = 'none';
 }
 
+var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         authentication.style.display = 'none';
@@ -62,6 +63,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             userImg.src = 'img/userSecret.png';
             userName.innerHTML = 'Usuário anônimo'
             userEmail.innerHTML = '';
+            canEditTodoList = false;
         } else {
             userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
             userName.innerHTML = user.displayName ? user.displayName : '';
@@ -72,8 +74,11 @@ firebase.auth().onAuthStateChanged(function (user) {
         userInfo.style.display = 'block';
     } else {
         userInfo.style.display = 'none';
+        inputs.style.display = 'none';
+        todoList.style.display = 'none';
         email.value = '';
         password.value = '';
         authentication.style.display = 'block';
     }
+    loading.style.display = 'none';
 });

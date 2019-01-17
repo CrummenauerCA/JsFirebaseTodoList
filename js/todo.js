@@ -3,10 +3,14 @@ const dbObject = firebase.database().ref().child('todoList');
 var imgUpload = document.getElementById('imgUpload');
 
 addTodoBtn.onclick = function () {
-    loading.style.display = 'block';
     let uploaderFeedback = document.getElementById('uploaderFeedback');
     let fileBtn = document.getElementById('fileBtn');
     var file = fileBtn.files[0];
+    if (file == null) {
+        alert('É preciso selecionar uma imagem para a tarefa!');
+        return;
+    }
+    loading.style.display = 'block';
     var storageRef = firebase.storage().ref('files/' + file.name);
     var uploadTask = storageRef.put(file)
     uploadTask.on('state_changed',
@@ -32,7 +36,7 @@ addTodoBtn.onclick = function () {
 }
 
 dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
-    loading.style.display = 'block';
+    loading.style.display = 'none';
     todoList.innerHTML = '';
     dataSnapshot.forEach(function (item) {
         var value = item.val();
@@ -50,19 +54,23 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         pLi.setAttribute('class', 'todoItemList');
         li.appendChild(pLi);
 
-        var liRemoveBtn = document.createElement('button');
-        liRemoveBtn.appendChild(document.createTextNode('✖'));
-        liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
-        liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
-        liRemoveBtn.setAttribute('class', 'removeBtn');
-        li.appendChild(liRemoveBtn);
+        if (canEditTodoList) {
+            console.log('RES: ' + canEditTodoList);
+            var liRemoveBtn = document.createElement('button');
+            liRemoveBtn.appendChild(document.createTextNode('✖'));
+            liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
+            liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
+            liRemoveBtn.setAttribute('class', 'removeBtn');
+            li.appendChild(liRemoveBtn);
 
-        var liUpdateBtn = document.createElement('button');
-        liUpdateBtn.appendChild(document.createTextNode('✎'));
-        liUpdateBtn.setAttribute('onclick', `updateTodo(\"${item.key}\")`);
-        liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
-        liUpdateBtn.setAttribute('class', 'updateBtn');
-        li.appendChild(liUpdateBtn);
+            var liUpdateBtn = document.createElement('button');
+            liUpdateBtn.appendChild(document.createTextNode('✎'));
+            liUpdateBtn.setAttribute('onclick', `updateTodo(\"${item.key}\")`);
+            liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
+            liUpdateBtn.setAttribute('class', 'updateBtn');
+            li.appendChild(liUpdateBtn);
+        }
+
         todoList.appendChild(li);
     });
     loading.style.display = 'none';
@@ -78,11 +86,11 @@ function removeTodo(key) {
 
 function updateTodo(key) {
     userInfo.style.display = 'none';
+    todoList.style.display = 'none';
     updateBtns.style.display = 'block';
     addTodoBtn.style.display = 'none';
     var liSelected = document.getElementById(key);
-    addUpdateTodoText.innerHTML = 'Atualizar tarefa: ' + liSelected.innerHTML;
-    alert(addUpdateTodoText);
+    addUpdateTodoText.innerHTML = 'Atualizar a tarefa: \"' + liSelected.innerHTML + '\"';
 
     updateTodoBtn.onclick = function () {
         if (todo.value != '') {

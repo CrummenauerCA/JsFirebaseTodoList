@@ -17,7 +17,7 @@ ul {
 }
 
 button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 4px 12px;
@@ -42,10 +42,10 @@ button {
 .todoItemList, .removeBtn, .updateBtn {
     display: inline;
     margin: 0px 0px 2px 10px;
-    padding: 3px 8px;
+    padding: 1px 5px;
 }
 
-input, select {    
+input, select {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin: 4px 0 4px 0;
