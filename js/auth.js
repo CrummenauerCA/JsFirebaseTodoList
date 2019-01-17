@@ -62,18 +62,11 @@ firebase.auth().onAuthStateChanged(function(user) {
         if (user.isAnonymous == true) {
             userImg.src = 'img/userSecret.png';
             userName.innerHTML = 'Usuário anônimo'
+            userEmail.innerHTML = '';
         } else {
-            if (user.photoURL != null) {
-                userImg.src = user.photoURL;
-            }
-
-            if (user.displayName != null) {
-                userName.innerHTML = user.displayName;
-            }
-
-            if (user.email != null) {
-                userEmail.innerHTML = user.email;
-            }
+            userImg.src = user.photoURL ? user.photoURL : '';
+            userName.innerHTML = user.displayName ? user.displayName : '';
+            userEmail.innerHTML = user.email ? user.email : '';
         }
         loggedIn.style.display = 'block';
         loading.style.display = 'none';
@@ -85,35 +78,3 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
     loadingTodoListGeneral.style.display = 'none';
 });
-
-/*
-firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-        authenticationDiv.style.display = 'none';
-        if (user.isAnonymous == true) {
-            userImg.src = 'img/userSecret.png';
-            userName.innerHTML = 'Usuário anônimo'
-        } else {
-            if (user.photoURL != null) {
-                userImg.src = user.photoURL;
-            }
-
-            if (user.displayName != null) {
-                userName.innerHTML = user.displayName;
-            }
-
-            if (user.email != null) {
-                userEmail.innerHTML = user.email;
-            }
-        }
-        loggedIn.style.display = 'block';
-        loading.style.display = 'none';
-    } else {
-        loggedIn.style.display = 'none';
-        email.value = '';
-        password.value = '';
-        authenticationDiv.style.display = 'block';
-    }
-    loadingTodoListGeneral.style.display = 'none';
-});
-*/
