@@ -1,3 +1,5 @@
+firebase.auth().languageCode = 'pt-BR';
+
 accessBtn.onclick = function () {
     loading.style.display = 'inline';
     message.style.display = 'none';
@@ -13,19 +15,28 @@ accessBtn.onclick = function () {
 registerBtn.onclick = function () {
     loading.style.display = 'inline';
     message.style.display = 'none';
+
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (user) {
-        var user = firebase.auth().currentUser;
-        user.sendEmailVerification().then(function () {
-            alert('E-mail de verificação enviado, verifique sua caixa de entrada');
-        }).catch(function (error) {
-            alert('Houve um erro ao enviar um e-mail de verificação para você');
-        });
+        sendEmailVerification();
     }).catch(function (error) {
         console.log(error);
         message.style.color = 'red';
         message.innerHTML = 'Erro ao cadastrar! Cerifique-se de usar um e-mail válido e uma senha com ao menos 6 caracteres';
         message.style.display = 'block';
         loading.style.display = 'none';
+    });
+}
+
+function sendEmailVerification() {
+    var user = firebase.auth().currentUser;
+    var actionCodeSettings = {
+        url: 'http://127.0.0.1:5500/?email=' + user.email
+    };
+
+    user.sendEmailVerification(actionCodeSettings).then(function () {
+        alert('E-mail de verificação enviado, verifique sua caixa de entrada');
+    }).catch(function (error) {
+        showError(error, 'Houve um erro ao enviar um e-mail de verificação para você');
     });
 }
 
@@ -62,7 +73,6 @@ function showError(error, message) {
     loading.style.display = 'none';
 }
 
-var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         console.log(user);

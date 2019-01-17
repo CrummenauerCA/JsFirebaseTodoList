@@ -54,7 +54,6 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         li.appendChild(pLi);
 
         //if (!firebase.auth().currentUser.isAnonymous) {
-            console.log('RES: ' + canEditTodoList);
             var liRemoveBtn = document.createElement('button');
             liRemoveBtn.appendChild(document.createTextNode('✖'));
             liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
