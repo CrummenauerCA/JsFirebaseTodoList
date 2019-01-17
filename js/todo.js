@@ -87,8 +87,6 @@ function updateTodo(key) {
             var confirmation = confirm('Realmente deseja atualizar de (' + liSelected.innerHTML + ') para (' + todo.value + ' : ' + priority.value + ')');
             if (confirmation == true) {
 
-
-
                 let uploaderFeedback = document.getElementById('uploaderFeedback');
                 let fileBtn = document.getElementById('fileBtn');
                 var file = fileBtn.files[0];
@@ -123,6 +121,7 @@ function updateTodo(key) {
         loggedIn.style.display = 'block';
         updateBtns.style.display = 'none';
         addTodoBtn.style.display = 'inline';
+        todo.value = '';
     }
 }
 
@@ -132,4 +131,5 @@ cancelUpdateTodoBtn.onclick = function () {
     updateBtns.style.display = 'none';
     addTodoBtn.style.display = 'inline';
     loadingTodoList.style.display = 'none';
+    todo.value = '';
 }
