@@ -13,7 +13,14 @@ accessBtn.onclick = function () {
 registerBtn.onclick = function () {
     loading.style.display = 'inline';
     message.style.display = 'none';
-    firebase.auth().createUserWithEmailAndPassword(email.value, password.value).catch(function (error) {
+    firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (user) {
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then(function () {
+            alert('E-mail de verificação enviado, verifique sua caixa de entrada');
+        }).catch(function (error) {
+            alert('Houve um erro ao enviar um e-mail de verificação para você');
+        });
+    }).catch(function (error) {
         console.log(error);
         message.style.color = 'red';
         message.innerHTML = 'Erro ao cadastrar! Cerifique-se de usar um e-mail válido e uma senha com ao menos 6 caracteres';
@@ -58,6 +65,7 @@ function showError(error, message) {
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+        console.log(user);
         authentication.style.display = 'none';
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
@@ -68,6 +76,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
             userName.innerHTML = user.displayName ? user.displayName : '';
             userEmail.innerHTML = user.email ? user.email : '';
+            userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, um e-mail de verificação foi enviado...';
         }
         inputs.style.display = 'block';
         todoList.style.display = 'block';

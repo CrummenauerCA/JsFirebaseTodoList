@@ -41,7 +41,6 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
     dataSnapshot.forEach(function (item) {
         var value = item.val();
         var li = document.createElement('li');
-
         var imgLi = document.createElement('img');
         imgLi.height = 26;
         imgLi.width = 26;
@@ -54,7 +53,7 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         pLi.setAttribute('class', 'todoItemList');
         li.appendChild(pLi);
 
-        if (canEditTodoList) {
+        //if (!firebase.auth().currentUser.isAnonymous) {
             console.log('RES: ' + canEditTodoList);
             var liRemoveBtn = document.createElement('button');
             liRemoveBtn.appendChild(document.createTextNode('✖'));
@@ -69,8 +68,7 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
             liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
             liUpdateBtn.setAttribute('class', 'updateBtn');
             li.appendChild(liUpdateBtn);
-        }
-
+        //}
         todoList.appendChild(li);
     });
     loading.style.display = 'none';

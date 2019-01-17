@@ -26,6 +26,7 @@ var password = document.getElementById('password');
 var userImg = document.getElementById('userImg');
 var userName = document.getElementById('userName');
 var userEmail = document.getElementById('userEmail');
+var userEmailVerified = document.getElementById('userEmailVerified');
 
 var logOutBtn = document.getElementById('logOutBtn');
 
