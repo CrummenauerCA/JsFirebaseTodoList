@@ -24,39 +24,38 @@ registerBtn.onclick = function () {
 
 logOutBtn.onclick = function () {
     firebase.auth().signOut().catch(function (error) {
-        console.log(error);
-        alert('Falha ao sair');
+        showError(error, 'Falha ao sair de sua conta');
     });
 }
 
 anonymousBtn.onclick = function () {
     loading.style.display = 'inline';
     firebase.auth().signInAnonymously().catch(function (error) {
-        console.log(error);
-        alert('Falha na autenticação');
-        loading.style.display = 'none';
+        showError(error, 'Falha na autenticação como anônimo');
     });
 }
 
 githubBtn.onclick = function () {
     loading.style.display = 'inline';
     firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider()).catch(function (error) {
-        console.log(error);
-        alert('Falha na autenticação');
-        loading.style.display = 'none';
+        showError(error, 'Falha na autenticação com o Github');
     });
 }
 
 googleBtn.onclick = function () {
     loading.style.display = 'inline';
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function (error) {
-        console.log(error);
-        alert('Falha na autenticação');
-        loading.style.display = 'none';
+        showError(error, 'Falha na autenticação com o Google');
     });
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
+function showError(error, message) {
+    console.log(error);
+    alert(message);
+    loading.style.display = 'none';
+}
+
+firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         authenticationDiv.style.display = 'none';
         if (user.isAnonymous == true) {
