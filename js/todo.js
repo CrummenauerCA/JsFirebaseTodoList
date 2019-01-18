@@ -13,7 +13,6 @@ addTodoBtn.onclick = function () {
         }
         loading.style.display = 'block';
         var storageRef = firebase.storage().ref('files/' + new Date().getTime() + '_' + file.name);
-        console.log(storageRef.getDownloadURL());
         var uploadTask = storageRef.put(file);
         uploadTask.on('state_changed', function (snapshot) {
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -47,8 +46,8 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         var value = item.val();
         var li = document.createElement('li');
         var imgLi = document.createElement('img');
-        imgLi.height = 22;
-        imgLi.width = 22;
+        imgLi.height = 26;
+        imgLi.width = 26;
         imgLi.src = value.imgUrl;
         li.appendChild(imgLi);
 
