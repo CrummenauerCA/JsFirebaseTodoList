@@ -74,8 +74,8 @@ function showError(error, message) {
 
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
-    console.log(user);
     if (user) {
+        console.log(user);
         authentication.style.display = 'none';
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
@@ -93,7 +93,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot);
         });
-        inputs.style.display = 'block';
+        if (canEditTodoList) {
+            inputs.style.display = 'block';
+        }
         todoList.style.display = 'block';
         userInfo.style.display = 'block';
     } else {
@@ -106,3 +108,15 @@ firebase.auth().onAuthStateChanged(function (user) {
     }
     loading.style.display = 'none';
 });
+
+removeAccountBtn.onclick = function () {
+    var confirmation = confirm('Realmente deseja excluir sua conta?');
+    if (confirmation == true) {
+        var user = firebase.auth().currentUser;
+        user.delete().then(function () {
+            alert('Conta apagada com sucesso!');
+        }).catch(function (error) {
+            showError(error, 'Houve um erro ao apagar a sua conta...');
+        });
+    }
+}

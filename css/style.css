@@ -35,7 +35,7 @@ button {
     background-color: #008CBA;
 }
 
-.removeBtn {
+.removeBtn, #removeAccountBtn {
     background-color: #e74c3c;
 }
 

@@ -28,8 +28,8 @@ var userName = document.getElementById('userName');
 var userEmail = document.getElementById('userEmail');
 var userEmailVerified = document.getElementById('userEmailVerified');
 
+var removeAccountBtn = document.getElementById('removeAccountBtn');
 var logOutBtn = document.getElementById('logOutBtn');
-
 
 var todoList = document.getElementById('todoList');
 var priority = document.getElementById('priority');
