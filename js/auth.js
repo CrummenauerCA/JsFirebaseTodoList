@@ -74,7 +74,6 @@ function showError(error, message) {
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        console.log(user);
         authentication.style.display = 'none';
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';

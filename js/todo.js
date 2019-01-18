@@ -12,7 +12,7 @@ addTodoBtn.onclick = function () {
             return;
         }
         loading.style.display = 'block';
-        var storageRef = firebase.storage().ref('files/' + file.name);
+        var storageRef = firebase.storage().ref('files/' + new Date().getTime() + '_' + file.name);
         console.log(storageRef.getDownloadURL());
         var uploadTask = storageRef.put(file);
         uploadTask.on('state_changed', function (snapshot) {
@@ -84,14 +84,14 @@ function removeTodo(key) {
     if (confirmation == true) {
         dbObjectRemove = dbObject.child(key);
         dbObjectRemove.once('value').then(function (snapshot) {
-            console.log('Entrou no once');
             var storageRef = firebase.storage().ref(snapshot.val().imgPath);
             storageRef.delete().then(function () {
-                dbObject.child(key).remove();
+                alert('Arquivo removido...');
             }).catch(function (error) {
                 showError(error, 'Houve um erro ao remover o arquivo!');
             });
         });
+        dbObject.child(key).remove();
     }
 }
 
