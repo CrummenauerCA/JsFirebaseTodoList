@@ -30,9 +30,8 @@ registerBtn.onclick = function () {
 function sendEmailVerification() {
     var user = firebase.auth().currentUser;
     var actionCodeSettings = {
-        url: 'http://127.0.0.1:5500/?email=' + user.email
+        url: 'http://127.0.0.1:5500/'
     };
-
     user.sendEmailVerification(actionCodeSettings).then(function () {
         alert('E-mail de verificação enviado, verifique sua caixa de entrada');
     }).catch(function (error) {
