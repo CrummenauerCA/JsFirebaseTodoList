@@ -40,6 +40,10 @@ addTodoBtn.onclick = function () {
 }
 
 dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
+    fillTodoList(dataSnapshot);
+});
+
+function fillTodoList(dataSnapshot) {
     loading.style.display = 'none';
     todoList.innerHTML = '';
     dataSnapshot.forEach(function (item) {
@@ -57,25 +61,25 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
         pLi.setAttribute('class', 'todoItemList');
         li.appendChild(pLi);
 
-        //if (!firebase.auth().currentUser.isAnonymous) {
-        var liRemoveBtn = document.createElement('button');
-        liRemoveBtn.appendChild(document.createTextNode('✖'));
-        liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
-        liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
-        liRemoveBtn.setAttribute('class', 'removeBtn');
-        li.appendChild(liRemoveBtn);
+        if (!firebase.auth().currentUser.isAnonymous) {
+            var liRemoveBtn = document.createElement('button');
+            liRemoveBtn.appendChild(document.createTextNode('✖'));
+            liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
+            liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
+            liRemoveBtn.setAttribute('class', 'removeBtn');
+            li.appendChild(liRemoveBtn);
 
-        var liUpdateBtn = document.createElement('button');
-        liUpdateBtn.appendChild(document.createTextNode('✎'));
-        liUpdateBtn.setAttribute('onclick', `updateTodo(\"${item.key}\")`);
-        liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
-        liUpdateBtn.setAttribute('class', 'updateBtn');
-        li.appendChild(liUpdateBtn);
-        //}
+            var liUpdateBtn = document.createElement('button');
+            liUpdateBtn.appendChild(document.createTextNode('✎'));
+            liUpdateBtn.setAttribute('onclick', `updateTodo(\"${item.key}\")`);
+            liUpdateBtn.setAttribute('title', 'Atualizar usando os dados do formulário');
+            liUpdateBtn.setAttribute('class', 'updateBtn');
+            li.appendChild(liUpdateBtn);
+        }
         todoList.appendChild(li);
     });
     loading.style.display = 'none';
-});
+}
 
 function removeTodo(key) {
     var liSelected = document.getElementById(key);
@@ -84,13 +88,13 @@ function removeTodo(key) {
         dbObjectRemove = dbObject.child(key);
         dbObjectRemove.once('value').then(function (snapshot) {
             var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-            storageRef.delete().then(function () {
-                alert('Arquivo removido...');
-            }).catch(function (error) {
+            storageRef.delete().catch(function (error) {
                 showError(error, 'Houve um erro ao remover o arquivo!');
             });
         });
-        dbObject.child(key).remove();
+        dbObject.child(key).remove().catch(function (error) {
+            showError(error, 'Houve um erro ao remover a tarefa!');
+        });;
     }
 }
 

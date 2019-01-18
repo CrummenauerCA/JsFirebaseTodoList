@@ -79,6 +79,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             userImg.src = 'img/userSecret.png';
             userName.innerHTML = 'Usuário anônimo'
             userEmail.innerHTML = '';
+            userEmailVerified.innerHTML = '';
             canEditTodoList = false;
         } else {
             userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
@@ -86,6 +87,9 @@ firebase.auth().onAuthStateChanged(function (user) {
             userEmail.innerHTML = user.email ? user.email : '';
             userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, um e-mail de verificação foi enviado...';
         }
+        dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
+            fillTodoList(dataSnapshot);
+        });
         inputs.style.display = 'block';
         todoList.style.display = 'block';
         userInfo.style.display = 'block';
