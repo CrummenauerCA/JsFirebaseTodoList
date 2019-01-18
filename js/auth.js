@@ -72,12 +72,14 @@ function showError(error, message) {
     loading.style.display = 'none';
 }
 
+var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
+    console.log(user);
     if (user) {
         authentication.style.display = 'none';
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
-            userName.innerHTML = 'Usuário anônimo'
+            userName.innerHTML = 'Usuário anônimo';
             userEmail.innerHTML = '';
             userEmailVerified.innerHTML = '';
             canEditTodoList = false;
@@ -86,6 +88,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             userName.innerHTML = user.displayName ? user.displayName : '';
             userEmail.innerHTML = user.email ? user.email : '';
             userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, um e-mail de verificação foi enviado...';
+            canEditTodoList = true;
         }
         dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot);

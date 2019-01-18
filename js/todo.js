@@ -61,7 +61,7 @@ function fillTodoList(dataSnapshot) {
         pLi.setAttribute('class', 'todoItemList');
         li.appendChild(pLi);
 
-        if (!firebase.auth().currentUser.isAnonymous) {
+        if (canEditTodoList) {
             var liRemoveBtn = document.createElement('button');
             liRemoveBtn.appendChild(document.createTextNode('✖'));
             liRemoveBtn.setAttribute('onclick', `removeTodo(\"${item.key}\")`);
