@@ -1,8 +1,8 @@
 var authentication = document.getElementById('authentication');
+var loggedIn = document.getElementById('loggedIn');
 var access = document.getElementById('access');
 var register = document.getElementById('register');
 
-var userInfo = document.getElementById('userInfo');
 var inputs = document.getElementById('inputs');
 
 var message = document.getElementById('message');
@@ -40,3 +40,6 @@ var updateTodoBtn = document.getElementById('updateTodoBtn');
 var addUpdateTodoText = document.getElementById('addUpdateTodoText');
 
 var imgUpload = document.getElementById('imgUpload');
+
+var uploaderFeedback = document.getElementById('uploaderFeedback');
+var fileBtn = document.getElementById('fileBtn');

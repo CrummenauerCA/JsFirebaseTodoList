@@ -39,41 +39,48 @@ function fillTodoList(dataSnapshot) {
         }
         todoList.appendChild(li);
     });
-    loading.style.display = 'none';
+    hideItem(loading);
 }
 
 addTodoBtn.onclick = function () {
+    addOrUpdateTodo(true);
+}
+
+function addOrUpdateTodo(add) {
     if (todo.value != '') {
-        let uploaderFeedback = document.getElementById('uploaderFeedback');
-        let fileBtn = document.getElementById('fileBtn');
         var file = fileBtn.files[0];
-        if (file == null) {
-            alert('É preciso selecionar uma imagem para a tarefa!');
-            return;
-        }
-        loading.style.display = 'block';
-        var imgPath = 'files/' + new Date().getTime() + '_' + file.name;
-        var storageRef = firebase.storage().ref(imgPath);
-        var uploadTask = storageRef.put(file);
-        uploadTask.on('state_changed', function (snapshot) {
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploaderFeedback.style.display = 'inline';
-            uploaderFeedback.value = progress;
-        }, function (error) {
-            alert('Erro no upload do arquivo...');
-            console.log(error);
-        }, function () {
-            uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                var data = {
-                    todo: todo.value,
-                    priority: priority.value,
-                    imgPath: imgPath,
-                    imgUrl: downloadURL
-                }
-                uploaderFeedback.style.display = 'none';
-                return dbObject.push(data);
+        if (file != null) {
+            showItem(loading);
+            var imgPath = 'files/' + new Date().getTime() + '_' + file.name;
+            var storageRef = firebase.storage().ref(imgPath);
+            var uploadTask = storageRef.put(file);
+            uploadTask.on('state_changed', function (snapshot) {
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                addTodoBtn.innerHTML = 'Adicionando tarefa - ' + parseInt(progress) + '%';
+                uploaderFeedback.style.display = 'inline';
+                uploaderFeedback.value = progress;
+            }, function (error) {
+                alert('Erro no upload do arquivo...');
+                console.log(error);
+            }, function () {
+                uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                    var data = {
+                        todo: todo.value,
+                        priority: priority.value,
+                        imgPath: imgPath,
+                        imgUrl: downloadURL
+                    }
+                    uploaderFeedback.style.display = 'none';
+                    if (add) {
+                        dbObject.push(data);
+                    } else {
+                        dbObject.child(key).update(data);
+                    }
+                });
             });
-        });
+        } else {
+            alert('É preciso selecionar uma imagem para a tarefa!');
+        }
     } else {
         alert('O formulário não pode estar vazio para criar a tarefa!');
     }
@@ -81,48 +88,17 @@ addTodoBtn.onclick = function () {
 
 function updateTodo(key) {
     todo.value = '';
-    userInfo.style.display = 'none';
-    todoList.style.display = 'none';
-    addTodoBtn.style.display = 'none';
-    updateBtns.style.display = 'block';
+    hideItem(loggedIn);
+    showItem(inputs);
+    hideItem(addTodoBtn);
+    showItem(updateTodoBtn);
     var liSelected = document.getElementById(key);
     addUpdateTodoText.innerHTML = 'Atualizar a tarefa: \"' + liSelected.innerHTML + '\"';
     updateTodoBtn.onclick = function () {
-        if (todo.value != '') {
-            var confirmation = confirm('Realmente deseja atualizar de (' + liSelected.innerHTML + ') para (' + todo.value + ' : ' + priority.value + ')');
-            if (confirmation == true) {
-                let uploaderFeedback = document.getElementById('uploaderFeedback');
-                let fileBtn = document.getElementById('fileBtn');
-                var file = fileBtn.files[0];
-                var storageRef = firebase.storage().ref('files/' + file.name);
-                var uploadTask = storageRef.put(file)
-                uploadTask.on('state_changed', function (snapshot) {
-                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    uploaderFeedback.style.display = 'inline';
-                    uploaderFeedback.value = progress;
-                }, function (error) {
-                    alert('Erro no upload do arquivo...');
-                    console.log(error);
-                }, function () {
-                    uploadTask.snapshot.ref.getDownloadURL()
-                        .then(function (downloadURL) {
-                            var data = {
-                                todo: todo.value,
-                                priority: priority.value,
-                                imgUrl: downloadURL
-                            }
-                            dbObject.child(key).update(data);
-                            uploaderFeedback.style.display = 'none';
-                        });
-                });
-            }
-        } else {
-            alert('O formulário não pode estar vazio para atualizar a tarefa!');
-        }
-
+        addOrUpdateTodo(false);
         addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
-        loggedIn.style.display = 'block';
-        updateBtns.style.display = 'none';
+        showItem(loggedIn);
+        hideItem(updateBtns);
         addTodoBtn.style.display = 'inline';
         todo.value = '';
     }
@@ -150,7 +126,6 @@ cancelUpdateTodoBtn.onclick = function () {
     addTodoBtn.style.display = 'inline';
     loading.style.display = 'none';
     todo.value = '';
-    userInfo.style.display = 'block';
-    todoList.style.display = 'block';
+    loggedIn.style.display = 'block';
     updateBtns.style.display = 'none';
 }

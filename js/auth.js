@@ -1,8 +1,8 @@
 firebase.auth().languageCode = 'pt-BR';
 
 accessBtn.onclick = function () {
-    loading.style.display = 'inline';
-    message.style.display = 'none';
+    showItem(loading);
+    hideItem(message);
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function (error) {
         console.log(error);
         message.style.color = 'red';
@@ -13,8 +13,8 @@ accessBtn.onclick = function () {
 }
 
 registerBtn.onclick = function () {
-    loading.style.display = 'inline';
-    message.style.display = 'none';
+    showItem(loading);
+    hideItem(message);
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (user) {
         sendEmailVerification();
     }).catch(function (error) {
@@ -39,43 +39,37 @@ function sendEmailVerification() {
 }
 
 logOutBtn.onclick = function () {
+    showItem(loading);
     firebase.auth().signOut().catch(function (error) {
         showError(error, 'Falha ao sair de sua conta');
     });
 }
 
 anonymousBtn.onclick = function () {
-    loading.style.display = 'inline';
+    showItem(loading);
     firebase.auth().signInAnonymously().catch(function (error) {
         showError(error, 'Falha na autenticação como anônimo');
     });
 }
 
 githubBtn.onclick = function () {
-    loading.style.display = 'inline';
+    showItem(loading);
     firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider()).catch(function (error) {
         showError(error, 'Falha na autenticação com o Github');
     });
 }
 
 googleBtn.onclick = function () {
-    loading.style.display = 'inline';
+    showItem(loading);
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function (error) {
         showError(error, 'Falha na autenticação com o Google');
     });
 }
 
-function showError(error, message) {
-    console.log(error);
-    alert(message);
-    loading.style.display = 'none';
-}
-
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        console.log(user);
-        authentication.style.display = 'none';
+        hideItem(authentication);
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
             userName.innerHTML = 'Usuário anônimo';
@@ -93,17 +87,14 @@ firebase.auth().onAuthStateChanged(function (user) {
             fillTodoList(dataSnapshot);
         });
         if (canEditTodoList) {
-            inputs.style.display = 'block';
+            showItem(inputs);
         }
-        todoList.style.display = 'block';
-        userInfo.style.display = 'block';
+        showItem(loggedIn);
     } else {
-        userInfo.style.display = 'none';
-        inputs.style.display = 'none';
-        todoList.style.display = 'none';
+        hideItem(loggedIn);
         email.value = '';
         password.value = '';
-        authentication.style.display = 'block';
+        showItem(authentication);
     }
     loading.style.display = 'none';
 });
