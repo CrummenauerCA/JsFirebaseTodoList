@@ -7,6 +7,17 @@ body {
     font-family: sans-serif;
 }
 
+#loading {
+    position: absolute;
+    top: calc(50% - 100px);
+    left: calc(50% - 100px);
+}
+
+#lala {
+    top: 50%;
+    left: 50%;
+}
+
 .startHidden {
     display: none;
 }

@@ -1,43 +1,4 @@
-const dbObject = firebase.database().ref().child('todoList');
-
-var imgUpload = document.getElementById('imgUpload');
-
-addTodoBtn.onclick = function () {
-    if (todo.value != '') {
-        let uploaderFeedback = document.getElementById('uploaderFeedback');
-        let fileBtn = document.getElementById('fileBtn');
-        var file = fileBtn.files[0];
-        if (file == null) {
-            alert('É preciso selecionar uma imagem para a tarefa!');
-            return;
-        }
-        loading.style.display = 'block';
-        var storageRef = firebase.storage().ref('files/' + new Date().getTime() + '_' + file.name);
-        var uploadTask = storageRef.put(file);
-        uploadTask.on('state_changed', function (snapshot) {
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            uploaderFeedback.style.display = 'inline';
-            uploaderFeedback.value = progress;
-        }, function (error) {
-            alert('Erro no upload do arquivo...');
-            console.log(error);
-        }, function () {
-            uploadTask.snapshot.ref.getDownloadURL()
-                .then(function (downloadURL) {
-                    var data = {
-                        todo: todo.value,
-                        priority: priority.value,
-                        imgUrl: downloadURL,
-                        imgPath: storageRef.fullPath
-                    }
-                    uploaderFeedback.style.display = 'none';
-                    return dbObject.push(data);
-                });
-        });
-    } else {
-        alert('O formulário não pode estar vazio para criar a tarefa!');
-    }
-}
+var dbObject = firebase.database().ref().child('todoList');
 
 dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
     fillTodoList(dataSnapshot);
@@ -81,20 +42,40 @@ function fillTodoList(dataSnapshot) {
     loading.style.display = 'none';
 }
 
-function removeTodo(key) {
-    var liSelected = document.getElementById(key);
-    var confirmation = confirm('Realmente deseja remover (' + liSelected.innerHTML + ')');
-    if (confirmation == true) {
-        dbObjectRemove = dbObject.child(key);
-        dbObjectRemove.once('value').then(function (snapshot) {
-            var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-            storageRef.delete().catch(function (error) {
-                showError(error, 'Houve um erro ao remover o arquivo!');
+addTodoBtn.onclick = function () {
+    if (todo.value != '') {
+        let uploaderFeedback = document.getElementById('uploaderFeedback');
+        let fileBtn = document.getElementById('fileBtn');
+        var file = fileBtn.files[0];
+        if (file == null) {
+            alert('É preciso selecionar uma imagem para a tarefa!');
+            return;
+        }
+        loading.style.display = 'block';
+        var imgPath = 'files/' + new Date().getTime() + '_' + file.name;
+        var storageRef = firebase.storage().ref(imgPath);
+        var uploadTask = storageRef.put(file);
+        uploadTask.on('state_changed', function (snapshot) {
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            uploaderFeedback.style.display = 'inline';
+            uploaderFeedback.value = progress;
+        }, function (error) {
+            alert('Erro no upload do arquivo...');
+            console.log(error);
+        }, function () {
+            uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                var data = {
+                    todo: todo.value,
+                    priority: priority.value,
+                    imgPath: imgPath,
+                    imgUrl: downloadURL
+                }
+                uploaderFeedback.style.display = 'none';
+                return dbObject.push(data);
             });
         });
-        dbObject.child(key).remove().catch(function (error) {
-            showError(error, 'Houve um erro ao remover a tarefa!');
-        });;
+    } else {
+        alert('O formulário não pode estar vazio para criar a tarefa!');
     }
 }
 
@@ -106,12 +87,10 @@ function updateTodo(key) {
     updateBtns.style.display = 'block';
     var liSelected = document.getElementById(key);
     addUpdateTodoText.innerHTML = 'Atualizar a tarefa: \"' + liSelected.innerHTML + '\"';
-
     updateTodoBtn.onclick = function () {
         if (todo.value != '') {
             var confirmation = confirm('Realmente deseja atualizar de (' + liSelected.innerHTML + ') para (' + todo.value + ' : ' + priority.value + ')');
             if (confirmation == true) {
-
                 let uploaderFeedback = document.getElementById('uploaderFeedback');
                 let fileBtn = document.getElementById('fileBtn');
                 var file = fileBtn.files[0];
@@ -146,6 +125,23 @@ function updateTodo(key) {
         updateBtns.style.display = 'none';
         addTodoBtn.style.display = 'inline';
         todo.value = '';
+    }
+}
+
+function removeTodo(key) {
+    var liSelected = document.getElementById(key);
+    var confirmation = confirm('Realmente deseja remover (' + liSelected.innerHTML + ')');
+    if (confirmation == true) {
+        dbObjectRemove = dbObject.child(key);
+        dbObjectRemove.once('value').then(function (snapshot) {
+            var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+            storageRef.delete().catch(function (error) {
+                showError(error, 'Houve um erro ao remover o arquivo!');
+            });
+        });
+        dbObject.child(key).remove().catch(function (error) {
+            showError(error, 'Houve um erro ao remover a tarefa!');
+        });
     }
 }
 

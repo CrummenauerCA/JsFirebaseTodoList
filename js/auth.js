@@ -6,7 +6,7 @@ accessBtn.onclick = function () {
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function (error) {
         console.log(error);
         message.style.color = 'red';
-        message.innerHTML = 'E-mail ou senha incorretos!';
+        message.innerHTML = 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres';
         message.style.display = 'block';
         loading.style.display = 'none';
     });
@@ -15,13 +15,12 @@ accessBtn.onclick = function () {
 registerBtn.onclick = function () {
     loading.style.display = 'inline';
     message.style.display = 'none';
-
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (user) {
         sendEmailVerification();
     }).catch(function (error) {
         console.log(error);
         message.style.color = 'red';
-        message.innerHTML = 'Erro ao cadastrar! Cerifique-se de usar um e-mail válido e uma senha com ao menos 6 caracteres';
+        message.innerHTML = 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres';
         message.style.display = 'block';
         loading.style.display = 'none';
     });

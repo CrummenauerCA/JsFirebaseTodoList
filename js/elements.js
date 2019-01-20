@@ -38,3 +38,5 @@ var addTodoBtn = document.getElementById('addTodoBtn');
 var updateTodoBtn = document.getElementById('updateTodoBtn');
 
 var addUpdateTodoText = document.getElementById('addUpdateTodoText');
+
+var imgUpload = document.getElementById('imgUpload');
