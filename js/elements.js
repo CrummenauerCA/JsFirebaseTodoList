@@ -1,5 +1,6 @@
 var authentication = document.getElementById('authentication');
-var loggedIn = document.getElementById('loggedIn');
+var userInfo = document.getElementById('userInfo');
+var inputs = document.getElementById('inputs');
 var access = document.getElementById('access');
 var register = document.getElementById('register');
 
@@ -35,7 +36,10 @@ var todoList = document.getElementById('todoList');
 var priority = document.getElementById('priority');
 var todo = document.getElementById('todo');
 var addTodoBtn = document.getElementById('addTodoBtn');
-var updateTodoBtn = document.getElementById('updateTodoBtn');
+var updateTodoBtns = document.getElementById('updateTodoBtns');
+var cancelUpdateTodoBtn = document.getElementById('cancelUpdateTodoBtn');
+
+var addTodoBtnDiv = document.getElementById('addTodoBtnDiv');
 
 var addUpdateTodoText = document.getElementById('addUpdateTodoText');
 

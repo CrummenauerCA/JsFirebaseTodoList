@@ -5,8 +5,9 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
 });
 
 function fillTodoList(dataSnapshot) {
-    loading.style.display = 'none';
+    showItem(loading);
     todoList.innerHTML = '';
+    var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
         var value = item.val();
         var li = document.createElement('li');
@@ -37,16 +38,17 @@ function fillTodoList(dataSnapshot) {
             liUpdateBtn.setAttribute('class', 'updateBtn');
             li.appendChild(liUpdateBtn);
         }
-        todoList.appendChild(li);
+        ul.appendChild(li);
     });
+    todoList.appendChild(ul);
     hideItem(loading);
 }
 
 addTodoBtn.onclick = function () {
-    addOrUpdateTodo(true);
+    addOrUpdateTodo();
 }
 
-function addOrUpdateTodo(add) {
+function addOrUpdateTodo(key) {
     if (todo.value != '') {
         var file = fileBtn.files[0];
         if (file != null) {
@@ -56,7 +58,6 @@ function addOrUpdateTodo(add) {
             var uploadTask = storageRef.put(file);
             uploadTask.on('state_changed', function (snapshot) {
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                addTodoBtn.innerHTML = 'Adicionando tarefa - ' + parseInt(progress) + '%';
                 uploaderFeedback.style.display = 'inline';
                 uploaderFeedback.value = progress;
             }, function (error) {
@@ -71,11 +72,12 @@ function addOrUpdateTodo(add) {
                         imgUrl: downloadURL
                     }
                     uploaderFeedback.style.display = 'none';
-                    if (add) {
-                        dbObject.push(data);
-                    } else {
+                    if (key != null) {
                         dbObject.child(key).update(data);
+                    } else {
+                        dbObject.push(data);
                     }
+                    todo.value = '';
                 });
             });
         } else {
@@ -88,19 +90,15 @@ function addOrUpdateTodo(add) {
 
 function updateTodo(key) {
     todo.value = '';
-    hideItem(loggedIn);
-    showItem(inputs);
     hideItem(addTodoBtn);
-    showItem(updateTodoBtn);
+    showItem(updateTodoBtns);
     var liSelected = document.getElementById(key);
-    addUpdateTodoText.innerHTML = 'Atualizar a tarefa: \"' + liSelected.innerHTML + '\"';
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: \"' + liSelected.innerHTML + '\"</strong>';
     updateTodoBtn.onclick = function () {
-        addOrUpdateTodo(false);
+        addOrUpdateTodo(key);
         addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
-        showItem(loggedIn);
-        hideItem(updateBtns);
+        hideItem(updateTodoBtns);
         addTodoBtn.style.display = 'inline';
-        todo.value = '';
     }
 }
 
@@ -124,8 +122,7 @@ function removeTodo(key) {
 cancelUpdateTodoBtn.onclick = function () {
     addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
     addTodoBtn.style.display = 'inline';
-    loading.style.display = 'none';
+    hideItem(loading);
     todo.value = '';
-    loggedIn.style.display = 'block';
-    updateBtns.style.display = 'none';
+    hideItem(updateTodoBtns);
 }

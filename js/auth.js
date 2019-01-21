@@ -89,7 +89,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         if (canEditTodoList) {
             showItem(inputs);
         }
-        showItem(loggedIn);
+        showItem(userInfo);
+        showItem(inputs);
+        showItem(addTodoBtnDiv);
     } else {
         hideItem(loggedIn);
         email.value = '';
