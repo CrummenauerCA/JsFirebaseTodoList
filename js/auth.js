@@ -6,9 +6,23 @@ accessBtn.onclick = function () {
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function (error) {
         console.log(error);
         message.style.color = 'red';
-        message.innerHTML = 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres';
+        message.innerHTML = 'Erro ao acessar! E-mail ou senha inválidos';
         message.style.display = 'block';
         loading.style.display = 'none';
+    });
+}
+
+resetPasswordBtn.onclick = function() {
+    showItem(loading);
+    var actionCodeSettings = {
+        url: 'http://127.0.0.1:5500/'
+    };
+    firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function() {
+        hideItem(loading);
+        alert('Email para recuperar senha enviado...');
+    }).catch (function(error) {
+        hideItem(loading);
+        showError(error, 'Erro ao enviar o e-mail de recuperação de senha...');
     });
 }
 
@@ -91,9 +105,12 @@ firebase.auth().onAuthStateChanged(function (user) {
         }
         showItem(userInfo);
         showItem(inputs);
+        showItem(todoList);
         showItem(addTodoBtnDiv);
     } else {
-        hideItem(loggedIn);
+        hideItem(inputs);
+        hideItem(userInfo);
+        hideItem(todoList);
         email.value = '';
         password.value = '';
         showItem(authentication);

@@ -15,6 +15,7 @@ var toggleRegister = document.getElementById('toggleRegister');
 var toggleAccess = document.getElementById('toggleAccess');
 
 var accessBtn = document.getElementById('accessBtn');
+var resetPasswordBtn = document.getElementById('resetPasswordBtn');
 var registerBtn = document.getElementById('registerBtn');
 
 var githubBtn = document.getElementById('githubBtn');
@@ -33,7 +34,6 @@ var removeAccountBtn = document.getElementById('removeAccountBtn');
 var logOutBtn = document.getElementById('logOutBtn');
 
 var todoList = document.getElementById('todoList');
-var priority = document.getElementById('priority');
 var todo = document.getElementById('todo');
 var addTodoBtn = document.getElementById('addTodoBtn');
 var updateTodoBtns = document.getElementById('updateTodoBtns');

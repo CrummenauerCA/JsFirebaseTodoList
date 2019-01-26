@@ -42,7 +42,7 @@ button {
     background-color: white;
 }
 
-.toggleBtn, .logoutBtn, .updateBtn, #cancelUpdateTodoBtn {
+.toggleBtn, .logoutBtn, .updateBtn, .blue, #cancelUpdateTodoBtn {
     background-color: #008CBA;
 }
 

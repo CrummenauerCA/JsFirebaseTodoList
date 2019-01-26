@@ -18,7 +18,7 @@ function fillTodoList(dataSnapshot) {
         li.appendChild(imgLi);
 
         var pLi = document.createElement('p');
-        pLi.appendChild(document.createTextNode(value.todo + ' : ' + value.priority + ' '));
+        pLi.appendChild(document.createTextNode(value.todo));
         pLi.id = item.key;
         pLi.setAttribute('class', 'todoItemList');
         li.appendChild(pLi);
@@ -67,7 +67,6 @@ function addOrUpdateTodo(key) {
                 uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
                     var data = {
                         todo: todo.value,
-                        priority: priority.value,
                         imgPath: imgPath,
                         imgUrl: downloadURL
                     }
@@ -78,6 +77,10 @@ function addOrUpdateTodo(key) {
                         dbObject.push(data);
                     }
                     todo.value = '';
+                    fileBtn.value = '';
+                    addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
+                    hideItem(updateTodoBtns);
+                    addTodoBtn.style.display = 'inline';
                 });
             });
         } else {
@@ -89,16 +92,13 @@ function addOrUpdateTodo(key) {
 }
 
 function updateTodo(key) {
-    todo.value = '';
     hideItem(addTodoBtn);
     showItem(updateTodoBtns);
     var liSelected = document.getElementById(key);
+    todo.value = liSelected.innerHTML;
     addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: \"' + liSelected.innerHTML + '\"</strong>';
     updateTodoBtn.onclick = function () {
         addOrUpdateTodo(key);
-        addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
-        hideItem(updateTodoBtns);
-        addTodoBtn.style.display = 'inline';
     }
 }
 
