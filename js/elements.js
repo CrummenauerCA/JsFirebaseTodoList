@@ -40,6 +40,7 @@ var updateTodoBtns = document.getElementById('updateTodoBtns');
 var cancelUpdateTodoBtn = document.getElementById('cancelUpdateTodoBtn');
 
 var addTodoBtnDiv = document.getElementById('addTodoBtnDiv');
+var uploaderFeedbackDiv = document.getElementById('uploaderFeedbackDiv');
 
 var addUpdateTodoText = document.getElementById('addUpdateTodoText');
 

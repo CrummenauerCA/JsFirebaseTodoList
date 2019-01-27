@@ -7,8 +7,8 @@ accessBtn.onclick = function() {
         console.log(error);
         message.style.color = 'red';
         message.innerHTML = 'Erro ao acessar! E-mail ou senha inválidos';
-        message.style.display = 'block';
-        loading.style.display = 'none';
+        showItem(message);
+        hideItem(loading);
     });
 }
 
@@ -34,8 +34,8 @@ registerBtn.onclick = function() {
         console.log(error);
         message.style.color = 'red';
         message.innerHTML = 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres';
-        message.style.display = 'block';
-        loading.style.display = 'none';
+        showItem(message);
+        hideItem(loading);
     });
 }
 
@@ -79,6 +79,7 @@ googleBtn.onclick = function() {
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        // console.log(user);
         hideItem(authentication);
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
@@ -93,7 +94,6 @@ firebase.auth().onAuthStateChanged(function(user) {
             userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, não poderá alterar a lista até fazer essa verificação...';
             canEditTodoList = true;
         }
-        console.log(user);
         if (!user.emailVerified) {
             canEditTodoList = false;
             sendEmailVerification();
@@ -116,7 +116,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         password.value = '';
         showItem(authentication);
     }
-    loading.style.display = 'none';
+    hideItem(loading);
 });
 
 removeAccountBtn.onclick = function() {

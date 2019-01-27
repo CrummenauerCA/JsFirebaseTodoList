@@ -59,7 +59,7 @@ function addOrUpdateTodo(todoKey) {
             var uploadTask = storageRef.put(file);
             uploadTask.on('state_changed', function(snapshot) {
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                uploaderFeedback.style.display = 'inline';
+                showItem(uploaderFeedbackDiv);
                 uploaderFeedback.value = progress;
             }, function(error) {
                 showError(error, 'Erro no upload do arquivo...');
@@ -70,7 +70,6 @@ function addOrUpdateTodo(todoKey) {
                         imgPath: imgPath,
                         imgUrl: downloadURL
                     }
-                    uploaderFeedback.style.display = 'none';
                     if (todoKey) {
                         dbObject.child(todoKey).update(data);
                     } else {
@@ -79,8 +78,9 @@ function addOrUpdateTodo(todoKey) {
                     todo.value = '';
                     fileBtn.value = '';
                     addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
+                    hideItem(uploaderFeedbackDiv);
                     hideItem(updateTodoBtns);
-                    addTodoBtn.style.display = 'inline';
+                    showItem(addTodoBtnDiv);
                 });
             });
         } else {
@@ -92,7 +92,7 @@ function addOrUpdateTodo(todoKey) {
 }
 
 function updateTodo(todoKey) {
-    hideItem(addTodoBtn);
+    hideItem(addTodoBtnDiv);
     showItem(updateTodoBtns);
     var liSelected = document.getElementById(todoKey);
     todo.value = liSelected.innerHTML;
@@ -121,7 +121,7 @@ function removeTodo(key) {
 
 cancelUpdateTodoBtn.onclick = function() {
     addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
-    addTodoBtn.style.display = 'inline';
+    showItem(addTodoBtnDiv);
     hideItem(loading);
     todo.value = '';
     hideItem(updateTodoBtns);
