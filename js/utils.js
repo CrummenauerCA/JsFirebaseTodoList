@@ -1,3 +1,7 @@
+firebase.database.enableLogging(function (message) {
+    console.log('Firebase logging: ' + message);
+});
+
 function showItem(element) {
     element.style.display = 'block';
 }
