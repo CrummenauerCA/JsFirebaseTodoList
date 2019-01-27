@@ -7,6 +7,11 @@ dbObject.orderByChild("todo").on("value", function (dataSnapshot) {
 function fillTodoList(dataSnapshot) {
     showItem(loading);
     todoList.innerHTML = "";
+
+    pNumTodos = document.createElement('p');
+    pNumTodos.innerHTML = '<strong>' + dataSnapshot.numChildren() + ' tarefas:</strong>';
+    todoList.appendChild(pNumTodos);
+
     var ul = document.createElement("ul");
     dataSnapshot.forEach(function (item) {
         var value = item.val();
