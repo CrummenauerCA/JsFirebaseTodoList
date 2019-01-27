@@ -11,10 +11,8 @@ resetPasswordBtn.onclick = function() {
     showItem(loading);
     if (email.value != '') {
         firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function() {
-            hideItem(loading);
             alert('Email para recuperar a senha enviado...');
         }).catch(function(error) {
-            hideItem(loading);
             showError(error, 'Erro ao enviar o e-mail de recuperação de senha! Verifique o e-mail informado e tente novamente...');
         });
     }
