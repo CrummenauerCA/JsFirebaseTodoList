@@ -64,7 +64,7 @@ function addOrUpdateTodo(todoKey) {
             }, function (error) {
                 showError(error, 'Erro no upload do arquivo...');
             }, function () {
-                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                storageRef.getDownloadURL().then(function(downloadURL) {
                     var data = {
                         todo: todo.value,
                         imgPath: imgPath,
