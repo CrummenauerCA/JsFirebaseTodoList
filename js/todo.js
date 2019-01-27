@@ -55,6 +55,8 @@ addTodoBtn.onclick = function() {
 };
 
 function addOrUpdateTodo(todoKey) {
+  hideItem(updateTodoBtns);
+  hideItem(addTodoBtnDiv);
   if (todo.value != "") {
     var file = fileBtn.files[0];
     if (file != null) {
@@ -67,6 +69,28 @@ function addOrUpdateTodo(todoKey) {
         var imgPath = "files/" + /*new Date().getTime()*/ key + "_" + file.name;
         var storageRef = firebase.storage().ref(imgPath);
         var uploadTask = storageRef.put(file);
+
+        playPauseuploadTask = true;
+
+        playPauseBtn.onclick = function() {
+          playPauseuploadTask = !playPauseuploadTask;
+          if (playPauseuploadTask) {
+            playPauseBtn.innerHTML = "Pausar";
+            uploadTask.resume();
+          } else {
+            playPauseBtn.innerHTML = "Continuar";
+            uploadTask.pause();
+          }
+        };
+
+        calcelBtn.onclick = function() {
+          uploadTask.cancel();
+          hideItem(loading);
+          showItem(addTodoBtnDiv);
+          hideItem(uploaderFeedbackDiv);
+          playPauseuploadTask = true;
+        };
+
         uploadTask.on(
           "state_changed",
           function(snapshot) {
@@ -76,7 +100,7 @@ function addOrUpdateTodo(todoKey) {
             uploaderFeedback.value = progress;
           },
           function(error) {
-            showError(error, "Erro no upload do arquivo...");
+            showError(error, "Ação cancelada ou erro no upload do arquivo...");
           },
           function() {
             storageRef.getDownloadURL().then(function(downloadURL) {

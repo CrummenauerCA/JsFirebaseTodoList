@@ -46,7 +46,7 @@ button {
     background-color: #008CBA;
 }
 
-.removeBtn, #removeAccountBtn {
+.removeBtn, #removeAccountBtn, #calcelBtn {
     background-color: #e74c3c;
 }
 

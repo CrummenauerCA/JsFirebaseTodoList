@@ -46,4 +46,7 @@ var addUpdateTodoText = document.getElementById('addUpdateTodoText');
 var imgUpload = document.getElementById('imgUpload');
 
 var uploaderFeedback = document.getElementById('uploaderFeedback');
+var playPauseBtn = document.getElementById('playPauseBtn');
+var calcelBtn = document.getElementById('calcelBtn');
+
 var fileBtn = document.getElementById('fileBtn');
