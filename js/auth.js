@@ -1,9 +1,9 @@
 firebase.auth().languageCode = 'pt-BR';
 
-accessBtn.onclick = function () {
+accessBtn.onclick = function() {
     showItem(loading);
     hideItem(message);
-    firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function (error) {
+    firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function(error) {
         console.log(error);
         message.style.color = 'red';
         message.innerHTML = 'Erro ao acessar! E-mail ou senha inválidos';
@@ -17,18 +17,18 @@ resetPasswordBtn.onclick = function() {
     firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function() {
         hideItem(loading);
         alert('Email para recuperar senha enviado...');
-    }).catch (function(error) {
+    }).catch(function(error) {
         hideItem(loading);
         showError(error, 'Erro ao enviar o e-mail de recuperação de senha...');
     });
 }
 
-registerBtn.onclick = function () {
+registerBtn.onclick = function() {
     showItem(loading);
     hideItem(message);
-    firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function (user) {
+    firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function(user) {
         sendEmailVerification();
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.log(error);
         message.style.color = 'red';
         message.innerHTML = 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres';
@@ -39,43 +39,43 @@ registerBtn.onclick = function () {
 
 function sendEmailVerification() {
     var user = firebase.auth().currentUser;
-    user.sendEmailVerification(actionCodeSettings).then(function () {
+    user.sendEmailVerification(actionCodeSettings).then(function() {
         alert('E-mail de verificação enviado, verifique sua caixa de entrada');
-    }).catch(function (error) {
+    }).catch(function(error) {
         showError(error, 'Houve um erro ao enviar um e-mail de verificação para você');
     });
 }
 
-logOutBtn.onclick = function () {
+logOutBtn.onclick = function() {
     showItem(loading);
-    firebase.auth().signOut().catch(function (error) {
+    firebase.auth().signOut().catch(function(error) {
         showError(error, 'Falha ao sair de sua conta');
     });
 }
 
-anonymousBtn.onclick = function () {
+anonymousBtn.onclick = function() {
     showItem(loading);
-    firebase.auth().signInAnonymously().catch(function (error) {
+    firebase.auth().signInAnonymously().catch(function(error) {
         showError(error, 'Falha na autenticação como anônimo');
     });
 }
 
-githubBtn.onclick = function () {
+githubBtn.onclick = function() {
     showItem(loading);
-    firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider()).catch(function (error) {
+    firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider()).catch(function(error) {
         showError(error, 'Falha na autenticação com o Github');
     });
 }
 
-googleBtn.onclick = function () {
+googleBtn.onclick = function() {
     showItem(loading);
-    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function (error) {
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(error) {
         showError(error, 'Falha na autenticação com o Google');
     });
 }
 
 var canEditTodoList = true;
-firebase.auth().onAuthStateChanged(function (user) {
+firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         hideItem(authentication);
         if (user.isAnonymous) {
@@ -91,7 +91,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, um e-mail de verificação foi enviado...';
             canEditTodoList = true;
         }
-        dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
+        dbObject.orderByChild('todo').once('value', function(dataSnapshot) {
             fillTodoList(dataSnapshot);
         });
         if (canEditTodoList) {
@@ -112,13 +112,13 @@ firebase.auth().onAuthStateChanged(function (user) {
     loading.style.display = 'none';
 });
 
-removeAccountBtn.onclick = function () {
+removeAccountBtn.onclick = function() {
     var confirmation = confirm('Realmente deseja excluir sua conta?');
     if (confirmation == true) {
         var user = firebase.auth().currentUser;
-        user.delete().then(function () {
+        user.delete().then(function() {
             alert('Conta apagada com sucesso!');
-        }).catch(function (error) {
+        }).catch(function(error) {
             showError(error, 'Houve um erro ao apagar a sua conta...');
         });
     }

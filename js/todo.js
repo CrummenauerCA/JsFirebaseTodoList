@@ -1,6 +1,6 @@
 var dbObject = firebase.database().ref().child('todoList');
 
-dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
+dbObject.orderByChild('todo').on('value', function(dataSnapshot) {
     fillTodoList(dataSnapshot);
 });
 
@@ -8,7 +8,7 @@ function fillTodoList(dataSnapshot) {
     showItem(loading);
     todoList.innerHTML = '';
     var ul = document.createElement('ul');
-    dataSnapshot.forEach(function (item) {
+    dataSnapshot.forEach(function(item) {
         var value = item.val();
         var li = document.createElement('li');
         var imgLi = document.createElement('img');
@@ -44,7 +44,7 @@ function fillTodoList(dataSnapshot) {
     hideItem(loading);
 }
 
-addTodoBtn.onclick = function () {
+addTodoBtn.onclick = function() {
     addOrUpdateTodo();
 }
 
@@ -61,9 +61,9 @@ function addOrUpdateTodo(todoKey) {
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 uploaderFeedback.style.display = 'inline';
                 uploaderFeedback.value = progress;
-            }, function (error) {
+            }, function(error) {
                 showError(error, 'Erro no upload do arquivo...');
-            }, function () {
+            }, function() {
                 storageRef.getDownloadURL().then(function(downloadURL) {
                     var data = {
                         todo: todo.value,
@@ -97,7 +97,7 @@ function updateTodo(todoKey) {
     var liSelected = document.getElementById(todoKey);
     todo.value = liSelected.innerHTML;
     addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: \"' + liSelected.innerHTML + '\"</strong>';
-    updateTodoBtn.onclick = function () {
+    updateTodoBtn.onclick = function() {
         addOrUpdateTodo(todoKey);
     }
 }
@@ -107,19 +107,19 @@ function removeTodo(key) {
     var confirmation = confirm('Realmente deseja remover (' + liSelected.innerHTML + ')');
     if (confirmation == true) {
         dbObjectRemove = dbObject.child(key);
-        dbObjectRemove.once('value').then(function (snapshot) {
+        dbObjectRemove.once('value').then(function(snapshot) {
             var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-            storageRef.delete().catch(function (error) {
-                showError(error, 'Houve um erro ao remover o arquivo!');
+            storageRef.delete().catch(function(error) {
+                showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
             });
         });
-        dbObject.child(key).remove().catch(function (error) {
+        dbObject.child(key).remove().catch(function(error) {
             showError(error, 'Houve um erro ao remover a tarefa!');
         });
     }
 }
 
-cancelUpdateTodoBtn.onclick = function () {
+cancelUpdateTodoBtn.onclick = function() {
     addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
     addTodoBtn.style.display = 'inline';
     hideItem(loading);
