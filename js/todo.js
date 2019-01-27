@@ -48,7 +48,7 @@ addTodoBtn.onclick = function () {
     addOrUpdateTodo();
 }
 
-function addOrUpdateTodo(key) {
+function addOrUpdateTodo(todoKey) {
     if (todo.value != '') {
         var file = fileBtn.files[0];
         if (file != null) {
@@ -57,7 +57,7 @@ function addOrUpdateTodo(key) {
             var imgPath = 'files/' + /*new Date().getTime()*/ key + '_' + file.name;
             var storageRef = firebase.storage().ref(imgPath);
             var uploadTask = storageRef.put(file);
-            uploadTask.on('state_changed', function (snapshot) {
+            uploadTask.on('state_changed', function(snapshot) {
                 var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 uploaderFeedback.style.display = 'inline';
                 uploaderFeedback.value = progress;
@@ -71,8 +71,8 @@ function addOrUpdateTodo(key) {
                         imgUrl: downloadURL
                     }
                     uploaderFeedback.style.display = 'none';
-                    if (key != null) {
-                        dbObject.child(key).update(data);
+                    if (todoKey) {
+                        dbObject.child(todoKey).update(data);
                     } else {
                         dbObject.push(data);
                     }
@@ -91,14 +91,14 @@ function addOrUpdateTodo(key) {
     }
 }
 
-function updateTodo(key) {
+function updateTodo(todoKey) {
     hideItem(addTodoBtn);
     showItem(updateTodoBtns);
-    var liSelected = document.getElementById(key);
+    var liSelected = document.getElementById(todoKey);
     todo.value = liSelected.innerHTML;
     addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: \"' + liSelected.innerHTML + '\"</strong>';
     updateTodoBtn.onclick = function () {
-        addOrUpdateTodo(key);
+        addOrUpdateTodo(todoKey);
     }
 }
 
