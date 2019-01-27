@@ -14,9 +14,6 @@ accessBtn.onclick = function () {
 
 resetPasswordBtn.onclick = function() {
     showItem(loading);
-    var actionCodeSettings = {
-        url: 'http://127.0.0.1:5500/'
-    };
     firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function() {
         hideItem(loading);
         alert('Email para recuperar senha enviado...');
@@ -42,9 +39,6 @@ registerBtn.onclick = function () {
 
 function sendEmailVerification() {
     var user = firebase.auth().currentUser;
-    var actionCodeSettings = {
-        url: 'http://127.0.0.1:5500/'
-    };
     user.sendEmailVerification(actionCodeSettings).then(function () {
         alert('E-mail de verificação enviado, verifique sua caixa de entrada');
     }).catch(function (error) {

@@ -21,3 +21,7 @@ toggleAccess.onclick = function () {
     register.style.display = 'none';
     access.style.display = 'block';
 }
+
+var actionCodeSettings = {
+    url: 'http://127.0.0.1:5500/'
+};

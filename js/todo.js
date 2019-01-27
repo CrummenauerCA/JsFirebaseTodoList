@@ -53,7 +53,8 @@ function addOrUpdateTodo(key) {
         var file = fileBtn.files[0];
         if (file != null) {
             showItem(loading);
-            var imgPath = 'files/' + new Date().getTime() + '_' + file.name;
+            var key = firebase.database().ref().push().key;
+            var imgPath = 'files/' + /*new Date().getTime()*/ key + '_' + file.name;
             var storageRef = firebase.storage().ref(imgPath);
             var uploadTask = storageRef.put(file);
             uploadTask.on('state_changed', function (snapshot) {
@@ -61,10 +62,9 @@ function addOrUpdateTodo(key) {
                 uploaderFeedback.style.display = 'inline';
                 uploaderFeedback.value = progress;
             }, function (error) {
-                alert('Erro no upload do arquivo...');
-                console.log(error);
+                showError(error, 'Erro no upload do arquivo...');
             }, function () {
-                uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                     var data = {
                         todo: todo.value,
                         imgPath: imgPath,
