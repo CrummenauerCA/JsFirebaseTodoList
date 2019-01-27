@@ -1,4 +1,4 @@
-firebase.auth().languageCode = 'pt-BR';
+firebase.auth().useDeviceLanguage();
 
 accessBtn.onclick = function() {
     showItem(loading);
@@ -14,13 +14,15 @@ accessBtn.onclick = function() {
 
 resetPasswordBtn.onclick = function() {
     showItem(loading);
-    firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function() {
-        hideItem(loading);
-        alert('Email para recuperar senha enviado...');
-    }).catch(function(error) {
-        hideItem(loading);
-        showError(error, 'Erro ao enviar o e-mail de recuperação de senha...');
-    });
+    if (email.value != '') {
+        firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function() {
+            hideItem(loading);
+            alert('Email para recuperar a senha enviado...');
+        }).catch(function(error) {
+            hideItem(loading);
+            showError(error, 'Erro ao enviar o e-mail para a recuperação de senha! Verifique o e-mail informado e tente novamente...');
+        });
+    }
 }
 
 registerBtn.onclick = function() {
