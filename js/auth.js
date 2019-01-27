@@ -90,8 +90,13 @@ firebase.auth().onAuthStateChanged(function(user) {
             userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
             userName.innerHTML = user.displayName ? user.displayName : '';
             userEmail.innerHTML = user.email ? user.email : '';
-            userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, um e-mail de verificação foi enviado...';
+            userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : 'E-mail não verificado, não poderá alterar a lista até fazer essa verificação...';
             canEditTodoList = true;
+        }
+        console.log(user);
+        if (!user.emailVerified) {
+            canEditTodoList = false;
+            sendEmailVerification();
         }
         dbObject.orderByChild('todo').once('value', function(dataSnapshot) {
             fillTodoList(dataSnapshot);
