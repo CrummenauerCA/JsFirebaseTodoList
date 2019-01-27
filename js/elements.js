@@ -6,7 +6,6 @@ var register = document.getElementById('register');
 
 var inputs = document.getElementById('inputs');
 
-var message = document.getElementById('message');
 var loading = document.getElementById('loading');
 var loadingTodoList = document.getElementById('loadingTodoList');
 var loadingTodoListGeneral = document.getElementById('loadingTodoListGeneral');

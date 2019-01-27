@@ -2,13 +2,8 @@ firebase.auth().useDeviceLanguage();
 
 accessBtn.onclick = function() {
     showItem(loading);
-    hideItem(message);
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).catch(function(error) {
-        console.log(error);
-        message.style.color = 'red';
-        message.innerHTML = 'Erro ao acessar! E-mail ou senha inválidos';
-        showItem(message);
-        hideItem(loading);
+        showError(error, 'Erro ao acessar! E-mail ou senha inválidos');
     });
 }
 
@@ -27,15 +22,10 @@ resetPasswordBtn.onclick = function() {
 
 registerBtn.onclick = function() {
     showItem(loading);
-    hideItem(message);
     firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(function(user) {
         sendEmailVerification();
     }).catch(function(error) {
-        console.log(error);
-        message.style.color = 'red';
-        message.innerHTML = 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres';
-        showItem(message);
-        hideItem(loading);
+        showError(error, 'Erro ao cadastrar! E-mail inválido ou já cadastrado ou senha com menos de 6 caracteres');
     });
 }
 
@@ -79,7 +69,7 @@ googleBtn.onclick = function() {
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        // console.log(user);
+        console.log(user.uid);
         hideItem(authentication);
         if (user.isAnonymous) {
             userImg.src = 'img/userSecret.png';
