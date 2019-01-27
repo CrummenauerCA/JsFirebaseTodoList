@@ -20,7 +20,7 @@ resetPasswordBtn.onclick = function() {
             alert('Email para recuperar a senha enviado...');
         }).catch(function(error) {
             hideItem(loading);
-            showError(error, 'Erro ao enviar o e-mail para a recuperação de senha! Verifique o e-mail informado e tente novamente...');
+            showError(error, 'Erro ao enviar o e-mail de recuperação de senha! Verifique o e-mail informado e tente novamente...');
         });
     }
 }
