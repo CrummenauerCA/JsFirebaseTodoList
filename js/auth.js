@@ -8,13 +8,16 @@ accessBtn.onclick = function () {
 };
 
 resetPasswordBtn.onclick = function () {
-    showItem(loading);
-    if (email.value != "") {
+    if (email.value != '') {
+        showItem(loading);
         firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function () {
-            alert("Email para recuperar a senha enviado...");
+            hideItem(loading);
+            alert("Email para recuperar a senha enviado para " + email.value);
         }).catch(function (error) {
             showError(error, "Erro ao enviar o e-mail de recuperação de senha! Verifique o e-mail informado e tente novamente...");
         });
+    } else {
+        alert('É preciso preencher o campo de senha!');
     }
 };
 

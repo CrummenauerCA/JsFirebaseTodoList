@@ -5,7 +5,7 @@ dbObject.orderByChild("todo").on("value", function (dataSnapshot) {
 });
 
 function fillTodoList(dataSnapshot) {
-    showItem(loading);
+    // showItem(loading);
     todoList.innerHTML = "";
 
     pNumTodos = document.createElement('p');
@@ -46,7 +46,7 @@ function fillTodoList(dataSnapshot) {
         ul.appendChild(li);
     });
     todoList.appendChild(ul);
-    hideItem(loading);
+    // hideItem(loading);
 }
 
 addTodoBtn.onclick = function () {
@@ -60,7 +60,7 @@ function addOrUpdateTodo(todoKey) {
         var file = fileBtn.files[0];
         if (file != null) {
             if (file.type.includes("image")) {
-                showItem(loading);
+                // showItem(loading);
                 var key = firebase.database().ref().push().key;
                 var imgPath = "files/" + /*new Date().getTime()*/ key + "_" + file.name;
                 var storageRef = firebase.storage().ref(imgPath);
@@ -80,7 +80,7 @@ function addOrUpdateTodo(todoKey) {
 
                 calcelBtn.onclick = function () {
                     uploadTask.cancel();
-                    hideItem(loading);
+                    // hideItem(loading);
                     showItem(addTodoBtnDiv);
                     hideItem(uploaderFeedbackDiv);
                     playPauseuploadTask = true;
@@ -157,7 +157,7 @@ function removeTodo(key) {
 cancelUpdateTodoBtn.onclick = function () {
     addUpdateTodoText.innerHTML = "Adicionar tarefa: ";
     showItem(addTodoBtnDiv);
-    hideItem(loading);
+    // hideItem(loading);
     todo.value = "";
     hideItem(updateTodoBtns);
 };
