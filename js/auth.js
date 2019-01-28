@@ -12,12 +12,12 @@ resetPasswordBtn.onclick = function () {
         showItem(loading);
         firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function () {
             hideItem(loading);
-            alert("Email para recuperar a senha enviado para " + email.value);
+            alert("Email para redefinir a senha enviado para " + email.value);
         }).catch(function (error) {
-            showError(error, "Erro ao enviar o e-mail de recuperação de senha! Verifique o e-mail informado e tente novamente...");
+            showError(error, "Erro ao enviar o e-mail de redefinição de senha! Verifique o e-mail informado e tente novamente...");
         });
     } else {
-        alert('É preciso preencher o campo de senha!');
+        alert('É preciso preencher o campo de senha para redefinir a senha!');
     }
 };
 

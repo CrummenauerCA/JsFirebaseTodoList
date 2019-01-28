@@ -40,7 +40,7 @@ function fillTodoList(dataSnapshot) {
             liUpdateBtn.appendChild(document.createTextNode("✎"));
             liUpdateBtn.setAttribute("onclick", `updateTodo(\"${item.key}\")`);
             liUpdateBtn.setAttribute("title", "Atualizar usando os dados do formulário");
-            liUpdateBtn.setAttribute("class", "updateBtn");
+            liUpdateBtn.setAttribute("class", "alternative");
             li.appendChild(liUpdateBtn);
         }
         ul.appendChild(li);
