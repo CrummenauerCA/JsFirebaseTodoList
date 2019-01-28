@@ -5,7 +5,6 @@ dbObject.orderByChild("todo").on("value", function (dataSnapshot) {
 });
 
 function fillTodoList(dataSnapshot) {
-    // showItem(loading);
     todoList.innerHTML = "";
 
     pNumTodos = document.createElement('p');
@@ -17,8 +16,8 @@ function fillTodoList(dataSnapshot) {
         var value = item.val();
         var li = document.createElement("li");
         var imgLi = document.createElement("img");
-        imgLi.height = 26;
-        imgLi.width = 26;
+        imgLi.height = 28;
+        imgLi.width = 28;
         imgLi.src = value.imgUrl;
         li.appendChild(imgLi);
 
@@ -31,22 +30,21 @@ function fillTodoList(dataSnapshot) {
         if (canEditTodoList) {
             var liRemoveBtn = document.createElement("button");
             liRemoveBtn.appendChild(document.createTextNode("✖"));
-            liRemoveBtn.setAttribute("onclick", `removeTodo(\"${item.key}\")`);
+            liRemoveBtn.setAttribute("onclick", 'removeTodo(\"' + item.key + '\")');
             liRemoveBtn.setAttribute("title", "Remover esta tarefa");
-            liRemoveBtn.setAttribute("class", "removeBtn");
+            liRemoveBtn.setAttribute("class", "danger");
             li.appendChild(liRemoveBtn);
 
             var liUpdateBtn = document.createElement("button");
             liUpdateBtn.appendChild(document.createTextNode("✎"));
-            liUpdateBtn.setAttribute("onclick", `updateTodo(\"${item.key}\")`);
-            liUpdateBtn.setAttribute("title", "Atualizar usando os dados do formulário");
+            liUpdateBtn.setAttribute("onclick", 'updateTodo(\"' + item.key + '\")');
+            liUpdateBtn.setAttribute("title", "Editar esta tarefa");
             liUpdateBtn.setAttribute("class", "alternative");
             li.appendChild(liUpdateBtn);
         }
         ul.appendChild(li);
     });
     todoList.appendChild(ul);
-    // hideItem(loading);
 }
 
 addTodoBtn.onclick = function () {
@@ -55,14 +53,13 @@ addTodoBtn.onclick = function () {
 
 function addOrUpdateTodo(todoKey) {
     hideItem(updateTodoBtns);
-    hideItem(addTodoBtnDiv);
+    hideItem(addTodo);
     if (todo.value != "") {
         var file = fileBtn.files[0];
         if (file != null) {
             if (file.type.includes("image")) {
-                // showItem(loading);
                 var key = firebase.database().ref().push().key;
-                var imgPath = "files/" + /*new Date().getTime()*/ key + "_" + file.name;
+                var imgPath = "files/" + key + "_" + file.name;
                 var storageRef = firebase.storage().ref(imgPath);
                 var uploadTask = storageRef.put(file);
 
@@ -80,19 +77,14 @@ function addOrUpdateTodo(todoKey) {
 
                 calcelBtn.onclick = function () {
                     uploadTask.cancel();
-                    // hideItem(loading);
-                    showItem(addTodoBtnDiv);
-                    hideItem(uploaderFeedbackDiv);
+                    showItem(addTodo);
+                    hideItem(uploaderFeedback);
                     playPauseuploadTask = true;
                 };
 
                 uploadTask.on("state_changed", function (snapshot) {
-                    showItem(uploaderFeedbackDiv);
-                    if (snapshot.state == "running") {
-                        uploaderFeedback.value = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-                    } else {
-                        // Put something here...
-                    }
+                    showItem(uploaderFeedback);
+                    progress.value = snapshot.bytesTransferred / snapshot.totalBytes * 100;
                 }, function (error) {
                     showError(error, "Ação cancelada ou erro no upload do arquivo...");
                 }, function () {
@@ -110,9 +102,9 @@ function addOrUpdateTodo(todoKey) {
                         todo.value = "";
                         fileBtn.value = "";
                         addUpdateTodoText.innerHTML = "Adicionar tarefa: ";
-                        hideItem(uploaderFeedbackDiv);
+                        hideItem(uploaderFeedback);
                         hideItem(updateTodoBtns);
-                        showItem(addTodoBtnDiv);
+                        showItem(addTodo);
                     });
                 });
             } else {
@@ -127,7 +119,7 @@ function addOrUpdateTodo(todoKey) {
 }
 
 function updateTodo(todoKey) {
-    hideItem(addTodoBtnDiv);
+    hideItem(addTodo);
     showItem(updateTodoBtns);
     var liSelected = document.getElementById(todoKey);
     todo.value = liSelected.innerHTML;
@@ -156,8 +148,7 @@ function removeTodo(key) {
 
 cancelUpdateTodoBtn.onclick = function () {
     addUpdateTodoText.innerHTML = "Adicionar tarefa: ";
-    showItem(addTodoBtnDiv);
-    // hideItem(loading);
+    showItem(addTodoBtn);
     todo.value = "";
     hideItem(updateTodoBtns);
 };

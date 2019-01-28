@@ -98,11 +98,12 @@ firebase.auth().onAuthStateChanged(function (user) {
         showItem(userInfo);
         showItem(inputs);
         showItem(todoList);
-        showItem(addTodoBtnDiv);
+        showItem(addTodo);
     } else {
         hideItem(inputs);
         hideItem(userInfo);
         hideItem(todoList);
+        hideItem(addTodoBtn);
         email.value = "";
         password.value = "";
         showItem(authentication);

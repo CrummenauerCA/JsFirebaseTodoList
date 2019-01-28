@@ -42,9 +42,9 @@
             </p>
         </div>
         <p>Ou acesse usando:<br>
-            <button class="socialBtn" id="githubBtn" title="Acessar com sua conta do Github"><img src="img/github.png"></button>
-            <button class="socialBtn" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
-            <button class="socialBtn" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
+            <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img src="img/github.png"></button>
+            <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
+            <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
         </p>
     </div>
     <div id="userInfo" class="startHidden">
@@ -52,8 +52,8 @@
         <p id="userName"></p>
         <p id="userEmail"></p>
         <p id="userEmailVerified"></p>
-        <button id="removeAccountBtn">Excluir minha conta</button>
-        <button id="logOutBtn" class="logoutBtn">Sair</button>
+        <button id="removeAccountBtn" class="danger">Excluir minha conta</button>
+        <button id="logOutBtn" class="alternative">Sair</button>
         <hr>
     </div>
 
@@ -68,17 +68,17 @@
         <label for="img">Imagem: </label>
         <input type="file" name="img" value="Upload" id="fileBtn"><br>
     </div>
-    <div id="uploaderFeedbackDiv" class="startHidden">
-        <progress value="0" max="100" id="uploaderFeedback"></progress>
-        <button id="playPauseBtn">Pausar</button>
-        <button id="calcelBtn">Cancelar</button>
+    <div id="uploaderFeedback" class="startHidden">
+        <progress value="0" max="100" id="progress"></progress>
+        <button id="playPauseBtn" class="alternative">Pausar</button>
+        <button id="calcelBtn" class="danger">Cancelar</button>
     </div>
-    <div id="addTodoBtnDiv" class="startHidden">
+    <div id="addTodo" class="startHidden">
         <button id="addTodoBtn">Adicionar tarefa</button>
     </div>
     <div id="updateTodoBtns" class="startHidden">
         <button id="updateTodoBtn">Atualizar tarefa</button>
-        <button id="cancelUpdateTodoBtn">Cancelar modificação</button>
+        <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
         <br><br>
     </div>
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>

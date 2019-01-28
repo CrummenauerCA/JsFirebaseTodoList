@@ -38,14 +38,14 @@ var addTodoBtn = document.getElementById('addTodoBtn');
 var updateTodoBtns = document.getElementById('updateTodoBtns');
 var cancelUpdateTodoBtn = document.getElementById('cancelUpdateTodoBtn');
 
-var addTodoBtnDiv = document.getElementById('addTodoBtnDiv');
-var uploaderFeedbackDiv = document.getElementById('uploaderFeedbackDiv');
+var addTodo = document.getElementById('addTodo');
+var uploaderFeedback = document.getElementById('uploaderFeedback');
 
 var addUpdateTodoText = document.getElementById('addUpdateTodoText');
 
 var imgUpload = document.getElementById('imgUpload');
 
-var uploaderFeedback = document.getElementById('uploaderFeedback');
+var progress = document.getElementById('progress');
 var playPauseBtn = document.getElementById('playPauseBtn');
 var calcelBtn = document.getElementById('calcelBtn');
 
