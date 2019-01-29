@@ -67,6 +67,7 @@ function addOrUpdateTodo(todoKey) {
 
                 var playPauseuploadTask = true;
                 playPauseBtn.innerHTML = 'Pausar';
+                
                 playPauseBtn.onclick = function () {
                     playPauseuploadTask = !playPauseuploadTask;
                     if (playPauseuploadTask) {
@@ -82,13 +83,13 @@ function addOrUpdateTodo(todoKey) {
                     uploadTask.cancel();
                     showItem(addTodo);
                     hideItem(uploaderFeedback);
-                    showError(null, 'Ação cancelada!');
+                    showError(null, 'Upload cancelado!');
                 };
 
                 uploadTask.on('state_changed', function (snapshot) {
                     progress.value = snapshot.bytesTransferred / snapshot.totalBytes * 100;
                 }, function (error) {
-                    showError(error, 'Ação cancelada ou erro no upload do arquivo...');
+                    showError(error, 'Upload cancelado ou erro no upload do arquivo...');
                 }, function () {
                     hideItem(uploaderFeedback);
                     showItem(loading);
@@ -114,7 +115,14 @@ function addOrUpdateTodo(todoKey) {
                 alert('É preciso que o arquivo selecionado seja uma imagem!');
             }
         } else {
-            alert('É preciso selecionar uma imagem para a tarefa!');
+            if (todoKey) {
+                var data = {
+                    todo: todo.value
+                }
+                dbObject.child(todoKey).update(data);
+            } else {
+                alert('É preciso selecionar uma imagem para a tarefa!');
+            }
         }
     } else {
         alert('O formulário não pode estar vazio para criar a tarefa!');
