@@ -67,7 +67,7 @@ function addOrUpdateTodo(todoKey) {
 
                 var playPauseuploadTask = true;
                 playPauseBtn.innerHTML = 'Pausar';
-                
+
                 playPauseBtn.onclick = function () {
                     playPauseuploadTask = !playPauseuploadTask;
                     if (playPauseuploadTask) {
@@ -120,6 +120,9 @@ function addOrUpdateTodo(todoKey) {
                     todo: todo.value
                 }
                 dbObject.child(todoKey).update(data);
+                addUpdateTodoText.innerHTML = 'Adicionar tarefa:';
+                hideItem(updateTodoBtns);
+                showItem(addTodo);
             } else {
                 alert('É preciso selecionar uma imagem para a tarefa!');
             }
