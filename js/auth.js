@@ -72,8 +72,12 @@ logOutBtn.onclick = function () {
 };
 
 var canEditTodoList = true;
+var uid = '0';
+var dbObject = firebase.database().ref();
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
+        uid = firebase.auth().currentUser.uid;
+        console.log(uid);
         canEditTodoList = true;
         if (user.isAnonymous) {
             canEditTodoList = false;
@@ -98,8 +102,12 @@ firebase.auth().onAuthStateChanged(function (user) {
         }
         userEmail.innerHTML = user.email;
 
-        dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
-            fillTodoList(dataSnapshot);
+        dbObject.child('publicTodoList').orderByChild('todo').once('value', function (dataSnapshot) {
+            fillTodoList(dataSnapshot, 'públicas');
+        });
+
+        dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
+            fillTodoList(dataSnapshot, 'privadas');
         });
         showDefaultTodoList();
     } else {

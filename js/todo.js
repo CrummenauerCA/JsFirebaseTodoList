@@ -1,19 +1,14 @@
-var dbObject = firebase.database().ref();
+dbObject.child('privateTodoList').child(uid).orderByChild('todo').on('value', function (dataSnapshot) {
+    fillTodoList(dataSnapshot, 'privadas');
+});
 
 dbObject.child('publicTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
-    fillTodoList(dataSnapshot);
+    fillTodoList(dataSnapshot, 'públicas');
 });
 
-dbObject.child('privateTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
-    fillTodoList(dataSnapshot);
-});
-
-function fillTodoList(dataSnapshot) {
-    todoList.innerHTML = '';
-
+function fillTodoList(dataSnapshot, list) {
     pNumTodos = document.createElement('p');
-    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas:</b>';
-    todoList.appendChild(pNumTodos);
+    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + list + ':</b>';
 
     var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
@@ -48,7 +43,15 @@ function fillTodoList(dataSnapshot) {
         }
         ul.appendChild(li);
     });
-    todoList.appendChild(ul);
+    if (list == 'privadas') {
+        privateTodoList.innerHTML = '';
+        privateTodoList.appendChild(pNumTodos);
+        privateTodoList.appendChild(ul);
+    } else {
+        todoList.innerHTML = '';
+        todoList.appendChild(pNumTodos);
+        todoList.appendChild(ul);
+    }
 }
 
 addTodoBtn.onclick = function () {
@@ -103,7 +106,6 @@ function addOrUpdateTodo(todoKey) {
                         };
                         if (private.checked) {
                             if (todoKey) {
-                                uid = firebase.auth().currentUser.uid;
                                 dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
                             } else {
                                 dbObject.child('privateTodoList').child(uid).push(data);
