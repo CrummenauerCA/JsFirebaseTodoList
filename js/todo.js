@@ -1,6 +1,10 @@
-var dbObject = firebase.database().ref().child('todoList');
+var dbObject = firebase.database().ref();
 
-dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
+dbObject.child('publicTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
+    fillTodoList(dataSnapshot);
+});
+
+dbObject.child('privateTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
     fillTodoList(dataSnapshot);
 });
 
@@ -80,7 +84,7 @@ function addOrUpdateTodo(todoKey) {
 
                 calcelBtn.onclick = function () {
                     uploadTask.cancel();
-                    afterUpdateTodoList();
+                    showDefaultTodoList();
                     showError(null, 'Upload cancelado!');
                 };
 
@@ -97,10 +101,19 @@ function addOrUpdateTodo(todoKey) {
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-                        if (todoKey) {
-                            dbObject.child(todoKey).update(data);
+                        if (private.checked) {
+                            if (todoKey) {
+                                uid = firebase.auth().currentUser.uid;
+                                dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
+                            } else {
+                                dbObject.child('privateTodoList').child(uid).push(data);
+                            }
                         } else {
-                            dbObject.push(data);
+                            if (todoKey) {
+                                dbObject.child('publicTodoList').child(todoKey).update(data);
+                            } else {
+                                dbObject.child('publicTodoList').push(data);
+                            }
                         }
                         showDefaultTodoList();
                     });
@@ -113,7 +126,7 @@ function addOrUpdateTodo(todoKey) {
                 var data = {
                     todo: todo.value
                 }
-                dbObject.child(todoKey).update(data);
+                dbObject.child('publicTodoList').child(todoKey).update(data);
                 showDefaultTodoList();
             } else {
                 alert('É preciso selecionar uma imagem para a tarefa!');
@@ -139,15 +152,14 @@ function removeTodo(key) {
     var liSelected = document.getElementById(key);
     var confirmation = confirm('Realmente deseja remover a tarefa (' + liSelected.innerHTML + ')?');
     if (confirmation) {
-        dbObjectRemove = dbObject.child(key);
-        dbObjectRemove.once('value').then(function (snapshot) {
+        dbObject.child(key).once('value').then(function (snapshot) {
             var storageRef = firebase.storage().ref(snapshot.val().imgPath);
             storageRef.delete().catch(function (error) {
                 showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
             });
-        });
-        dbObject.child(key).remove().catch(function (error) {
-            showError(error, 'Houve um erro ao remover a tarefa!');
+            dbObject.child(key).remove().catch(function (error) {
+                showError(error, 'Houve um erro ao remover a tarefa!');
+            });
         });
     }
 }

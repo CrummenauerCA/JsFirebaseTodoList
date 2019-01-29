@@ -100,8 +100,8 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot);
-            showDefaultTodoList();
         });
+        showDefaultTodoList();
     } else {
         showAuth();
     }
