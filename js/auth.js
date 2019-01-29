@@ -115,6 +115,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         hideItem(userInfo);
         hideItem(todoList);
         hideItem(addTodo);
+        hideItem(updateTodoBtns);
         showItem(authentication);
         email.value = '';
         password.value = '';
