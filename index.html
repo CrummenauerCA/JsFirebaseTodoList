@@ -31,7 +31,8 @@
             <button id="accessBtn">Acessar</button>
             <p>
                 Esqueceu sua senha?
-                <button id="resetPasswordBtn" class="alternative" title="Digite o e-mail e clique aqui para redefinir a senha">Redefinir senha</button>
+                <button id="resetPasswordBtn" class="alternative" title="Digite o e-mail e clique aqui para redefinir a senha">Redefinir
+                    senha</button>
             </p>
             <p>
                 Não possui uma conta?
@@ -62,6 +63,7 @@
         <p id="userEmailVerified"></p>
         <button id="removeAccountBtn" class="danger">Excluir minha conta</button>
         <button id="logOutBtn" class="alternative">Sair</button>
+        <button id="toggleRegister" class="alternative" title="Editar o nome do do usuário" onclick="updateUserName()">✎</button>
         <hr>
     </div>
 
@@ -92,7 +94,7 @@
         <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
         <br><br>
     </div>
-    
+
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
     <script src="js/firebase.js"></script>
     <script src="js/elements.js"></script>

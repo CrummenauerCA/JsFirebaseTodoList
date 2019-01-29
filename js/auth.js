@@ -88,7 +88,7 @@ firebase.auth().onAuthStateChanged(function (user) {
             if (!user.emailVerified) {
                 var provider = user.providerData[0].providerId;
                 if (provider != 'password') {
-                    userEmailVerified.innerHTML = 'Login feito através de '+ provider + ', não é necessário verificar o e-mail';
+                    userEmailVerified.innerHTML = 'Login feito através de ' + provider + ', não é necessário verificar o e-mail';
                 } else {
                     canEditTodoList = false;
                     userEmailVerified.innerHTML = '<b>E-mail não verificado</b>, você só pode visualizar a lista enquanto não verificar o e-mail!';
@@ -133,3 +133,17 @@ removeAccountBtn.onclick = function () {
         });
     }
 };
+
+function updateUserName() {
+    var newUserName = prompt('Informe um novo nome', userName.innerHTML);
+    if (newUserName != null) {
+        userName.innerHTML = newUserName;
+        firebase.auth().currentUser.updateProfile({
+            displayName: newUserName,
+        }).catch(function (error) {
+            showError(error, 'Erro ao editar o usuário!');
+        });
+    } else {
+        alert('O nome não pode ser vazio!');
+    }
+}
