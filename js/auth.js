@@ -74,31 +74,36 @@ logOutBtn.onclick = function () {
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        console.log(user.uid);
+        console.log(user);
         hideItem(authentication);
+        canEditTodoList = true;
         if (user.isAnonymous) {
+            canEditTodoList = false;
             userImg.src = 'img/userSecret.png';
             userName.innerHTML = '<b>Usuário anônimo</b>, você só pode visualizar a lista!';
-            userEmail.innerHTML = '';
             userEmailVerified.innerHTML = '';
-            canEditTodoList = false;
         } else {
             userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
             userName.innerHTML = user.displayName ? user.displayName : '';
-            userEmail.innerHTML = user.email ? user.email : '';
-            userEmailVerified.innerHTML = user.emailVerified ? 'E-mail verificado' : '<b>E-mail não verificado</b>, você só pode visualizar a lista enquanto não fizer essa verificação!';
-            canEditTodoList = true;
-
             if (!user.emailVerified) {
-                canEditTodoList = false;
-                sendEmailVerification();
+                var provider = user.providerData[0].providerId;
+                if (provider != 'password') {
+                    userEmailVerified.innerHTML = 'Login feito através de '+ provider + ', não é necessário verificar o e-mail';
+                } else {
+                    canEditTodoList = false;
+                    userEmailVerified.innerHTML = '<b>E-mail não verificado</b>, você só pode visualizar a lista enquanto não verificar o e-mail!';
+                    sendEmailVerification();
+                }
+            } else {
+                userEmailVerified.innerHTML = 'E-mail verificado';
             }
         }
+        userEmail.innerHTML = user.email;
 
         dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot);
         });
-        
+
         if (canEditTodoList) {
             showItem(inputs);
             showItem(addTodo);
@@ -109,7 +114,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         hideItem(inputs);
         hideItem(userInfo);
         hideItem(todoList);
-        hideItem(addTodoBtn);
+        hideItem(addTodo);
         showItem(authentication);
         email.value = '';
         password.value = '';
