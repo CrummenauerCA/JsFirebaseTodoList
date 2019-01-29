@@ -77,7 +77,6 @@ var dbObject = firebase.database().ref();
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         uid = firebase.auth().currentUser.uid;
-        console.log(uid);
         canEditTodoList = true;
         if (user.isAnonymous) {
             canEditTodoList = false;
@@ -104,12 +103,12 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         dbObject.child('publicTodoList').orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot, 'públicas');
-            alert('once públicas');
+            console.log('once públicas');
         });
 
         dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot, 'privadas');
-            alert('once privadas');
+            console.log('once privadas');
         });
         showDefaultTodoList();
     } else {

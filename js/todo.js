@@ -1,9 +1,13 @@
-dbObject.child('privateTodoList').child(uid).orderByChild('todo').on('value', function (dataSnapshot) {
-    fillTodoList(dataSnapshot, 'privadas');
-});
-
 dbObject.child('publicTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
     fillTodoList(dataSnapshot, 'públicas');
+    console.log('on públicas');
+});
+
+dbObject.child('privateTodoList').on('value', function () {
+    dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
+        fillTodoList(dataSnapshot, 'privadas');
+        console.log('on once privadas');
+    });
 });
 
 function fillTodoList(dataSnapshot, list) {
