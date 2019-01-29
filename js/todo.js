@@ -102,7 +102,7 @@ function addOrUpdateTodo(todoKey) {
                         } else {
                             dbObject.push(data);
                         }
-                        afterUpdateTodoList();
+                        showDefaultTodoList();
                     });
                 });
             } else {
@@ -114,7 +114,7 @@ function addOrUpdateTodo(todoKey) {
                     todo: todo.value
                 }
                 dbObject.child(todoKey).update(data);
-                afterUpdateTodoList();
+                showDefaultTodoList();
             } else {
                 alert('É preciso selecionar uma imagem para a tarefa!');
             }
@@ -153,5 +153,5 @@ function removeTodo(key) {
 }
 
 cancelUpdateTodoBtn.onclick = function () {
-    afterUpdateTodoList();
+    showDefaultTodoList();
 };

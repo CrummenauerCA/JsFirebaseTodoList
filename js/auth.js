@@ -74,8 +74,6 @@ logOutBtn.onclick = function () {
 var canEditTodoList = true;
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        console.log(user);
-        hideItem(authentication);
         canEditTodoList = true;
         if (user.isAnonymous) {
             canEditTodoList = false;
@@ -102,25 +100,11 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         dbObject.orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot);
+            showDefaultTodoList();
         });
-
-        if (canEditTodoList) {
-            showItem(inputs);
-            showItem(addTodo);
-        }
-        showItem(userInfo);
-        showItem(todoList);
     } else {
-        hideItem(inputs);
-        hideItem(userInfo);
-        hideItem(todoList);
-        hideItem(addTodo);
-        hideItem(updateTodoBtns);
-        showItem(authentication);
-        email.value = '';
-        password.value = '';
+        showAuth();
     }
-    hideItem(loading);
 });
 
 removeAccountBtn.onclick = function () {

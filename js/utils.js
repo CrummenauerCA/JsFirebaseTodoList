@@ -30,12 +30,30 @@ var actionCodeSettings = {
     url: 'http://127.0.0.1:5500/'
 };
 
-function afterUpdateTodoList() {
+function showAuth() {
+    hideItem(inputs);
+    hideItem(userInfo);
+    hideItem(todoList);
+    hideItem(addTodo);
+    hideItem(updateTodoBtns);
+    showItem(authentication);
+    email.value = '';
+    password.value = '';
+    hideItem(loading);
+}
+
+function showDefaultTodoList() {
+    addUpdateTodoText.innerHTML = 'Adicionar tarefa:';
+    hideItem(authentication);
+    hideItem(updateTodoBtns);
+    hideItem(uploaderFeedback);
+    if (canEditTodoList) {
+        showItem(inputs);
+        showItem(addTodo);
+    }
+    showItem(userInfo);
+    showItem(todoList);
     todo.value = '';
     fileBtn.value = '';
-    addUpdateTodoText.innerHTML = 'Adicionar tarefa:';
-    hideItem(updateTodoBtns);
-    showItem(addTodo);
     hideItem(loading);
-    hideItem(uploaderFeedback);
 }
