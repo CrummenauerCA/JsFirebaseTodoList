@@ -5,11 +5,10 @@ dbObject.orderByChild('todo').on('value', function (dataSnapshot) {
 });
 
 function fillTodoList(dataSnapshot) {
-    hideItem(loading);
     todoList.innerHTML = '';
 
     pNumTodos = document.createElement('p');
-    pNumTodos.innerHTML = '<strong>' + dataSnapshot.numChildren() + ' tarefas:</strong>';
+    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas:</b>';
     todoList.appendChild(pNumTodos);
 
     var ul = document.createElement('ul');
@@ -81,8 +80,7 @@ function addOrUpdateTodo(todoKey) {
 
                 calcelBtn.onclick = function () {
                     uploadTask.cancel();
-                    showItem(addTodo);
-                    hideItem(uploaderFeedback);
+                    afterUpdateTodoList();
                     showError(null, 'Upload cancelado!');
                 };
 
@@ -104,11 +102,7 @@ function addOrUpdateTodo(todoKey) {
                         } else {
                             dbObject.push(data);
                         }
-                        todo.value = '';
-                        fileBtn.value = '';
-                        addUpdateTodoText.innerHTML = 'Adicionar tarefa:';
-                        hideItem(updateTodoBtns);
-                        showItem(addTodo);
+                        afterUpdateTodoList();
                     });
                 });
             } else {
@@ -120,9 +114,7 @@ function addOrUpdateTodo(todoKey) {
                     todo: todo.value
                 }
                 dbObject.child(todoKey).update(data);
-                addUpdateTodoText.innerHTML = 'Adicionar tarefa:';
-                hideItem(updateTodoBtns);
-                showItem(addTodo);
+                afterUpdateTodoList();
             } else {
                 alert('É preciso selecionar uma imagem para a tarefa!');
             }
@@ -161,8 +153,5 @@ function removeTodo(key) {
 }
 
 cancelUpdateTodoBtn.onclick = function () {
-    addUpdateTodoText.innerHTML = 'Adicionar tarefa: ';
-    showItem(addTodo);
-    todo.value = '';
-    hideItem(updateTodoBtns);
+    afterUpdateTodoList();
 };

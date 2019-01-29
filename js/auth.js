@@ -136,15 +136,17 @@ removeAccountBtn.onclick = function () {
 };
 
 function updateUserName() {
-    var newUserName = prompt('Informe um novo nome', userName.innerHTML);
+    var newUserName = prompt('Informe um novo nome de usuário', userName.innerHTML);
     if (newUserName != null) {
-        userName.innerHTML = newUserName;
-        firebase.auth().currentUser.updateProfile({
-            displayName: newUserName,
-        }).catch(function (error) {
-            showError(error, 'Erro ao editar o usuário!');
-        });
-    } else {
-        alert('O nome não pode ser vazio!');
+        if (newUserName != '') {
+            userName.innerHTML = newUserName;
+            firebase.auth().currentUser.updateProfile({
+                displayName: newUserName,
+            }).catch(function (error) {
+                showError(error, 'Erro ao editar o usuário!');
+            });
+        } else {
+            alert('O nome não pode ser vazio!');
+        }
     }
 }

@@ -29,3 +29,13 @@ toggleAccess.onclick = function () {
 var actionCodeSettings = {
     url: 'http://127.0.0.1:5500/'
 };
+
+function afterUpdateTodoList() {
+    todo.value = '';
+    fileBtn.value = '';
+    addUpdateTodoText.innerHTML = 'Adicionar tarefa:';
+    hideItem(updateTodoBtns);
+    showItem(addTodo);
+    hideItem(loading);
+    hideItem(uploaderFeedback);
+}
