@@ -132,7 +132,11 @@ function addOrUpdateTodo(todoKey) {
                 var data = {
                     todo: todo.value
                 }
-                dbObject.child('publicTodoList').child(todoKey).update(data);
+                if (private.checked) {
+                    dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
+                } else {
+                    dbObject.child('publicTodoList').child(todoKey).update(data);
+                }
                 showDefaultTodoList();
             } else {
                 alert('É preciso selecionar uma imagem para a tarefa!');
