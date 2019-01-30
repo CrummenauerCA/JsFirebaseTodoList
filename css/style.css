@@ -57,6 +57,10 @@ input, select {
     width: 300px;
 }
 
+#private {
+    width: 25px;
+}
+
 hr {
     width: 40%;
 }

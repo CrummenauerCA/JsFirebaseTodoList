@@ -1,18 +1,18 @@
 dbObject.child('publicTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
-    fillTodoList(dataSnapshot, 'públicas');
+    fillTodoList(dataSnapshot, false);
     console.log('on públicas');
 });
 
 dbObject.child('privateTodoList').on('value', function () {
     dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
-        fillTodoList(dataSnapshot, 'privadas');
+        fillTodoList(dataSnapshot, true);
         console.log('on once privadas');
     });
 });
 
-function fillTodoList(dataSnapshot, list) {
+function fillTodoList(dataSnapshot, isPrivate) {
     pNumTodos = document.createElement('p');
-    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + list + ':</b>';
+    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate? 'privadas' : 'públicas') + ':</b>';
 
     var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
@@ -28,6 +28,7 @@ function fillTodoList(dataSnapshot, list) {
         pLi.appendChild(document.createTextNode(value.todo));
         pLi.id = item.key;
         pLi.setAttribute('class', 'todoItemList');
+        li.id = isPrivate;
         li.appendChild(pLi);
 
         if (canEditTodoList) {
@@ -47,7 +48,7 @@ function fillTodoList(dataSnapshot, list) {
         }
         ul.appendChild(li);
     });
-    if (list == 'privadas') {
+    if (isPrivate) {
         privateTodoList.innerHTML = '';
         privateTodoList.appendChild(pNumTodos);
         privateTodoList.appendChild(ul);
@@ -62,7 +63,7 @@ addTodoBtn.onclick = function () {
     addOrUpdateTodo();
 };
 
-function addOrUpdateTodo(todoKey) {
+function addOrUpdateTodo(todoKey, isPrivate) {
     if (todo.value != '') {
         var file = fileBtn.files[0];
         if (file != null) {
@@ -108,7 +109,7 @@ function addOrUpdateTodo(todoKey) {
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-                        if (private.checked) {
+                        if (private.checked || isPrivate) {
                             if (todoKey) {
                                 dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
                             } else {
@@ -132,7 +133,7 @@ function addOrUpdateTodo(todoKey) {
                 var data = {
                     todo: todo.value
                 }
-                if (private.checked) {
+                if (private.checked || isPrivate) {
                     dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
                 } else {
                     dbObject.child('publicTodoList').child(todoKey).update(data);
@@ -150,11 +151,15 @@ function addOrUpdateTodo(todoKey) {
 function updateTodo(todoKey) {
     hideItem(addTodo);
     showItem(updateTodoBtns);
-    var liSelected = document.getElementById(todoKey);
-    todo.value = liSelected.innerHTML;
-    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: ' + liSelected.innerHTML + '</strong>';
+    var itemSelected = document.getElementById(todoKey);
+
+    var isPrivate = itemSelected.parentElement.id;
+    console.log('isPrivate: ' + isPrivate);
+
+    todo.value = itemSelected.innerHTML;
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
-        addOrUpdateTodo(todoKey);
+        addOrUpdateTodo(todoKey, isPrivate);
     };
 }
 
