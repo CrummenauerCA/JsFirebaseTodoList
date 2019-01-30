@@ -102,13 +102,11 @@ firebase.auth().onAuthStateChanged(function (user) {
         userEmail.innerHTML = user.email;
 
         dbObject.child('publicTodoList').orderByChild('todo').once('value', function (dataSnapshot) {
-            fillTodoList(dataSnapshot, 'públicas');
-            console.log('once públicas');
+            fillTodoList(dataSnapshot, false);
         });
 
         dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
-            fillTodoList(dataSnapshot, 'privadas');
-            console.log('once privadas');
+            fillTodoList(dataSnapshot, true);
         });
         showDefaultTodoList();
     } else {

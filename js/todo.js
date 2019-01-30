@@ -1,17 +1,16 @@
 dbObject.child('publicTodoList').orderByChild('todo').on('value', function (dataSnapshot) {
     fillTodoList(dataSnapshot, false);
-    console.log('on públicas');
 });
 
 dbObject.child('privateTodoList').on('value', function () {
     dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
         fillTodoList(dataSnapshot, true);
-        console.log('on once privadas');
     });
 });
 
 function fillTodoList(dataSnapshot, isPrivate) {
     pNumTodos = document.createElement('p');
+
     pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate? 'privadas' : 'públicas') + ':</b>';
 
     var ul = document.createElement('ul');
@@ -62,6 +61,21 @@ function fillTodoList(dataSnapshot, isPrivate) {
 addTodoBtn.onclick = function () {
     addOrUpdateTodo();
 };
+
+function updateTodo(todoKey) {
+    hideItem(addTodo);
+    // hideItem(private);
+    showItem(updateTodoBtns);
+    var itemSelected = document.getElementById(todoKey);
+
+    var isPrivate = itemSelected.parentElement.id;
+
+    todo.value = itemSelected.innerHTML;
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate? 'privada' : 'pública') +': ' + itemSelected.innerHTML + '</strong>';
+    updateTodoBtn.onclick = function () {
+        addOrUpdateTodo(todoKey, isPrivate);
+    };
+}
 
 function addOrUpdateTodo(todoKey, isPrivate) {
     if (todo.value != '') {
@@ -133,9 +147,12 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                 var data = {
                     todo: todo.value
                 }
-                if (private.checked || isPrivate) {
+                console.log('isPrivate: ' + isPrivate);
+                if (isPrivate == 'true') {
+                    console.log('Entrou na atualização privada...');
                     dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
                 } else {
+                    console.log('Entrou na atualização pública...');
                     dbObject.child('publicTodoList').child(todoKey).update(data);
                 }
                 showDefaultTodoList();
@@ -146,22 +163,6 @@ function addOrUpdateTodo(todoKey, isPrivate) {
     } else {
         alert('O formulário não pode estar vazio para criar a tarefa!');
     }
-}
-
-function updateTodo(todoKey) {
-    hideItem(addTodo);
-    hideItem(private);
-    showItem(updateTodoBtns);
-    var itemSelected = document.getElementById(todoKey);
-
-    var isPrivate = itemSelected.parentElement.id;
-    console.log('isPrivate: ' + isPrivate);
-
-    todo.value = itemSelected.innerHTML;
-    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate? 'privada' : 'pública') +': ' + itemSelected.innerHTML + '</strong>';
-    updateTodoBtn.onclick = function () {
-        addOrUpdateTodo(todoKey, isPrivate);
-    };
 }
 
 function removeTodo(key) {
