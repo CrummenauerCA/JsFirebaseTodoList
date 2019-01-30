@@ -150,6 +150,7 @@ function addOrUpdateTodo(todoKey, isPrivate) {
 
 function updateTodo(todoKey) {
     hideItem(addTodo);
+    hideItem(private);
     showItem(updateTodoBtns);
     var itemSelected = document.getElementById(todoKey);
 
@@ -157,7 +158,7 @@ function updateTodo(todoKey) {
     console.log('isPrivate: ' + isPrivate);
 
     todo.value = itemSelected.innerHTML;
-    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa: ' + itemSelected.innerHTML + '</strong>';
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate? 'privada' : 'pública') +': ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
         addOrUpdateTodo(todoKey, isPrivate);
     };

@@ -49,6 +49,7 @@ function showDefaultTodoList() {
     hideItem(uploaderFeedback);
     if (canEditTodoList) {
         showItem(inputs);
+        showItem(private);
         showItem(addTodo);
     }
     showItem(userInfo);
