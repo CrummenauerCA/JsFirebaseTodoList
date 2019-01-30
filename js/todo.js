@@ -123,7 +123,7 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-                        if (private.checked || isPrivate) {
+                        if (private.checked || isPrivate == 'true') {
                             if (todoKey) {
                                 dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
                             } else {
