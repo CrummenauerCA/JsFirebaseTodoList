@@ -11,7 +11,7 @@ dbObject.child('privateTodoList').on('value', function () {
 function fillTodoList(dataSnapshot, isPrivate) {
     pNumTodos = document.createElement('p');
 
-    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate? 'privadas' : 'públicas') + ':</b>';
+    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate ? 'privadas' : 'públicas') + ':</b>';
 
     var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
@@ -71,7 +71,7 @@ function updateTodo(todoKey) {
     var isPrivate = itemSelected.parentElement.id;
 
     todo.value = itemSelected.innerHTML;
-    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate? 'privada' : 'pública') +': ' + itemSelected.innerHTML + '</strong>';
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
         addOrUpdateTodo(todoKey, isPrivate);
     };
@@ -123,14 +123,14 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-                        if (private.checked || isPrivate == 'true') {
+                        if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
                             if (todoKey) {
                                 dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
                             } else {
                                 dbObject.child('privateTodoList').child(uid).push(data);
                             }
                         } else {
-                            if (todoKey) {
+                            if (todoKey) { // Atualizar completamente tarefas privadas e públicas
                                 dbObject.child('publicTodoList').child(todoKey).update(data);
                             } else {
                                 dbObject.child('publicTodoList').push(data);
@@ -148,11 +148,9 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                     todo: todo.value
                 }
                 console.log('isPrivate: ' + isPrivate);
-                if (isPrivate == 'true') {
-                    console.log('Entrou na atualização privada...');
+                if (isPrivate == 'true') { // Atualizar somente descrição da tarefa privada (todo);
                     dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
-                } else {
-                    console.log('Entrou na atualização pública...');
+                } else { // Atualizar somente descrição da tarefa pública (todo);
                     dbObject.child('publicTodoList').child(todoKey).update(data);
                 }
                 showDefaultTodoList();
@@ -166,18 +164,31 @@ function addOrUpdateTodo(todoKey, isPrivate) {
 }
 
 function removeTodo(key) {
-    var liSelected = document.getElementById(key);
-    var confirmation = confirm('Realmente deseja remover a tarefa (' + liSelected.innerHTML + ')?');
+    var itemSelected = document.getElementById(key);
+    var isPrivate = itemSelected.parentElement.id;
+    var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
     if (confirmation) {
-        dbObject.child(key).once('value').then(function (snapshot) {
-            var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-            storageRef.delete().catch(function (error) {
-                showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
+        if (isPrivate == 'true') {
+            dbObject.child('privateTodoList').child(uid).child(key).once('value').then(function (snapshot) {
+                var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+                storageRef.delete().catch(function (error) {
+                    showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
+                });
+                dbObject.child('privateTodoList').child(uid).child(key).remove().catch(function (error) {
+                    showError(error, 'Houve um erro ao remover a tarefa!');
+                });
             });
-            dbObject.child(key).remove().catch(function (error) {
-                showError(error, 'Houve um erro ao remover a tarefa!');
+        } else {
+            dbObject.child('publicTodoList').child(key).once('value').then(function (snapshot) {
+                var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+                storageRef.delete().catch(function (error) {
+                    showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
+                });
+                dbObject.child('publicTodoList').child(key).remove().catch(function (error) {
+                    showError(error, 'Houve um erro ao remover a tarefa!');
+                });
             });
-        });
+        }
     }
 }
 
