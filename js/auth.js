@@ -80,7 +80,6 @@ logOutBtn.onclick = function () {
 
 var canEditTodoList = true;
 var uid = '0';
-var dbObject = firebase.database().ref();
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         uid = firebase.auth().currentUser.uid;
@@ -108,11 +107,11 @@ firebase.auth().onAuthStateChanged(function (user) {
         }
         userEmail.innerHTML = user.email;
 
-        dbObject.child('publicTodoList').orderByChild('todo').once('value', function (dataSnapshot) {
+        dbRefPublic.orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot, false);
         });
 
-        dbObject.child('privateTodoList').child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
+        dbRefPrivate.child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
             fillTodoList(dataSnapshot, true);
         });
         showDefaultTodoList();

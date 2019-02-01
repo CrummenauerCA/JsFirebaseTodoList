@@ -50,7 +50,6 @@ function showDefaultTodoList() {
     hideItem(uploaderFeedback);
     if (canEditTodoList) {
         showItem(inputs);
-        // showItem(private);
         showItem(addTodo);
         showItem(privateTodoList);
     }
@@ -60,3 +59,7 @@ function showDefaultTodoList() {
     fileBtn.value = '';
     hideItem(loading);
 }
+
+var dbRef = firebase.database().ref();
+var dbRefPublic = dbRef.child('publicTodoList');
+var dbRefPrivate = dbRef.child('privateTodoList');
