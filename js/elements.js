@@ -17,6 +17,7 @@ var accessBtn = document.getElementById('accessBtn');
 var resetPasswordBtn = document.getElementById('resetPasswordBtn');
 var registerBtn = document.getElementById('registerBtn');
 
+var facebookBtn = document.getElementById('facebookBtn');
 var githubBtn = document.getElementById('githubBtn');
 var googleBtn = document.getElementById('googleBtn');
 var anonymousBtn = document.getElementById('anonymousBtn');

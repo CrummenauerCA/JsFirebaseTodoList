@@ -50,6 +50,13 @@ anonymousBtn.onclick = function () {
     });
 };
 
+facebookBtn.onclick = function () {
+    showItem(loading);
+    firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider()).catch(function (error) {
+        showError(error, 'Falha na autenticação com o Facebook');
+    });
+};
+
 githubBtn.onclick = function () {
     showItem(loading);
     firebase.auth().signInWithPopup(new firebase.auth.GithubAuthProvider()).catch(function (error) {
