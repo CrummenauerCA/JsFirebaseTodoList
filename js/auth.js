@@ -24,7 +24,7 @@ resetPasswordBtn.onclick = function () {
             showError(error, 'Erro ao enviar o e-mail de redefinição de senha! Verifique o e-mail informado e tente novamente...');
         });
     } else {
-        alert('É preciso preencher o campo de senha para redefinir a senha!');
+        alert('É preciso preencher o campo de e-mail para redefinir a senha!');
     }
 };
 

@@ -18,8 +18,8 @@ function fillTodoList(dataSnapshot, isPrivate) {
         var value = item.val();
         var li = document.createElement('li');
         var imgLi = document.createElement('img');
-        imgLi.height = 28;
-        imgLi.width = 28;
+        imgLi.height = 24;
+        imgLi.width = 24;
         imgLi.src = value.imgUrl;
         li.appendChild(imgLi);
 
@@ -35,14 +35,14 @@ function fillTodoList(dataSnapshot, isPrivate) {
             liRemoveBtn.appendChild(document.createTextNode('✖'));
             liRemoveBtn.setAttribute('onclick', 'removeTodo(\"' + item.key + '\")');
             liRemoveBtn.setAttribute('title', 'Remover esta tarefa');
-            liRemoveBtn.setAttribute('class', 'danger');
+            liRemoveBtn.setAttribute('class', 'danger lbtn');
             li.appendChild(liRemoveBtn);
 
             var liUpdateBtn = document.createElement('button');
             liUpdateBtn.appendChild(document.createTextNode('✎'));
             liUpdateBtn.setAttribute('onclick', 'updateTodo(\"' + item.key + '\")');
             liUpdateBtn.setAttribute('title', 'Editar esta tarefa');
-            liUpdateBtn.setAttribute('class', 'alternative');
+            liUpdateBtn.setAttribute('class', 'alternative lbtn');
             li.appendChild(liUpdateBtn);
         }
         ul.appendChild(li);
@@ -153,10 +153,29 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                 } else { // Atualizar somente descrição da tarefa pública (todo);
                     dbObject.child('publicTodoList').child(todoKey).update(data);
                 }
-                showDefaultTodoList();
             } else {
-                alert('É preciso selecionar uma imagem para a tarefa!');
+                var data = {
+                    todo: todo.value,
+                    imgPath: 'gs://apptest-1cad7.appspot.com/files/iconfinder_social_todo_50629.png',
+                    imgUrl: 'https://firebasestorage.googleapis.com/v0/b/apptest-1cad7.appspot.com/o/files%2Ficonfinder_social_todo_50629.png?alt=media&token=3efa905c-b096-4804-ac3c-6d9cec268012'
+                }
+
+                if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
+                    if (todoKey) {
+                        dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
+                    } else {
+                        dbObject.child('privateTodoList').child(uid).push(data);
+                    }
+                } else {
+                    if (todoKey) { // Atualizar completamente tarefas privadas e públicas
+                        dbObject.child('publicTodoList').child(todoKey).update(data);
+                    } else {
+                        dbObject.child('publicTodoList').push(data);
+                    }
+                }
             }
+
+            showDefaultTodoList();
         }
     } else {
         alert('O formulário não pode estar vazio para criar a tarefa!');

@@ -34,6 +34,7 @@ function showAuth() {
     hideItem(inputs);
     hideItem(userInfo);
     hideItem(todoList);
+    hideItem(privateTodoList);
     hideItem(addTodo);
     hideItem(updateTodoBtns);
     showItem(authentication);
@@ -54,6 +55,7 @@ function showDefaultTodoList() {
     }
     showItem(userInfo);
     showItem(todoList);
+    showItem(privateTodoList);
     todo.value = '';
     fileBtn.value = '';
     hideItem(loading);
