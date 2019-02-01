@@ -156,10 +156,9 @@ function addOrUpdateTodo(todoKey, isPrivate) {
             } else {
                 var data = {
                     todo: todo.value,
-                    imgPath: 'gs://apptest-1cad7.appspot.com/files/iconfinder_social_todo_50629.png',
-                    imgUrl: 'https://firebasestorage.googleapis.com/v0/b/apptest-1cad7.appspot.com/o/files%2Ficonfinder_social_todo_50629.png?alt=media&token=3efa905c-b096-4804-ac3c-6d9cec268012'
+                    imgPath: 'img/defaultTodo.png',
+                    imgUrl: 'img/defaultTodo.png'
                 }
-
                 if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
                     if (todoKey) {
                         dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
