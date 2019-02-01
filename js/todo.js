@@ -156,7 +156,6 @@ function addOrUpdateTodo(todoKey, isPrivate) {
             } else {
                 var data = {
                     todo: todo.value,
-                    imgPath: 'img/defaultTodo.png',
                     imgUrl: 'img/defaultTodo.png'
                 }
                 if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
