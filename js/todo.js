@@ -11,7 +11,7 @@ dbObject.child('privateTodoList').on('value', function () {
 function fillTodoList(dataSnapshot, isPrivate) {
     pNumTodos = document.createElement('p');
 
-    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate ? 'privadas' : 'públicas') + ':</b>';
+    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate == 'true' ? 'privadas' : 'públicas') + ':</b>';
 
     var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
@@ -71,7 +71,7 @@ function updateTodo(todoKey) {
     var isPrivate = itemSelected.parentElement.id;
 
     todo.value = itemSelected.innerHTML;
-    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate == 'true' ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
         addOrUpdateTodo(todoKey, isPrivate);
     };
@@ -175,7 +175,7 @@ function addOrUpdateTodo(todoKey, isPrivate) {
 function removeTodo(key) {
     var itemSelected = document.getElementById(key);
     var isPrivate = itemSelected.parentElement.id;
-    var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
+    var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate == 'true' ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
     if (confirmation) {
         if (isPrivate == 'true') {
             dbObject.child('privateTodoList').child(uid).child(key).once('value').then(function (snapshot) {

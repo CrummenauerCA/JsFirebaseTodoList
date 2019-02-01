@@ -77,13 +77,3 @@ img {
     font-size: 12px;
     padding: 1px 3px;
 }
-
-#video {
-    position: absolute;
-    width: 50px;
-}
-
-#rest {
-    display: inline;
-    width: 50px;
-}
