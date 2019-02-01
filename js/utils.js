@@ -63,3 +63,11 @@ function showDefaultTodoList() {
 var dbRef = firebase.database().ref();
 var dbRefPublic = dbRef.child('publicTodoList');
 var dbRefPrivate = dbRef.child('privateTodoList');
+
+function getRefDb(isPrivate) {
+    if (isPrivate == 'true') {
+        return dbRefPrivate.child(uid);
+    } else {
+        return dbRefPublic;
+    }
+}

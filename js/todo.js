@@ -64,12 +64,9 @@ addTodoBtn.onclick = function () {
 
 function updateTodo(todoKey) {
     hideItem(addTodo);
-    // hideItem(private);
     showItem(updateTodoBtns);
     var itemSelected = document.getElementById(todoKey);
-
     var isPrivate = itemSelected.parentElement.id;
-
     todo.value = itemSelected.innerHTML;
     addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate == 'true' ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
@@ -80,6 +77,7 @@ function updateTodo(todoKey) {
 function addOrUpdateTodo(todoKey, isPrivate) {
     if (todo.value != '') {
         var file = fileBtn.files[0];
+        var db = getRefDb(private.checked || isPrivate);
         if (file != null) {
             if (file.type.includes('image')) {
                 hideItem(updateTodoBtns);
@@ -123,19 +121,13 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-                        if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
-                            if (todoKey) {
-                                dbRefPrivate.child(uid).child(todoKey).update(data);
-                            } else {
-                                dbRefPrivate.child(uid).push(data);
-                            }
+
+                        if (todoKey) {
+                            db.child(todoKey).update(data);
                         } else {
-                            if (todoKey) { // Atualizar completamente tarefas privadas e públicas
-                                dbRefPublic.child(todoKey).update(data);
-                            } else {
-                                dbRefPublic.push(data);
-                            }
+                            db.push(data);
                         }
+
                         showDefaultTodoList();
                     });
                 });
@@ -144,26 +136,14 @@ function addOrUpdateTodo(todoKey, isPrivate) {
             }
         } else {
             if (todoKey) {
-                var data = {
-                    todo: todo.value
-                }
-                console.log('isPrivate: ' + isPrivate);
-                if (isPrivate == 'true') { // Atualizar somente descrição da tarefa privada (todo);
-                    dbRefPrivate.child(uid).child(todoKey).update(data);
-                } else { // Atualizar somente descrição da tarefa pública (todo);
-                    dbRefPublic.child(todoKey).update(data);
-                }
+                db.child(todoKey).update({ todo: todo.value });
             } else {
                 var data = {
                     todo: todo.value,
                     imgPath: 'img/defaultTodo.png',
                     imgUrl: 'img/defaultTodo.png'
                 }
-                if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
-                    dbRefPrivate.child(uid).push(data);
-                } else {
-                    dbRefPublic.push(data);
-                }
+                db.push(data);
             }
             showDefaultTodoList();
         }
@@ -176,34 +156,21 @@ function removeTodo(key) {
     var itemSelected = document.getElementById(key);
     var isPrivate = itemSelected.parentElement.id;
     var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate == 'true' ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
+
+    var db = getRefDb(isPrivate);
+
     if (confirmation) {
-        if (isPrivate == 'true') {
-            dbRefPrivate.child(uid).child(key).once('value').then(function (snapshot) {
-                var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-                console.log(storageRef);
-                if (storageRef.location.path != 'img/defaultTodo.png') {
-                    storageRef.delete().catch(function (error) {
-                        showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
-                    });
-                }
-                dbRefPrivate.child(uid).child(key).remove().catch(function (error) {
-                    showError(error, 'Houve um erro ao remover a tarefa!');
+        db.child(key).once('value').then(function (snapshot) {
+            var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+            if (storageRef.location.path != 'img/defaultTodo.png') {
+                storageRef.delete().catch(function (error) {
+                    showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
                 });
+            }
+            db.child(key).remove().catch(function (error) {
+                showError(error, 'Houve um erro ao remover a tarefa!');
             });
-        } else {
-            dbRefPublic.child(key).once('value').then(function (snapshot) {
-                var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-                console.log(storageRef);
-                if (storageRef.location.path != 'img/defaultTodo.png') {
-                    storageRef.delete().catch(function (error) {
-                        showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
-                    });
-                }
-                dbRefPublic.child(key).remove().catch(function (error) {
-                    showError(error, 'Houve um erro ao remover a tarefa!');
-                });
-            });
-        }
+        });
     }
 }
 
