@@ -52,10 +52,10 @@ function showDefaultTodoList() {
         showItem(inputs);
         // showItem(private);
         showItem(addTodo);
+        showItem(privateTodoList);
     }
     showItem(userInfo);
     showItem(todoList);
-    showItem(privateTodoList);
     todo.value = '';
     fileBtn.value = '';
     hideItem(loading);

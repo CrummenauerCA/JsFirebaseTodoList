@@ -99,7 +99,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                     userEmailVerified.innerHTML = 'Login feito através de ' + provider + ', não é necessário verificar o e-mail';
                 } else {
                     canEditTodoList = false;
-                    userEmailVerified.innerHTML = '<b>E-mail não verificado</b>, você só pode visualizar a lista enquanto não verificar o e-mail!';
+                    userEmailVerified.innerHTML = '<b>E-mail não verificado</b>, você só pode visualizar a lista pública enquanto não verificar o e-mail!';
                     sendEmailVerification();
                 }
             } else {
