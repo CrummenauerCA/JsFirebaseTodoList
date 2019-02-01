@@ -156,23 +156,15 @@ function addOrUpdateTodo(todoKey, isPrivate) {
             } else {
                 var data = {
                     todo: todo.value,
+                    imgPath: 'img/defaultTodo.png',
                     imgUrl: 'img/defaultTodo.png'
                 }
                 if (private.checked || isPrivate == 'true') { // Criar tarefas privadas e públicas
-                    if (todoKey) {
-                        dbObject.child('privateTodoList').child(uid).child(todoKey).update(data);
-                    } else {
-                        dbObject.child('privateTodoList').child(uid).push(data);
-                    }
+                    dbObject.child('privateTodoList').child(uid).push(data);
                 } else {
-                    if (todoKey) { // Atualizar completamente tarefas privadas e públicas
-                        dbObject.child('publicTodoList').child(todoKey).update(data);
-                    } else {
-                        dbObject.child('publicTodoList').push(data);
-                    }
+                    dbObject.child('publicTodoList').push(data);
                 }
             }
-
             showDefaultTodoList();
         }
     } else {
@@ -188,9 +180,12 @@ function removeTodo(key) {
         if (isPrivate == 'true') {
             dbObject.child('privateTodoList').child(uid).child(key).once('value').then(function (snapshot) {
                 var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-                storageRef.delete().catch(function (error) {
-                    showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
-                });
+                console.log(storageRef);
+                if (storageRef.location.path != 'img/defaultTodo.png') {
+                    storageRef.delete().catch(function (error) {
+                        showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
+                    });
+                }
                 dbObject.child('privateTodoList').child(uid).child(key).remove().catch(function (error) {
                     showError(error, 'Houve um erro ao remover a tarefa!');
                 });
@@ -198,9 +193,12 @@ function removeTodo(key) {
         } else {
             dbObject.child('publicTodoList').child(key).once('value').then(function (snapshot) {
                 var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-                storageRef.delete().catch(function (error) {
-                    showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
-                });
+                console.log(storageRef);
+                if (storageRef.location.path != 'img/defaultTodo.png') {
+                    storageRef.delete().catch(function (error) {
+                        showError(error, 'Houve um erro ao remover o arquivo da tarefa!');
+                    });
+                }
                 dbObject.child('publicTodoList').child(key).remove().catch(function (error) {
                     showError(error, 'Houve um erro ao remover a tarefa!');
                 });
