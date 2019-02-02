@@ -51,6 +51,7 @@ function showDefaultTodoList() {
     if (canEditTodoList) {
         showItem(inputs);
         showItem(addTodo);
+        showItem(privateCheckBox);
         showItem(privateTodoList);
     }
     showItem(userInfo);
@@ -65,6 +66,8 @@ var dbRefPublic = dbRef.child('publicTodoList');
 var dbRefPrivate = dbRef.child('privateTodoList');
 
 function getRefDb(checked, isPrivate, todoKey) {
+    hideItem(privateLabel);
+    hideItem(private);
     if (todoKey) {
         if (isPrivate) {
             return dbRefPrivate.child(uid);

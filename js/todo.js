@@ -64,6 +64,7 @@ addTodoBtn.onclick = function () {
 
 function updateTodo(todoKey) {
     hideItem(addTodo);
+    hideItem(privateCheckBox);
     showItem(updateTodoBtns);
     var itemSelected = document.getElementById(todoKey);
     var isPrivate = (itemSelected.parentElement.id == 'true');

@@ -51,5 +51,7 @@ var playPauseBtn = document.getElementById('playPauseBtn');
 var calcelBtn = document.getElementById('calcelBtn');
 
 var fileBtn = document.getElementById('fileBtn');
-var private = document.getElementById('private');
 var privateTodoList = document.getElementById('privateTodoList');
+
+var privateCheckBox = document.getElementById('privateCheckBox');
+var private = document.getElementById('private');
