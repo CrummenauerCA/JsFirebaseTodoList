@@ -11,7 +11,7 @@ dbRefPrivate.on('value', function () {
 function fillTodoList(dataSnapshot, isPrivate) {
     pNumTodos = document.createElement('p');
 
-    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate == 'true' ? 'privadas' : 'públicas') + ':</b>';
+    pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate ? 'privadas' : 'públicas') + ':</b>';
 
     var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
@@ -66,9 +66,9 @@ function updateTodo(todoKey) {
     hideItem(addTodo);
     showItem(updateTodoBtns);
     var itemSelected = document.getElementById(todoKey);
-    var isPrivate = itemSelected.parentElement.id;
+    var isPrivate = (itemSelected.parentElement.id == 'true');
     todo.value = itemSelected.innerHTML;
-    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate == 'true' ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
+    addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
         addOrUpdateTodo(todoKey, isPrivate);
     };
@@ -77,7 +77,7 @@ function updateTodo(todoKey) {
 function addOrUpdateTodo(todoKey, isPrivate) {
     if (todo.value != '') {
         var file = fileBtn.files[0];
-        var db = getRefDb(private.checked || isPrivate);
+        var db = getRefDb(private.checked, isPrivate, todoKey);
         if (file != null) {
             if (file.type.includes('image')) {
                 hideItem(updateTodoBtns);
@@ -127,7 +127,6 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                         } else {
                             db.push(data);
                         }
-
                         showDefaultTodoList();
                     });
                 });
@@ -154,8 +153,9 @@ function addOrUpdateTodo(todoKey, isPrivate) {
 
 function removeTodo(key) {
     var itemSelected = document.getElementById(key);
-    var isPrivate = itemSelected.parentElement.id;
-    var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate == 'true' ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
+    console.log();
+    var isPrivate = (itemSelected.parentElement.id == 'true');
+    var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
 
     var db = getRefDb(isPrivate);
 

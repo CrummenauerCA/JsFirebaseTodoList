@@ -64,10 +64,18 @@ var dbRef = firebase.database().ref();
 var dbRefPublic = dbRef.child('publicTodoList');
 var dbRefPrivate = dbRef.child('privateTodoList');
 
-function getRefDb(isPrivate) {
-    if (isPrivate == 'true') {
-        return dbRefPrivate.child(uid);
+function getRefDb(checked, isPrivate, todoKey) {
+    if (todoKey) {
+        if (isPrivate) {
+            return dbRefPrivate.child(uid);
+        } else {
+            return dbRefPublic;
+        }
     } else {
-        return dbRefPublic;
+        if (isPrivate || checked) {
+            return dbRefPrivate.child(uid);
+        } else {
+            return dbRefPublic;
+        }
     }
 }
