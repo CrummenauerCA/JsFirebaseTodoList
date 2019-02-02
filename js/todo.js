@@ -114,13 +114,13 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                 }, function () {
                     hideItem(uploaderFeedback);
                     showItem(loading);
+                    // removeFile(todoKey, db);
                     storageRef.getDownloadURL().then(function (downloadURL) {
                         var data = {
                             todo: todo.value,
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-
                         if (todoKey) {
                             db.child(todoKey).update(data);
                         } else {
@@ -152,7 +152,6 @@ function addOrUpdateTodo(todoKey, isPrivate) {
 
 function removeTodo(key) {
     var itemSelected = document.getElementById(key);
-    console.log();
     var isPrivate = (itemSelected.parentElement.id == 'true');
     var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
 
@@ -177,3 +176,15 @@ function removeTodo(key) {
 cancelUpdateTodoBtn.onclick = function () {
     showDefaultTodoList();
 };
+
+function removeFile(key, db) {
+    db.child(key).once('value').then(function (snapshot) {
+        var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+        console.log(snapshot.val().imgPath);
+        if (storageRef.location.path != 'img/defaultTodo.png' && storageRef.location.path != 'undefined') {
+            storageRef.delete().catch(function (error) {
+                showError(error, 'Houve um erro ao remover o arquivo da tarefa ' + snapshot.val().todo + '!');
+            });
+        }
+    });
+}

@@ -87,7 +87,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         if (user.isAnonymous) {
             canEditTodoList = false;
             userImg.src = 'img/userSecret.png';
-            userName.innerHTML = '<b>Usuário anônimo</b>, você só pode visualizar a lista!';
+            userName.innerHTML = '<b>Usuário anônimo</b>, você só pode visualizar a lista pública!';
             userEmailVerified.innerHTML = '';
         } else {
             userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png';
