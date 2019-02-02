@@ -2,6 +2,10 @@
 //     console.log('Firebase logging: ' + message);
 // });
 
+var actionCodeSettings = {
+    url: 'http://127.0.0.1:5500/'
+};
+
 function showItem(element) {
     element.style.display = 'block';
 }
@@ -26,14 +30,10 @@ toggleAccess.onclick = function () {
     access.style.display = 'block';
 }
 
-var actionCodeSettings = {
-    url: 'http://127.0.0.1:5500/'
-};
-
 function showAuth() {
     hideItem(inputs);
     hideItem(userInfo);
-    hideItem(todoList);
+    hideItem(publicTodoList);
     hideItem(privateTodoList);
     hideItem(addTodo);
     hideItem(updateTodoBtns);
@@ -55,7 +55,7 @@ function showDefaultTodoList() {
         showItem(privateTodoList);
     }
     showItem(userInfo);
-    showItem(todoList);
+    showItem(publicTodoList);
     todo.value = '';
     fileBtn.value = '';
     hideItem(loading);
@@ -66,8 +66,6 @@ var dbRefPublic = dbRef.child('publicTodoList');
 var dbRefPrivate = dbRef.child('privateTodoList');
 
 function getRefDb(checked, isPrivate, todoKey) {
-    hideItem(privateLabel);
-    hideItem(private);
     if (todoKey) {
         if (isPrivate) {
             return dbRefPrivate.child(uid);

@@ -33,7 +33,7 @@ var userEmailVerified = document.getElementById('userEmailVerified');
 var removeAccountBtn = document.getElementById('removeAccountBtn');
 var logOutBtn = document.getElementById('logOutBtn');
 
-var todoList = document.getElementById('todoList');
+var publicTodoList = document.getElementById('publicTodoList');
 var todo = document.getElementById('todo');
 var addTodoBtn = document.getElementById('addTodoBtn');
 var updateTodoBtns = document.getElementById('updateTodoBtns');

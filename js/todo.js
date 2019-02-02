@@ -10,9 +10,7 @@ dbRefPrivate.on('value', function () {
 
 function fillTodoList(dataSnapshot, isPrivate) {
     pNumTodos = document.createElement('p');
-
     pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate ? 'privadas' : 'públicas') + ':</b>';
-
     var ul = document.createElement('ul');
     dataSnapshot.forEach(function (item) {
         var value = item.val();
@@ -52,9 +50,9 @@ function fillTodoList(dataSnapshot, isPrivate) {
         privateTodoList.appendChild(pNumTodos);
         privateTodoList.appendChild(ul);
     } else {
-        todoList.innerHTML = '';
-        todoList.appendChild(pNumTodos);
-        todoList.appendChild(ul);
+        publicTodoList.innerHTML = '';
+        publicTodoList.appendChild(pNumTodos);
+        publicTodoList.appendChild(ul);
     }
 }
 
@@ -173,6 +171,7 @@ function removeTodo(key) {
             });
         });
     }
+    showDefaultTodoList();
 }
 
 cancelUpdateTodoBtn.onclick = function () {
