@@ -61,9 +61,11 @@ addTodoBtn.onclick = function () {
 };
 
 function updateTodo(todoKey) {
+    console.log('Iniciando a atualização de tarefa...');
     hideItem(addTodo);
     hideItem(privateCheckBox);
     showItem(updateTodoBtns);
+    console.log('Adaptando a interface para fazer a atualização...');
     var itemSelected = document.getElementById(todoKey);
     var isPrivate = (itemSelected.parentElement.id == 'true');
     todo.value = itemSelected.innerHTML;
@@ -124,12 +126,12 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                             key = todoKey;
                             db.child(key).once('value').then(function (snapshot) {
                                 var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+                                console.log(storageRef);
                                 if (storageRef.location.path != 'img/defaultTodo.png') {
-                                    storageRef.delete().then(function() {
-                                        db.child(todoKey).update(data);
-                                    }).catch(function (error) {
-                                        showError(error, 'Houve um erro ao remover a imagem antiga da tarefa!');
+                                    storageRef.delete().catch(function (error) {
+                                        showError(error, 'Houve um erro ao remover a imagem antiga da tarefa! Nenhuma ação é necessária');
                                     });
+                                    db.child(todoKey).update(data);
                                 }
                             });
                         } else {
