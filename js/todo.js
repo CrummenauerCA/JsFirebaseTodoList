@@ -60,31 +60,28 @@ addTodoBtn.onclick = function () {
     addOrUpdateTodo();
 };
 
-function updateTodo(todoKey) {
-    console.log('Iniciando a atualização de tarefa...');
+function updateTodo(key) {
     hideItem(addTodo);
     hideItem(privateCheckBox);
     showItem(updateTodoBtns);
-    console.log('Adaptando a interface para fazer a atualização...');
-    var itemSelected = document.getElementById(todoKey);
+    var itemSelected = document.getElementById(key);
     var isPrivate = (itemSelected.parentElement.id == 'true');
     todo.value = itemSelected.innerHTML;
     addUpdateTodoText.innerHTML = '<strong>Atualizar a tarefa ' + (isPrivate ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>';
     updateTodoBtn.onclick = function () {
-        addOrUpdateTodo(todoKey, isPrivate);
+        addOrUpdateTodo(key, isPrivate);
     };
 }
 
-function addOrUpdateTodo(todoKey, isPrivate) {
+function addOrUpdateTodo(key, isPrivate) {
     if (todo.value != '') {
         var file = fileBtn.files[0];
-        var db = getRefDb(private.checked, isPrivate, todoKey);
+        var db = getRefDb(private.checked, isPrivate, key);
         if (file != null) {
             if (file.type.includes('image')) {
                 hideItem(updateTodoBtns);
                 hideItem(addTodo);
-                var key = firebase.database().ref().push().key;
-                var imgPath = 'files/' + key + '_' + file.name;
+                var imgPath = 'todoFiles/' + firebase.database().ref().push().key + '-' + file.name;
                 var storageRef = firebase.storage().ref(imgPath);
                 var uploadTask = storageRef.put(file);
                 showItem(uploaderFeedback);
@@ -122,17 +119,15 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                             imgPath: imgPath,
                             imgUrl: downloadURL
                         };
-                        if (todoKey) {
-                            key = todoKey;
+                        if (key) {
                             db.child(key).once('value').then(function (snapshot) {
                                 var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-                                console.log(storageRef);
                                 if (storageRef.location.path != 'img/defaultTodo.png') {
                                     storageRef.delete().catch(function (error) {
                                         showError(error, 'Houve um erro ao remover a imagem antiga da tarefa! Nenhuma ação é necessária');
                                     });
-                                    db.child(todoKey).update(data);
                                 }
+                                db.child(key).update(data);
                             });
                         } else {
                             db.push(data);
@@ -144,8 +139,8 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                 alert('É preciso que o arquivo selecionado seja uma imagem!');
             }
         } else {
-            if (todoKey) {
-                db.child(todoKey).update({ todo: todo.value });
+            if (key) {
+                db.child(key).update({ todo: todo.value });
             } else {
                 var data = {
                     todo: todo.value,
@@ -165,9 +160,7 @@ function removeTodo(key) {
     var itemSelected = document.getElementById(key);
     var isPrivate = (itemSelected.parentElement.id == 'true');
     var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?');
-
     var db = getRefDb(isPrivate);
-
     if (confirmation) {
         db.child(key).once('value').then(function (snapshot) {
             var storageRef = firebase.storage().ref(snapshot.val().imgPath);

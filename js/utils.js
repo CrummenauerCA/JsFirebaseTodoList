@@ -66,16 +66,16 @@ var dbRefPublic = dbRef.child('publicTodoList');
 var dbRefPrivate = dbRef.child('privateTodoList');
 
 function getRefDb(checked, isPrivate, todoKey) {
-    if (todoKey) {
-        if (isPrivate) {
+    if (todoKey) { // Se for uma atualização, irei considerar se ela era pública ou privada
+        if (isPrivate) { // Se for uma atualização privada
             return dbRefPrivate.child(uid);
-        } else {
+        } else { // Se for uma atualização pública
             return dbRefPublic;
         }
-    } else {
-        if (isPrivate || checked) {
+    } else { // Se for uma criação, irei considerar se ela deve ser pública ou privada
+        if (checked) { // Se for uma crição privada
             return dbRefPrivate.child(uid);
-        } else {
+        } else { // Se for uma criação pública
             return dbRefPublic;
         }
     }
