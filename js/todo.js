@@ -114,7 +114,6 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                 }, function () {
                     hideItem(uploaderFeedback);
                     showItem(loading);
-                    // removeFile(todoKey, db);
                     storageRef.getDownloadURL().then(function (downloadURL) {
                         var data = {
                             todo: todo.value,
@@ -122,7 +121,17 @@ function addOrUpdateTodo(todoKey, isPrivate) {
                             imgUrl: downloadURL
                         };
                         if (todoKey) {
-                            db.child(todoKey).update(data);
+                            key = todoKey;
+                            db.child(key).once('value').then(function (snapshot) {
+                                var storageRef = firebase.storage().ref(snapshot.val().imgPath);
+                                if (storageRef.location.path != 'img/defaultTodo.png') {
+                                    storageRef.delete().then(function() {
+                                        db.child(todoKey).update(data);
+                                    }).catch(function (error) {
+                                        showError(error, 'Houve um erro ao remover a imagem antiga da tarefa!');
+                                    });
+                                }
+                            });
                         } else {
                             db.push(data);
                         }
@@ -176,15 +185,3 @@ function removeTodo(key) {
 cancelUpdateTodoBtn.onclick = function () {
     showDefaultTodoList();
 };
-
-function removeFile(key, db) {
-    db.child(key).once('value').then(function (snapshot) {
-        var storageRef = firebase.storage().ref(snapshot.val().imgPath);
-        console.log(snapshot.val().imgPath);
-        if (storageRef.location.path != 'img/defaultTodo.png' && storageRef.location.path != 'undefined') {
-            storageRef.delete().catch(function (error) {
-                showError(error, 'Houve um erro ao remover o arquivo da tarefa ' + snapshot.val().todo + '!');
-            });
-        }
-    });
-}
