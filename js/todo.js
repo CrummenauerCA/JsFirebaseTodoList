@@ -19,6 +19,7 @@ function fillTodoList(dataSnapshot, isPrivate) {
         imgLi.height = 24;
         imgLi.width = 24;
         imgLi.src = value.imgUrl;
+        imgLi.setAttribute('class', 'imgCircle');
         li.appendChild(imgLi);
 
         var pLi = document.createElement('p');

@@ -69,11 +69,17 @@ p {
     margin: 0px;
 }
 
-img {
-    border-radius: 22px;
+.imgCircle {
+    border-radius: 100%;
 }
 
 .lbtn {
     font-size: 12px;
     padding: 1px 4px;
+}
+
+button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    transition-duration: 0.3s;
 }
