@@ -1,85 +1,85 @@
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
-    font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  font-family: sans-serif;
 }
 
 #loading {
-    position: absolute;
-    top: calc(50% - 100px);
-    left: calc(50% - 100px);
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
 }
 
 .startHidden {
-    display: none;
+  display: none;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0px;
+  list-style-type: none;
+  padding: 0px;
 }
 
 button {
-    background-color: #27ae60;
-    border: none;
-    color: #fff;
-    padding: 4px 8px;
-    margin: 4px;
-    font-size: 16px;
-    border-radius: 20px;
+  background-color: #27ae60;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  margin: 4px;
+  font-size: 16px;
+  border-radius: 20px;
 }
 
 .social {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .alternative {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 .danger {
-    background-color: #e74c3c;
+  background-color: #e74c3c;
 }
 
 .todoItemList {
-    display: inline;
-    padding: 5px;
+  display: inline;
+  padding: 5px;
 }
 
 input, select {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: 4px 0 4px 0;
-    padding: 4px;
-    width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 4px 0 4px 0;
+  padding: 4px;
+  width: 300px;
 }
 
 #private {
-    width: 25px;
+  width: 25px;
 }
 
 hr {
-    width: 40%;
+  width: 40%;
 }
 
 p {
-    margin: 0px;
+  margin: 0px;
 }
 
 .imgCircle {
-    border-radius: 100%;
+  border-radius: 100%;
 }
 
 .lbtn {
-    font-size: 12px;
-    padding: 1px 4px;
+  font-size: 12px;
+  padding: 1px 4px;
 }
 
 button:hover {
-    opacity: 0.8;
-    cursor: pointer;
-    transition-duration: 0.3s;
+  opacity: 0.8;
+  cursor: pointer;
+  transition-duration: 0.3s;
 }
