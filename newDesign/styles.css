@@ -14,7 +14,7 @@ body {
   left: calc(50% - 100px);
 }
 
-input, select {
+input {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 4px 0 4px 0;
@@ -44,15 +44,6 @@ form {
 #brand {
   text-align: center;
   padding: 10px;
-}
-
-#search {
-  width: 95%;
-  padding: 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #444;
 }
 
 #todoList, #addTodo, #tabbed-content {
@@ -118,8 +109,25 @@ ul {
   color: white;
 }
 
-#addTodo:after {
-  content: '';
-  display: block;
-  clear: both;
+button {
+  background-color: #27ae60;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  margin: 4px;
+  font-size: 16px;
+  border-radius: 20px;
 }
+
+.social {
+  background-color: #fff;
+}
+
+.alternative {
+  background-color: #2980b9;
+}
+
+.danger {
+  background-color: #e74c3c;
+}
+
