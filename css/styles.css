@@ -41,7 +41,7 @@ form {
   box-shadow: 4px 4px 12px #ccc;
 }
 
-#brand {
+#brand, #accessOrRegisterOrSocial {
   text-align: center;
   padding: 10px;
 }
@@ -122,5 +122,5 @@ button {
 
 
 p {
-  margin: 0px;
+  margin: 5px;
 }

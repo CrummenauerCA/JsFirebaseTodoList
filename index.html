@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="shortcut icon" type="image/png" href="img/todoListFavicon.png" />
+  <link rel="shortcut icon" type="image/png" href="img/todoListFavicon.png">
   <title>TodoList</title>
 </head>
 
@@ -14,46 +14,26 @@
       <img src="../img/todoList.png" alt="">
     </div>
     <div id="logedOut">
-      <form>
-        <h3>Acesse sua conta para continuar</h3>
+      <form id="credentialsForm">
+        <h3 id="credentialsFormTitle">Acesse sua conta para continuar</h3>
         <label for="email">E-mail: </label>
         <input type="email" id="email" placeholder="E-mail">
         <label for="password">Senha: </label>
         <input type="password" id="password" placeholder="Senha">
-
-        <div id="access">
-          <button id="accessBtn">Acessar</button>
-          <p>
-            Esqueceu sua senha?
-            <button id="resetPasswordBtn" class="alternative"
-              title="Digite o e-mail e clique aqui para redefinir a senha">Redefinir
-              senha</button>
-          </p>
-          <p>
-            Não possui uma conta?
-            <button id="toggleRegister" class="alternative">Cadastrar uma nova conta</button>
-          </p>
-        </div>
-
-        <div id="register" class="startHidden">
-          <button id="registerBtn">Cadastrar</button>
-          <p>
-            Já possui uma conta?
-            <button id="toggleAccess" class="alternative">Acesse sua conta</button>
-          </p>
-        </div>
-
+        <button type="submit" id="submitButton">Acessar</button>
+      </form>
+      <div id="accessOrRegisterOrSocial">
+        <p id="resetLink">Esqueceu sua senha? <a href="">Redefinir minha senha</a></p>
+        <p id="registerLink">Não possui uma conta? <a href="">Cadastrar uma nova conta</a></p>
+        <p id="accessLink">Já possui uma conta? <a href="">Acesse sua conta</a></p>
         <p>
           Ou acesse usando:<br>
-          <button class="social" id="facebookBtn" title="Acessar com sua conta do Facebook"><img
-              src="img/facebook.png"></button>
-          <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img
-              src="img/github.png"></button>
-          <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
-          <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
+          <img src="img/facebook.png">
+          <img src="img/github.png">
+          <img src="img/google.png">
+          <img src="img/userSecret.png">
         </p>
-
-      </form>
+      </div>
 
       <div id="userInfo" class="startHidden">
         <img id="userImg" class="imgCircle" height="32">
@@ -139,12 +119,15 @@
     <img src="img/loading.gif">
   </div> -->
 
-  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+  <script>
+
+  </script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
   <script src="js/firebase.js"></script>
   <script src="js/elements.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/todo.js"></script>
+  <script src="js/todo.js"></script> -->
 </body>
 
 </html>
