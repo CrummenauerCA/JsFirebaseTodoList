@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="styles.css" rel="stylesheet" />
+  <title>TodoList</title>
+</head>
+<body>
+  <div id="app">
+    <div id="brand">
+      <img src="../img/todoList.png" alt="">
+    </div>
+    <div>
+      <form>
+        <h4>Acesse sua conta para continuar</h4>
+        <label for="email">E-mail: </label>
+        <input type="email" id="email" placeholder="E-mail">
+        <br>
+        <label for="password">Senha: </label>
+        <input type="password" id="password" placeholder="Senha">
+        <br>
+      </form>
+    </div>
+    <div id="SignedIn">
+      <div id="todoList">
+        <h3>Tarefas: </h3>
+        <form>
+          <input type="text" placeholder="Pesquisar tarefas..." id="search" />
+        </form>
+        <ul>
+          <li>
+            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
+            <span class="name">Tarefa de exemplo</span>
+            <span class="todoBtns delete">Excluir</span>
+            <span class="todoBtns update">Editar</span>
+          </li>
+          <hr>
+          <li>
+            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
+            <span class="name">Tarefa de exemplo</span>
+            <span class="todoBtns delete">Excluir</span>
+            <span class="todoBtns update">Editar</span>
+          </li>
+          <hr>
+          <li>
+            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
+            <span class="name">Tarefa de exemplo</span>
+            <span class="todoBtns delete">Excluir</span>
+            <span class="todoBtns update">Editar</span>
+          </li>
+        </ul>
+      </div>
+      <form id="addTodo">
+        <input type="text" placeholder="Adicionar uma tarefa..." />
+        <button>Adicionar</button>
+      </form>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
