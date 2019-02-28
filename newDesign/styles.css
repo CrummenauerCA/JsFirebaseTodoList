@@ -8,6 +8,12 @@ body {
   min-height: 100vh;
 }
 
+#loading {
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+
 h3, ul {
   font-weight: normal;
   margin: 6px;
