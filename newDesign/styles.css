@@ -14,13 +14,25 @@ body {
   left: calc(50% - 100px);
 }
 
+input, select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 4px 0 4px 0;
+  padding: 4px;
+  width: 80%;
+}
+
 h3, ul {
   font-weight: normal;
   margin: 6px;
 }
 
+form {
+  text-align: center;
+}
+
 #app {
-  width: 100%;
+  width: 90%;
   max-width: 480px;
   min-width: 512px;
   margin: 20px auto;
@@ -35,7 +47,7 @@ h3, ul {
 }
 
 #search {
-  width: 90%;
+  width: 95%;
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
