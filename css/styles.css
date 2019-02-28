@@ -94,21 +94,6 @@ ul {
   clear: both;
 }
 
-#addTodo button {
-  border: 1px solid #A18066;
-  background: #A18066;
-  padding: 10px 20px;
-  font-size: 16px;
-  display: inline-block;
-  margin: 0;
-  border-radius: 0 4px 4px 0;
-  cursor: pointer;
-  width: 100px;
-  margin: 20px 0;
-  border-left: 0;
-  color: white;
-}
-
 button {
   background-color: #27ae60;
   border: none;
@@ -117,6 +102,10 @@ button {
   margin: 4px;
   font-size: 16px;
   border-radius: 20px;
+}
+
+.startHidden {
+  display: none;
 }
 
 .social {
@@ -131,3 +120,7 @@ button {
   background-color: #e74c3c;
 }
 
+
+p {
+  margin: 0px;
+}

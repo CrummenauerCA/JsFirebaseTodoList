@@ -2,115 +2,149 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" type="image/png" href="img/todoListFavicon.png" />
-    <title>TodoList</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="shortcut icon" type="image/png" href="img/todoListFavicon.png" />
+  <title>TodoList</title>
 </head>
 
 <body>
-    <div id="video">
-        <img src="img/todoList.png">
+  <div id="app">
+    <div id="brand">
+      <img src="../img/todoList.png" alt="">
     </div>
+    <div id="logedOut">
+      <form>
+        <h3>Acesse sua conta para continuar</h3>
+        <label for="email">E-mail: </label>
+        <input type="email" id="email" placeholder="E-mail">
+        <label for="password">Senha: </label>
+        <input type="password" id="password" placeholder="Senha">
 
-    <div class="rest">
-        <div id="authentication" class="startHidden">
-            <h4>Acesse sua conta para continuar</h4>
-            <label for="email">E-mail: </label>
-            <input type="email" id="email" placeholder="E-mail">
-            <br>
-            <label for="password">Senha: </label>
-            <input type="password" id="password" placeholder="Senha">
-            <br>
-
-            <div id="access">
-                <button id="accessBtn">Acessar</button>
-                <p>
-                    Esqueceu sua senha?
-                    <button id="resetPasswordBtn" class="alternative" title="Digite o e-mail e clique aqui para redefinir a senha">Redefinir
-                        senha</button>
-                </p>
-                <p>
-                    Não possui uma conta?
-                    <button id="toggleRegister" class="alternative">Cadastrar uma nova conta</button>
-                </p>
-            </div>
-
-            <div id="register" class="startHidden">
-                <button id="registerBtn">Cadastrar</button>
-                <p>
-                    Já possui uma conta?
-                    <button id="toggleAccess" class="alternative">Acesse sua conta</button>
-                </p>
-            </div>
-
-            <p>
-                Ou acesse usando:<br>
-                <button class="social" id="facebookBtn" title="Acessar com sua conta do Facebook"><img src="img/facebook.png"></button>
-                <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img src="img/github.png"></button>
-                <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
-                <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
-            </p>
+        <div id="access">
+          <button id="accessBtn">Acessar</button>
+          <p>
+            Esqueceu sua senha?
+            <button id="resetPasswordBtn" class="alternative"
+              title="Digite o e-mail e clique aqui para redefinir a senha">Redefinir
+              senha</button>
+          </p>
+          <p>
+            Não possui uma conta?
+            <button id="toggleRegister" class="alternative">Cadastrar uma nova conta</button>
+          </p>
         </div>
 
-        <div id="userInfo" class="startHidden">
-            <img id="userImg" class="imgCircle" height="32">
-            <p id="userName"></p>
-            <p id="userEmail"></p>
-            <p id="userEmailVerified"></p>
-            <button id="removeAccountBtn" class="danger">Excluir minha conta</button>
-            <button id="logOutBtn" class="alternative">Sair</button>
-            <button id="toggleRegister" class="alternative" title="Editar o nome do do usuário" onclick="updateUserName()">✎</button>
-            <hr>
+        <div id="register" class="startHidden">
+          <button id="registerBtn">Cadastrar</button>
+          <p>
+            Já possui uma conta?
+            <button id="toggleAccess" class="alternative">Acesse sua conta</button>
+          </p>
         </div>
 
-        <div id="publicTodoList"></div>
-        <div id="privateTodoList"></div>
+        <p>
+          Ou acesse usando:<br>
+          <button class="social" id="facebookBtn" title="Acessar com sua conta do Facebook"><img
+              src="img/facebook.png"></button>
+          <button class="social" id="githubBtn" title="Acessar com sua conta do Github"><img
+              src="img/github.png"></button>
+          <button class="social" id="googleBtn" title="Acessar com sua conta Google"><img src="img/google.png"></button>
+          <button class="social" id="anonymousBtn" title="Acessar como anônimo"><img src="img/userSecret.png"></button>
+        </p>
 
-        <div id="inputs" class="startHidden">
-            <hr>
-            <p id="addUpdateTodoText">Adicionar tarefa:</p>
-            <label for="todo">Tarefa: </label>
-            <input type="text" id="todo" placeholder="Tarefa">
-            <br>
-            <label for="img">Imagem: </label>
-            <input type="file" name="img" value="Upload" id="fileBtn">
-            <br>
-            <div id="privateCheckBox">
-                <label for="img">É uma tarefa privada? </label>
-                <input type="checkbox" id="private">
-                <br>
-            </div>
-        </div>
+      </form>
 
-        <div id="uploaderFeedback" class="startHidden">
-            <progress value="0" max="100" id="progress"></progress>
-            <button id="playPauseBtn" class="alternative">Pausar</button>
-            <button id="calcelBtn" class="danger">Cancelar</button>
-        </div>
-
-        <div id="addTodo" class="startHidden">
-            <button id="addTodoBtn">Adicionar tarefa</button>
-        </div>
-
-        <div id="updateTodoBtns" class="startHidden">
-            <button id="updateTodoBtn">Atualizar tarefa</button>
-            <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
-            <br><br>
-        </div>
-
+      <div id="userInfo" class="startHidden">
+        <img id="userImg" class="imgCircle" height="32">
+        <p id="userName"></p>
+        <p id="userEmail"></p>
+        <p id="userEmailVerified"></p>
+        <button id="removeAccountBtn" class="danger">Excluir minha conta</button>
+        <button id="logOutBtn" class="alternative">Sair</button>
+        <button id="toggleRegister" class="alternative" title="Editar o nome do do usuário"
+          onclick="updateUserName()">✎</button>
+        <hr>
+      </div>
     </div>
+    <div id="SignedIn">
+      <div id="todoList">
+        <h3>Tarefas: </h3>
+        <form>
+          <input type="text" placeholder="Pesquisar tarefas..." id="search" />
+        </form>
+        <ul>
+          <li>
+            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
+            <span class="name">Tarefa de exemplo</span>
+            <span class="todoBtns delete">Excluir</span>
+            <span class="todoBtns update">Editar</span>
+          </li>
+          <hr>
+          <li>
+            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
+            <span class="name">Tarefa de exemplo</span>
+            <span class="todoBtns delete">Excluir</span>
+            <span class="todoBtns update">Editar</span>
+          </li>
+          <hr>
+          <li>
+            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
+            <span class="name">Tarefa de exemplo</span>
+            <span class="todoBtns delete">Excluir</span>
+            <span class="todoBtns update">Editar</span>
+          </li>
+        </ul>
 
-    <div id="loading">
-        <img src="img/loading.gif">
+
+
+        <div id="inputs" class="startHiddens">
+          <hr>
+          <p id="addUpdateTodoText">Adicionar tarefa:</p>
+          <label for="todo">Tarefa: </label>
+          <input type="text" id="todo" placeholder="Tarefa">
+          <br>
+          <label for="img">Imagem: </label>
+          <input type="file" name="img" value="Upload" id="fileBtn">
+          <br>
+          <div id="privateCheckBox">
+            <label for="img">É uma tarefa privada? </label>
+            <input type="checkbox" id="private">
+            <br>
+          </div>
+        </div>
+
+        <div id="uploaderFeedback" class="startHiddens">
+          <progress value="0" max="100" id="progress"></progress>
+          <button id="playPauseBtn" class="alternative">Pausar</button>
+          <button id="calcelBtn" class="danger">Cancelar</button>
+        </div>
+
+        <div id="addTodo" class="startHiddens">
+          <button id="addTodoBtn">Adicionar tarefa</button>
+        </div>
+
+        <div id="updateTodoBtns" class="startHiddens">
+          <button id="updateTodoBtn">Atualizar tarefa</button>
+          <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
+          <br><br>
+        </div>
+
+
+      </div>
     </div>
+  </div>
 
-    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
-    <script src="js/firebase.js"></script>
-    <script src="js/elements.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/todo.js"></script>
+  <!-- <div id="loading">
+    <img src="img/loading.gif">
+  </div> -->
+
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/elements.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/todo.js"></script>
 </body>
 
 </html>
