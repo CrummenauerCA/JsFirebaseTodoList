@@ -2,7 +2,7 @@ firebase.auth().useDeviceLanguage()
 
 authForm.onsubmit = function(event) {
   event.preventDefault()
-  // showItem(loading)
+  showItem(loading)
   if (authForm.submitAuth.innerHTML == 'Acessar') {
     firebase.auth().signInWithEmailAndPassword(authForm.email.value, authForm.password.value).catch(function (error) {
       showError(error, 'Erro ao acessar! E-mail ou senha inválidos')
@@ -14,15 +14,16 @@ authForm.onsubmit = function(event) {
   }
 }
 
-firebase.auth().onAuthStateChanged(function (user) {
+firebase.auth().onAuthStateChanged(function(user) {
   console.log(user)
 })
 
-/*
-resetPasswordBtn.onclick = function () {
-  if (email.value != '') {
+resetPassword.onclick = function () {
+  var email = prompt('Redefinir senha! Informe o seuendereço de email!', userName.innerHTML)
+
+  if (email != '') {
     showItem(loading)
-    firebase.auth().sendPasswordResetEmail(email.value, actionCodeSettings).then(function () {
+    firebase.auth().sendPasswordResetEmail(email, actionCodeSettings).then(function () {
       hideItem(loading)
       alert('Email para redefinir a senha enviado para ' + email.value)
     }).catch(function (error) {
@@ -47,7 +48,7 @@ logOutBtn.onclick = function () {
     showError(error, 'Falha ao sair de sua conta')
   })
 }
-*/
+
 facebook.onclick = function() {
   showItem(loading)
   firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider()).catch(function (error) {
