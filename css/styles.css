@@ -18,13 +18,24 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 4px 0 4px 0;
-  padding: 4px;
+  padding: 8px;
   width: 80%;
 }
 
 h3, ul {
   font-weight: normal;
   margin: 6px;
+}
+
+li {
+  padding: 10px 5px 10px 5px;
+}
+
+li:hover {
+  /* border-right: solid #ccc;
+  border-left: solid #ccc; */
+
+  background-color: #eee;
 }
 
 form {
@@ -123,4 +134,13 @@ button {
 
 p {
   margin: 5px;
+}
+
+#social img {
+  margin: 10px;
+  cursor: pointer;
+}
+
+#social img:hover {
+  opacity: 0.8;
 }

@@ -1,11 +1,11 @@
 // firebase.database.enableLogging(function (message) {
 //     console.log('Firebase logging: ' + message);
 // });
-
+/*
 var actionCodeSettings = {
   url: 'http://127.0.0.1:5500/'
 };
-
+*/
 function showItem(element) {
   element.style.display = 'block';
 }
@@ -20,6 +20,10 @@ function showError(error, message) {
   loading.style.display = 'none';
 }
 
+window.onload = function() {
+  loading.style.display = 'none';
+}
+/*
 toggleRegister.onclick = function () {
   access.style.display = 'none';
   register.style.display = 'block';
@@ -79,4 +83,4 @@ function getRefDb(checked, isPrivate, todoKey) {
       return dbRefPublic;
     }
   }
-}
+}*/

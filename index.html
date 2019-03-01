@@ -14,24 +14,23 @@
       <img src="../img/todoList.png" alt="">
     </div>
     <div id="logedOut">
-      <form id="credentialsForm">
+      <form id="authForm">
         <h3 id="credentialsFormTitle">Acesse sua conta para continuar</h3>
         <label for="email">E-mail: </label>
         <input type="email" id="email" placeholder="E-mail">
         <label for="password">Senha: </label>
         <input type="password" id="password" placeholder="Senha">
-        <button type="submit" id="submitButton">Acessar</button>
+        <button type="submit" id="submitAuth">Acessar</button>
       </form>
       <div id="accessOrRegisterOrSocial">
         <p id="resetLink">Esqueceu sua senha? <a href="">Redefinir minha senha</a></p>
         <p id="registerLink">Não possui uma conta? <a href="">Cadastrar uma nova conta</a></p>
         <p id="accessLink">Já possui uma conta? <a href="">Acesse sua conta</a></p>
-        <p>
+        <p id="social">
           Ou acesse usando:<br>
-          <img src="img/facebook.png">
-          <img src="img/github.png">
-          <img src="img/google.png">
-          <img src="img/userSecret.png">
+          <img id="facebook" src="img/facebook.png">          
+          <img id="github" src="img/github.png">
+          <img id="google" src="img/google.png">
         </p>
       </div>
 
@@ -60,38 +59,31 @@
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
-          <hr>
+          <!-- <hr> -->
           <li>
             <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
             <span class="name">Tarefa de exemplo</span>
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
-          <hr>
+          <!-- <hr> -->
           <li>
             <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
             <span class="name">Tarefa de exemplo</span>
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
+          <!-- <hr> -->
         </ul>
 
-
-
         <div id="inputs" class="startHiddens">
-          <hr>
-          <p id="addUpdateTodoText">Adicionar tarefa:</p>
-          <label for="todo">Tarefa: </label>
-          <input type="text" id="todo" placeholder="Tarefa">
-          <br>
-          <label for="img">Imagem: </label>
-          <input type="file" name="img" value="Upload" id="fileBtn">
-          <br>
-          <div id="privateCheckBox">
-            <label for="img">É uma tarefa privada? </label>
-            <input type="checkbox" id="private">
-            <br>
-          </div>
+          <form>
+            <p id="addUpdateTodoText">Adicionar tarefa:</p>
+            <label for="todo">Tarefa: </label>
+            <input type="text" id="todo" placeholder="Tarefa">
+            <label for="img">Figura: </label>
+            <input type="file" name="img" value="Upload" id="fileBtn">
+          </form>
         </div>
 
         <div id="uploaderFeedback" class="startHiddens">
@@ -115,19 +107,21 @@
     </div>
   </div>
 
-  <!-- <div id="loading">
+  <div id="loading">
     <img src="img/loading.gif">
-  </div> -->
+  </div>
 
   <script>
 
   </script>
-  <!-- <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
   <script src="js/firebase.js"></script>
   <script src="js/elements.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/todo.js"></script> -->
+  <!-- <script src="js/todo.js"></script> -->
+  <script src="testes.js"></script>
 </body>
 
 </html>
