@@ -120,7 +120,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     showAuth()
   }
 })
-
+*/
 removeAccountBtn.onclick = function() {
   var confirmation = confirm('Realmente deseja excluir sua conta?')
   if (confirmation == true) {
@@ -132,7 +132,7 @@ removeAccountBtn.onclick = function() {
     })
   }
 }
-
+/*
 function updateUserName() {
   var newUserName = prompt('Informe um novo nome de usuário', userName.innerHTML)
   if (newUserName != null) {
