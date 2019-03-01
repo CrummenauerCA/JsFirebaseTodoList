@@ -77,7 +77,7 @@ logOutBtn.onclick = function() {
   })
 }
 
-/*
+
 var canEditTodoList = true
 var uid = '0'
 firebase.auth().onAuthStateChanged(function(user) {
@@ -115,12 +115,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     dbRefPrivate.child(uid).orderByChild('todo').once('value', function(dataSnapshot) {
       fillTodoList(dataSnapshot, true)
     })
-    showDefaultTodoList()
+    // showDefaultTodoList()
   } else {
-    showAuth()
+    // showAuth()
   }
 })
-*/
+
 removeAccountBtn.onclick = function() {
   var confirmation = confirm('Realmente deseja excluir sua conta?')
   if (confirmation == true) {
@@ -132,7 +132,7 @@ removeAccountBtn.onclick = function() {
     })
   }
 }
-/*
+
 function updateUserName() {
   var newUserName = prompt('Informe um novo nome de usuário', userName.innerHTML)
   if (newUserName != null) {
@@ -147,4 +147,4 @@ function updateUserName() {
       alert('O nome não pode ser vazio!')
     }
   }
-}*/
+}

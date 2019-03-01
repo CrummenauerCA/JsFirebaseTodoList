@@ -28,20 +28,20 @@
         <p>Já possui uma conta? <button id="toggleAccess">Acesse sua conta</button></p>
         <p id="social">
           Ou acesse usando:<br>
-          <img id="facebook" src="img/facebook.png">          
+          <img id="facebook" src="img/facebook.png">
           <img id="github" src="img/github.png">
           <img id="google" src="img/google.png">
         </p>
       </div>
-
       <div id="userInfo" class="startHidden">
+        <hr>
         <img id="userImg" class="imgCircle" height="32">
         <p id="userName"></p>
         <p id="userEmail"></p>
         <p id="userEmailVerified"></p>
         <button id="removeAccountBtn" class="danger">Excluir minha conta</button>
         <button id="logOutBtn" class="alternative">Sair</button>
-        <button id="toggleRegister" class="alternative" title="Editar o nome do do usuário"
+        <button id="updateUserName" class="alternative" title="Editar o nome do do usuário"
           onclick="updateUserName()">✎</button>
         <hr>
       </div>
@@ -59,23 +59,19 @@
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
-          <!-- <hr> -->
           <li>
             <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
             <span class="name">Tarefa de exemplo</span>
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
-          <!-- <hr> -->
           <li>
             <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
             <span class="name">Tarefa de exemplo</span>
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
-          <!-- <hr> -->
         </ul>
-
         <div id="inputs" class="startHiddens">
           <form>
             <p id="addUpdateTodoText">Adicionar tarefa:</p>
@@ -85,7 +81,6 @@
             <input type="file" name="img" value="Upload" id="fileBtn">
           </form>
         </div>
-
         <div id="uploaderFeedback" class="startHiddens">
           <progress value="0" max="100" id="progress"></progress>
           <button id="playPauseBtn" class="alternative">Pausar</button>
