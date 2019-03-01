@@ -52,7 +52,7 @@ form {
   box-shadow: 4px 4px 12px #ccc;
 }
 
-#brand, #accessOrRegisterOrSocial {
+#brand, #accessOrRegisterOrSocial, #userInfo {
   text-align: center;
   padding: 10px;
 }
@@ -116,7 +116,7 @@ button {
 }
 
 .startHidden {
-  display: none;
+  /* display: none; */
 }
 
 .social {

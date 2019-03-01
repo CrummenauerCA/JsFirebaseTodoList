@@ -1,4 +1,4 @@
-// firebase.database.enableLogging(function (message) {
+// firebase.database.enableLogging(function(message) {
 //     console.log('Firebase logging: ' + message)
 // })
 
@@ -23,17 +23,18 @@ function showError(error, message) {
 window.onload = function() {
   loading.style.display = 'none'
 }
-/*
-toggleRegister.onclick = function () {
+
+toggleRegister.onclick = function() {
   access.style.display = 'none'
   register.style.display = 'block'
 }
 
-toggleAccess.onclick = function () {
+toggleAccess.onclick = function() {
   register.style.display = 'none'
   access.style.display = 'block'
 }
 
+/*
 function showAuth() {
   hideItem(inputs)
   hideItem(userInfo)
