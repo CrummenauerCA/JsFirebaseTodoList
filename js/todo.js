@@ -1,10 +1,4 @@
-var database = firebase.database()
 
-database.ref('todoList/' + uid).on('value', function (dataSnapshot) {
-  console.log(uid)
-  console.log(dataSnapshot.val())
-  fillTodoList(dataSnapshot)
-})
 
 function fillTodoList(dataSnapshot) {
   /*pNumTodos = document.createElement('p')
@@ -48,10 +42,6 @@ function fillTodoList(dataSnapshot) {
   })
 }
 
-addTodoBtn.onclick = function () {
-  addOrUpdateTodo()
-}
-
 function updateTodo(key) {
   hideItem(addTodo)
   hideItem(privateCheckBox)
@@ -65,10 +55,14 @@ function updateTodo(key) {
   }
 }
 
-function addOrUpdateTodo(key, isPrivate) {
+todoForm.onsubmit = function (event) {
+  event.preventDefault()
+  addOrUpdateTodo()
+}
+
+function addOrUpdateTodo(key) {
   if (todo.value != '') {
     var file = fileBtn.files[0]
-    var db = getRefDb(private.checked, isPrivate, key)
     if (file != null) {
       if (file.type.includes('image')) {
         hideItem(updateTodoBtns)
@@ -112,7 +106,7 @@ function addOrUpdateTodo(key, isPrivate) {
               imgUrl: downloadURL
             }
             if (key) {
-              db.child(key).once('value').then(function (snapshot) {
+              database.ref('todoList/' + uid).child(key).once('value').then(function (snapshot) {
                 var storageRef = firebase.storage().ref(snapshot.val().imgPath)
                 if (storageRef.location.path != 'img/defaultTodo.png') {
                   storageRef.delete().catch(function (error) {
@@ -139,9 +133,9 @@ function addOrUpdateTodo(key, isPrivate) {
           imgPath: 'img/defaultTodo.png',
           imgUrl: 'img/defaultTodo.png'
         }
-        db.push(data)
+        database.ref('todoList/' + uid).push(data)
       }
-      showDefaultTodoList()
+      // showDefaultTodoList()
     }
   } else {
     alert('O formulário não pode estar vazio para criar a tarefa!')

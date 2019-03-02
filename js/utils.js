@@ -2,6 +2,8 @@
 //     console.log('Firebase logging: ' + message)
 // })
 
+var database = firebase.database()
+
 var actionCodeSettings = {
   url: 'http://127.0.0.1:5500/'
 }

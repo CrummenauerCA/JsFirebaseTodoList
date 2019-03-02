@@ -93,7 +93,6 @@ logOutBtn.onclick = function () {
   })
 }
 
-var uid = '0'
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     uid = firebase.auth().currentUser.uid
@@ -111,6 +110,11 @@ firebase.auth().onAuthStateChanged(function (user) {
     } else {
       userEmailVerified.innerHTML = 'E-mail verificado'
     }
+    database.ref('todoList/' + uid).on('value', function (dataSnapshot) {
+      console.log(uid)
+      console.log(dataSnapshot.val())
+      fillTodoList(dataSnapshot)
+    })
     showSignedIn();
   } else {
     showSignedOut()
