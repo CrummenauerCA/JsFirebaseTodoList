@@ -19,7 +19,7 @@ firebase.auth().onAuthStateChanged(function(user) {
   hideItem(loading)
 })
 
-resetPassword.onclick = function() {
+resetPasswordBtn.onclick = function() {
   var email = prompt('Redefinir senha! Informe o seuendereço de email!', userName.innerHTML)
   if (email) {
     showItem(loading)
