@@ -20,11 +20,7 @@ function showError(error, message) {
   loading.style.display = 'none'
 }
 
-window.onload = function() {
-  loading.style.display = 'none'
-}
-
-toggleRegisterBtn.onclick = function() {
+toggleRegisterBtn.onclick = function () {
   authForm.submitAuth.innerHTML = 'Cadastrar conta'
   credentialsFormTitle.innerHTML = 'Informe os dados para continuar'
   toggleAccess.style.display = 'block'
@@ -32,7 +28,7 @@ toggleRegisterBtn.onclick = function() {
   resetPassword.style.display = 'none'
 }
 
-toggleAccessBtn.onclick = function() {
+toggleAccessBtn.onclick = function () {
   authForm.submitAuth.innerHTML = 'Acessar'
   credentialsFormTitle.innerHTML = 'Acesse sua conta para continuar'
   toggleAccess.style.display = 'none'
@@ -40,22 +36,27 @@ toggleAccessBtn.onclick = function() {
   resetPassword.style.display = 'block'
 }
 
-/*
-function showAuth() {
-  hideItem(inputs)
+
+function showSignedOut() {
+  hideItem(signedIn)
+  /*hideItem(inputs)
   hideItem(userInfo)
   hideItem(publicTodoList)
   hideItem(privateTodoList)
   hideItem(addTodo)
   hideItem(updateTodoBtns)
-  showItem(authentication)
+  showItem(authentication)*/
   email.value = ''
   password.value = ''
+  showItem(signedOut)
   hideItem(loading)
 }
 
-function showDefaultTodoList() {
-  addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
+function showSignedIn() {
+  hideItem(signedOut)
+  showItem(signedIn)
+  hideItem(loading)
+  /*addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
   hideItem(authentication)
   hideItem(updateTodoBtns)
   hideItem(uploaderFeedback)
@@ -65,13 +66,14 @@ function showDefaultTodoList() {
     showItem(privateCheckBox)
     showItem(privateTodoList)
   }
+  */
   showItem(userInfo)
-  showItem(publicTodoList)
+  /*
   todo.value = ''
-  fileBtn.value = ''
+  fileBtn.value = ''*/
   hideItem(loading)
 }
-
+/*
 var dbRef = firebase.database().ref()
 var dbRefPublic = dbRef.child('publicTodoList')
 var dbRefPrivate = dbRef.child('privateTodoList')

@@ -42,10 +42,15 @@ li:hover {
   border-radius: 100%;
 }
 
+#todoList {
+  padding: 0;
+  margin: 0;
+}
+
 #app {
   /* width: 90%; */
-  max-width: 600px;
-  min-width: 500px;
+  max-width: 648px;
+  min-width: 524px;
   margin: 20px auto;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -54,12 +59,13 @@ li:hover {
 
 form, #progressFeedback, #updateTodoBtns, #addTodo, #brand, #accessOrRegisterOrSocial, #userInfo {
   text-align: center;
-  padding: 10px;
+  padding-top: 12px;
 }
 
 #todoList, #addTodo, #tabbed-content {
   margin: 20px;
 }
+
 
 ul {
   list-style-type: none;
@@ -134,7 +140,8 @@ button {
 
 
 p {
-  margin: 5px;
+  margin: 0;
+  padding: 0;
 }
 
 #accessOrRegisterOrSocial img {
