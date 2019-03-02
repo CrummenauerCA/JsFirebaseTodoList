@@ -56,7 +56,8 @@ function showSignedIn() {
   hideItem(signedOut)
   showItem(signedIn)
   hideItem(loading)
-  /*addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
+  /*
+  addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
   hideItem(authentication)
   hideItem(updateTodoBtns)
   hideItem(uploaderFeedback)
