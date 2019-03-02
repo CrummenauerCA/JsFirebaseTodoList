@@ -128,3 +128,7 @@ p {
 #accessOrRegisterOrSocial img:hover {
   opacity: 0.8;
 }
+
+#todoInputs {
+  margin-bottom: 6px;
+}

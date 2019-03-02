@@ -32,25 +32,27 @@ function fillTodoList(dataSnapshot) {
   })
 }
 
+todoForm.onsubmit = function (event) {
+  event.preventDefault()
+  if (todoForm.submitTodo.innerHTML == 'Adicionar tarefa') {
+    addOrUpdateTodo()
+  }
+}
+
 function updateTodo(key) {
   todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
   showItem(cancelUpdateTodo)
   var itemSelected = document.getElementById(key)
   todo.value = itemSelected.innerHTML
-  addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa:' + itemSelected.innerHTML
-  updateTodoBtn.onclick = function () {
+  addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa: ' + itemSelected.innerHTML
+  todoForm.onsubmit = function (event) {
+    event.preventDefault()
     addOrUpdateTodo(key)
   }
 }
 
 cancelUpdateTodoBtn.onclick = function () {
-  todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
-  hideItem(cancelUpdateTodo)
-}
-
-todoForm.onsubmit = function (event) {
-  event.preventDefault()
-  addOrUpdateTodo()
+  showSignedIn()
 }
 
 function addOrUpdateTodo(key) {
@@ -59,7 +61,6 @@ function addOrUpdateTodo(key) {
     if (file != null) {
       if (file.type.includes('image')) {
         hideItem(cancelUpdateTodo)
-        hideItem(submitTodo)
         var imgPath = 'todoListFiles/' + firebase.database().ref().push().key + '-' + file.name
         var storageRef = firebase.storage().ref(imgPath)
         var uploadTask = storageRef.put(file)
