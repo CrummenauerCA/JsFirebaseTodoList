@@ -20,12 +20,7 @@ function fillTodoList(dataSnapshot, key) {
     liRemoveBtn.setAttribute('onclick', 'removeTodo(\"' + item.key + '\")')
     liRemoveBtn.setAttribute('class', 'todoBtn danger')
     li.appendChild(liRemoveBtn)
-    /*
-    <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
-    <span>Tarefa de exemplo</span>
-    <button class="todoBtn danger">Excluir</button>
-    <button class="todoBtn alternative">Editar</button>
-    */
+    
     var liUpdateBtn = document.createElement('button')
     liUpdateBtn.appendChild(document.createTextNode('Editar'))
     liUpdateBtn.setAttribute('onclick', 'updateTodo(\"' + item.key + '\")')
@@ -38,15 +33,12 @@ function fillTodoList(dataSnapshot, key) {
 }
 
 function updateTodo(key) {
-  hideItem(addTodo)
-  hideItem(privateCheckBox)
   showItem(updateTodoBtns)
   var itemSelected = document.getElementById(key)
-  var isPrivate = (itemSelected.parentElement.id == 'true')
   todo.value = itemSelected.innerHTML
-  addUpdateTodoText.innerHTML = '<strong>Editar a tarefa ' + (isPrivate ? 'privada' : 'pública') + ': ' + itemSelected.innerHTML + '</strong>'
+  addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa ' + itemSelected.innerHTML
   updateTodoBtn.onclick = function () {
-    addOrUpdateTodo(key, isPrivate)
+    addOrUpdateTodo(key)
   }
 }
 
@@ -108,10 +100,10 @@ function addOrUpdateTodo(key) {
                     showError(error, 'Houve um erro ao remover a imagem antiga da tarefa! Nenhuma ação é necessária')
                   })
                 }
-                db.child(key).update(data)
+                database.ref('todoList/' + uid).child(key).update(data)
               })
             } else {
-              db.push(data)
+              database.ref('todoList/' + uid).push(data)
             }
             showDefaultTodoList()
           })
@@ -121,7 +113,7 @@ function addOrUpdateTodo(key) {
       }
     } else {
       if (key) {
-        db.child(key).update({ todo: todo.value })
+        database.ref('todoList/' + uid).child(key).update({ todo: todo.value })
       } else {
         var data = {
           todo: todo.value,
