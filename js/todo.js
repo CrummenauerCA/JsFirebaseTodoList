@@ -33,13 +33,19 @@ function fillTodoList(dataSnapshot, key) {
 }
 
 function updateTodo(key) {
-  showItem(updateTodoBtns)
+  todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
+  showItem(cancelUpdateTodo)
   var itemSelected = document.getElementById(key)
   todo.value = itemSelected.innerHTML
   addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa ' + itemSelected.innerHTML
   updateTodoBtn.onclick = function () {
     addOrUpdateTodo(key)
   }
+}
+
+cancelUpdateTodoBtn.onclick = function () {
+  todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
+  hideItem(cancelUpdateTodo)
 }
 
 todoForm.onsubmit = function (event) {
@@ -146,8 +152,4 @@ function removeTodo(key) {
     })
   }
   // showDefaultTodoList()
-}
-
-cancelUpdateTodoBtn.onclick = function () {
-  showDefaultTodoList()
 }

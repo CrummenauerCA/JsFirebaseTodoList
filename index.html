@@ -67,12 +67,9 @@
           <input type="text" id="todo" placeholder="Tarefa">
           <label for="img">Figura: </label>
           <input type="file" name="img" value="Upload" id="fileBtn">
-          <button type="submit">Adicionar tarefa</button>
+          <button type="submit" id="submitTodo">Adicionar tarefa</button>
         </form>
-        <div id="updateTodoBtns" class="startHidden">
-          <button id="updateTodoBtn">Atualizar tarefa</button>
-          <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
-        </div>
+        <p id="cancelUpdateTodo"><button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button></p>
         <div id="progressFeedback" class="startHidden">
           <progress value="0" max="100" id="progress"></progress>
           <button id="playPauseBtn" class="alternative">Pausar</button>
