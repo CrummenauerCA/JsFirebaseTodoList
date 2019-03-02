@@ -95,7 +95,6 @@ logOutBtn.onclick = function() {
 
 var uid = '0'
 firebase.auth().onAuthStateChanged(function(user) {
-  // console.log(user)
   if (user) {
     uid = firebase.auth().currentUser.uid
     userImg.src = user.photoURL ? user.photoURL : 'img/userUnknown.png'
@@ -112,18 +111,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     } else {
       userEmailVerified.innerHTML = 'E-mail verificado'
     }
-
-    // var database = firebase.database()
-    firebase.database().ref('todoList/' + uid).set({
-      username: 'Cezar',
-      email: 'cezar@cezar.com',
-    });
-    // console.log(uid)
-    firebase.database().ref('todoList/' + uid).once('value', function(dataSnapshot) {
-      //fillTodoList(dataSnapshot, true)
-      console.log(dataSnapshot.val())
-    })
-
     showSignedIn();
   } else {
     showSignedOut()

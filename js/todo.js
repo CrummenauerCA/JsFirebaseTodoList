@@ -1,12 +1,8 @@
-dbRefPublic.orderByChild('todo').on('value', function (dataSnapshot) {
-  fillTodoList(dataSnapshot, false);
-});
+var database = firebase.database()
 
-dbRefPrivate.on('value', function () {
-  dbRefPrivate.child(uid).orderByChild('todo').once('value', function (dataSnapshot) {
-    fillTodoList(dataSnapshot, true);
-  });
-});
+database.ref('todoList/' + uid).on('value', function(dataSnapshot) {
+  console.log(dataSnapshot.val())
+})
 
 function fillTodoList(dataSnapshot, isPrivate) {
   pNumTodos = document.createElement('p');

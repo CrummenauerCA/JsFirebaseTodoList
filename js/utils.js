@@ -73,28 +73,3 @@ function showSignedIn() {
   fileBtn.value = ''*/
   hideItem(loading)
 }
-
-// var database = firebase.database()
-
-// console.log(database)
-
-// //.child(uid).orderByChild('todo')
-
-
-/*
-
-{
-   Visit https://firebase.google.com/docs/database/security to learn more about security rules. 
-  "rules": {
-    "publicTodoList": {
-      ".read": true,
-      ".write": true
-    },
-    "privateTodoList": {
-      ".read": true,
-      ".write": true
-    }
-  }
-}
-
-*/
