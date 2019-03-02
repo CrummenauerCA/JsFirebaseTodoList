@@ -1,5 +1,3 @@
-
-
 function fillTodoList(dataSnapshot, key) {
   numTodos.innerHTML = dataSnapshot.numChildren() + ' tarefas:';
   ul.innerHTML = ''
@@ -16,7 +14,6 @@ function fillTodoList(dataSnapshot, key) {
     pLi.id = item.key
     pLi.setAttribute('class', 'todoItemList')
     li.appendChild(pLi)
-
 
     var liRemoveBtn = document.createElement('button')
     liRemoveBtn.appendChild(document.createTextNode('Excluir'))
@@ -142,23 +139,21 @@ function addOrUpdateTodo(key) {
 
 function removeTodo(key) {
   var itemSelected = document.getElementById(key)
-  var isPrivate = (itemSelected.parentElement.id == 'true')
-  var confirmation = confirm('Realmente deseja remover a tarefa ' + (isPrivate ? 'privada' : 'pública') + ' (' + itemSelected.innerHTML + ')?')
-  var db = getRefDb(isPrivate)
+  var confirmation = confirm('Realmente deseja remover a tarefa ' + itemSelected.innerHTML + '?')
   if (confirmation) {
-    db.child(key).once('value').then(function (snapshot) {
-      var storageRef = firebase.storage().ref(snapshot.val().imgPath)
+    database.ref('todoList/' + uid).child(key).once('value').then(function (dataSnapshot) {
+      var storageRef = firebase.storage().ref(dataSnapshot.val().imgPath)
       if (storageRef.location.path != 'img/defaultTodo.png') {
         storageRef.delete().catch(function (error) {
           showError(error, 'Houve um erro ao remover o arquivo da tarefa!')
         })
       }
-      db.child(key).remove().catch(function (error) {
+      database.ref('todoList/' + uid).child(key).remove().catch(function (error) {
         showError(error, 'Houve um erro ao remover a tarefa!')
       })
     })
   }
-  showDefaultTodoList()
+  // showDefaultTodoList()
 }
 
 cancelUpdateTodoBtn.onclick = function () {
