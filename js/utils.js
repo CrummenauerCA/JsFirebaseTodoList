@@ -24,14 +24,20 @@ window.onload = function() {
   loading.style.display = 'none'
 }
 
-toggleRegister.onclick = function() {
-  access.style.display = 'none'
-  register.style.display = 'block'
+toggleRegisterBtn.onclick = function() {
+  authForm.submitAuth.innerHTML = 'Cadastrar conta'
+  credentialsFormTitle.innerHTML = 'Informe os dados para continuar'
+  toggleAccess.style.display = 'block'
+  toggleRegister.style.display = 'none'
+  resetPassword.style.display = 'none'
 }
 
-toggleAccess.onclick = function() {
-  register.style.display = 'none'
-  access.style.display = 'block'
+toggleAccessBtn.onclick = function() {
+  authForm.submitAuth.innerHTML = 'Acessar'
+  credentialsFormTitle.innerHTML = 'Acesse sua conta para continuar'
+  toggleAccess.style.display = 'none'
+  toggleRegister.style.display = 'block'
+  resetPassword.style.display = 'block'
 }
 
 /*
