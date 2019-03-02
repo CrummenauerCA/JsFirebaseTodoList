@@ -1,11 +1,35 @@
 body {
   font-family: Tahoma;
   color: #555;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+}
+
+#app {
+  max-width: 648px;
+  min-width: 524px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 4px 4px 12px #ccc;
+}
+
+#signedOut {
+  padding: 0 20px 0 20px
+}
+
+#signedIn {
+  padding: 0 20px 0 20px
+}
+
+#brand {
+  padding-top: 8px;
+}
+
+.center {
+  text-align: center;
 }
 
 #loading {
@@ -18,7 +42,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 4px 0 4px 0;
-  padding: 8px;
+  padding: 6px;
   width: 80%;
 }
 
@@ -32,9 +56,6 @@ li {
 }
 
 li:hover {
-  /* border-right: solid #ccc;
-  border-left: solid #ccc; */
-
   background-color: #eee;
 }
 
@@ -47,68 +68,13 @@ li:hover {
   margin: 0;
 }
 
-#app {
-  /* width: 90%; */
-  max-width: 648px;
-  min-width: 524px;
-  margin: 20px auto;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 4px 4px 12px #ccc;
+#todoList, #addTodo, #tabbed-content, #userInfo, #signedIn, #signedOut {
+  margin: 0;
 }
-
-form, #progressFeedback, #updateTodoBtns, #addTodo, #brand, #accessOrRegisterOrSocial, #userInfo {
-  text-align: center;
-  padding-top: 12px;
-}
-
-#todoList, #addTodo, #tabbed-content {
-  margin: 20px;
-}
-
 
 ul {
   list-style-type: none;
   padding: 0;
-}
-
-.todoBtns {
-  float: right;
-  padding: 2px 8px 4px 8px;
-  margin-left: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  color: white;
-}
-
-.todoBtns:hover, button:hover {
-  opacity: 0.8;
-}
-
-.delete {
-  background:#f44336;
-}
-
-.update {
-  background:#009688;
-}
-
-#addTodo {
-  width: 400px;
-  margin: 0 auto;
-}
-
-#addTodo input {
-  display: block;
-  margin: 20px 0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  border-radius: 4px 0 0 4px;
-  box-sizing: border-box;
-  width: 300px;
-  float: left;
-  clear: both;
 }
 
 button {
@@ -116,10 +82,20 @@ button {
   background-color: #27ae60;
   border: none;
   color: #fff;
-  padding: 4px 8px;
+  padding: 2px 4px;
   margin: 4px;
   font-size: 16px;
-  border-radius: 20px;
+  border-radius: 6px;
+}
+
+.todoBtn {
+  float: right;
+  margin: 0;
+  margin-left: 5px;
+}
+
+.todoImg {
+
 }
 
 .startHidden {
@@ -138,15 +114,14 @@ button {
   background-color: #e74c3c;
 }
 
-
 p {
   margin: 0;
   padding: 0;
 }
 
 #accessOrRegisterOrSocial img {
-  margin: 10px;
   cursor: pointer;
+  margin: 6px;
 }
 
 #accessOrRegisterOrSocial img:hover {

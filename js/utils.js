@@ -73,23 +73,28 @@ function showSignedIn() {
   fileBtn.value = ''*/
   hideItem(loading)
 }
-/*
-var dbRef = firebase.database().ref()
-var dbRefPublic = dbRef.child('publicTodoList')
-var dbRefPrivate = dbRef.child('privateTodoList')
 
-function getRefDb(checked, isPrivate, todoKey) {
-  if (todoKey) { // Se for uma atualização, irei considerar se ela era pública ou privada
-    if (isPrivate) { // Se for uma atualização privada
-      return dbRefPrivate.child(uid)
-    } else { // Se for uma atualização pública
-      return dbRefPublic
-    }
-  } else { // Se for uma criação, irei considerar se ela deve ser pública ou privada
-    if (checked) { // Se for uma crição privada
-      return dbRefPrivate.child(uid)
-    } else { // Se for uma criação pública
-      return dbRefPublic
+// var database = firebase.database()
+
+// console.log(database)
+
+// //.child(uid).orderByChild('todo')
+
+
+/*
+
+{
+   Visit https://firebase.google.com/docs/database/security to learn more about security rules. 
+  "rules": {
+    "publicTodoList": {
+      ".read": true,
+      ".write": true
+    },
+    "privateTodoList": {
+      ".read": true,
+      ".write": true
     }
   }
-}*/
+}
+
+*/

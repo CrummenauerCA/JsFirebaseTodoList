@@ -10,11 +10,11 @@
 
 <body>
   <div id="app">
-    <div id="brand">
+    <div id="brand" class="center">
       <img src="../img/todoList.png" alt="">
     </div>
     <div id="signedOut">
-      <div id="accessOrRegisterOrSocial">
+      <div id="accessOrRegisterOrSocial" class="center">
         <form id="authForm">
           <h3 id="credentialsFormTitle">Acesse sua conta para continuar</h3>
           <label for="email">E-mail: </label>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div id="signedIn" class="startHidden">
-      <div id="userInfo" class="startHidden">
+      <div id="userInfo" class="startHidden center">
         <hr>
         <img id="userImg" class="imgCircle" height="32">
         <p id="userName"></p>
@@ -52,21 +52,21 @@
       </div>
       <div id="todoList">
         <h3>Tarefas: </h3>
-        <form>
+        <form class="center">
           <input type="text" placeholder="Pesquisar tarefas..." id="search" />
         </form>
         <ul>
           <li>
             <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
-            <span class="name">Tarefa de exemplo</span>
-            <span class="todoBtns delete">Excluir</span>
-            <span class="todoBtns update">Editar</span>
+            <span>Tarefa de exemplo</span>
+            <button class="todoBtn danger">Excluir</button>
+            <button class="todoBtn alternative">Editar</button>
           </li>
         </ul>
         <hr>
       </div>
-      <div id="inputs" class="startHidden">
-        <form>
+      <div id="todoInputs" class="center">
+        <form id="todoForm">
           <p id="addUpdateTodoText">Adicionar tarefa:</p>
           <label for="todo">Tarefa: </label>
           <input type="text" id="todo" placeholder="Tarefa">
@@ -74,15 +74,15 @@
           <input type="file" name="img" value="Upload" id="fileBtn">
           <button type="submit">Adicionar tarefa</button>
         </form>
-      </div>
-      <div id="updateTodoBtns" class="startHidden">
-        <button id="updateTodoBtn">Atualizar tarefa</button>
-        <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
-      </div>
-      <div id="progressFeedback" class="startHidden">
-        <progress value="0" max="100" id="progress"></progress>
-        <button id="playPauseBtn" class="alternative">Pausar</button>
-        <button id="calcelBtn" class="danger">Cancelar</button>
+        <div id="updateTodoBtns" class="startHidden">
+          <button id="updateTodoBtn">Atualizar tarefa</button>
+          <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
+        </div>
+        <div id="progressFeedback" class="startHidden">
+          <progress value="0" max="100" id="progress"></progress>
+          <button id="playPauseBtn" class="alternative">Pausar</button>
+          <button id="calcelBtn" class="danger">Cancelar</button>
+        </div>
       </div>
     </div>
   </div>
@@ -91,8 +91,9 @@
     <img src="img/loading.gif">
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase-auth.js"></script> -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase-database.js"></script> -->
   <script src="js/firebase.js"></script>
   <!-- <script src="js/elements.js"></script> -->
   <script src="js/utils.js"></script>
