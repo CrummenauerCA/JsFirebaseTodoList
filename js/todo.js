@@ -1,9 +1,7 @@
 
 
-function fillTodoList(dataSnapshot) {
-  /*pNumTodos = document.createElement('p')
-  pNumTodos.innerHTML = '<b>' + dataSnapshot.numChildren() + ' tarefas ' + (isPrivate ? 'privadas' : 'públicas') + ':</b>'
-  var ul = document.createElement('ul')*/
+function fillTodoList(dataSnapshot, key) {
+  numTodos.innerHTML = dataSnapshot.numChildren() + ' tarefas:';
   ul.innerHTML = ''
   dataSnapshot.forEach(function (item) {
     var value = item.val()
