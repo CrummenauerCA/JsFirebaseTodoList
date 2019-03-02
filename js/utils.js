@@ -58,6 +58,18 @@ function showSignedIn() {
   hideItem(signedOut)
   showItem(signedIn)
   hideItem(loading)
+  addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
+  hideItem(cancelUpdateTodo)
+  hideItem(progressFeedback)
+  todo.value = ''
+  fileBtn.value = ''
+  hideItem(loading)
+}
+
+function showAddOrUpdate() {
+  hideItem(signedOut)
+  showItem(signedIn)
+  hideItem(loading)
   /*
   addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
   hideItem(authentication)

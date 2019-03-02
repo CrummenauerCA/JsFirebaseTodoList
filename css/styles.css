@@ -95,8 +95,8 @@ button {
   margin-left: 5px;
 }
 
-.todoImg {
-
+.imgCircle {
+  border-radius: 100%;
 }
 
 .startHidden {

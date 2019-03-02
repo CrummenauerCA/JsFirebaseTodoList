@@ -1,4 +1,4 @@
-function fillTodoList(dataSnapshot, key) {
+function fillTodoList(dataSnapshot) {
   numTodos.innerHTML = dataSnapshot.numChildren() + ' tarefas:';
   ul.innerHTML = ''
   dataSnapshot.forEach(function (item) {
@@ -37,7 +37,7 @@ function updateTodo(key) {
   showItem(cancelUpdateTodo)
   var itemSelected = document.getElementById(key)
   todo.value = itemSelected.innerHTML
-  addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa ' + itemSelected.innerHTML
+  addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa:' + itemSelected.innerHTML
   updateTodoBtn.onclick = function () {
     addOrUpdateTodo(key)
   }
@@ -58,12 +58,12 @@ function addOrUpdateTodo(key) {
     var file = fileBtn.files[0]
     if (file != null) {
       if (file.type.includes('image')) {
-        hideItem(updateTodoBtns)
-        hideItem(addTodo)
-        var imgPath = 'todoFiles/' + firebase.database().ref().push().key + '-' + file.name
+        hideItem(cancelUpdateTodo)
+        hideItem(submitTodo)
+        var imgPath = 'todoListFiles/' + firebase.database().ref().push().key + '-' + file.name
         var storageRef = firebase.storage().ref(imgPath)
         var uploadTask = storageRef.put(file)
-        showItem(uploaderFeedback)
+        showItem(progressFeedback)
 
         var playPauseuploadTask = true
         playPauseBtn.innerHTML = 'Pausar'
@@ -90,7 +90,7 @@ function addOrUpdateTodo(key) {
         }, function (error) {
           showError(error, 'Upload cancelado ou erro no upload do arquivo...')
         }, function () {
-          hideItem(uploaderFeedback)
+          hideItem(progressFeedback)
           showItem(loading)
           storageRef.getDownloadURL().then(function (downloadURL) {
             var data = {
@@ -111,7 +111,7 @@ function addOrUpdateTodo(key) {
             } else {
               database.ref('todoList/' + uid).push(data)
             }
-            showDefaultTodoList()
+            showSignedIn()
           })
         })
       } else {
@@ -119,7 +119,10 @@ function addOrUpdateTodo(key) {
       }
     } else {
       if (key) {
-        database.ref('todoList/' + uid).child(key).update({ todo: todo.value })
+        var data = {
+          todo: todo.value
+        }
+        database.ref('todoList/' + uid).child(key).update(data)
       } else {
         var data = {
           todo: todo.value,
@@ -128,7 +131,7 @@ function addOrUpdateTodo(key) {
         }
         database.ref('todoList/' + uid).push(data)
       }
-      // showDefaultTodoList()
+      showSignedIn()
     }
   } else {
     alert('O formulário não pode estar vazio para criar a tarefa!')
@@ -151,5 +154,5 @@ function removeTodo(key) {
       })
     })
   }
-  // showDefaultTodoList()
+  showSignedIn()
 }
