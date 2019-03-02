@@ -13,20 +13,20 @@
     <div id="brand">
       <img src="../img/todoList.png" alt="">
     </div>
-    <div id="logedOut">
-      <form id="authForm">
-        <h3 id="credentialsFormTitle">Acesse sua conta para continuar</h3>
-        <label for="email">E-mail: </label>
-        <input type="email" id="email" placeholder="E-mail">
-        <label for="password">Senha: </label>
-        <input type="password" id="password" placeholder="Senha">
-        <button type="submit" id="submitAuth">Acessar</button>
-      </form>
+    <div id="signedOut">
       <div id="accessOrRegisterOrSocial">
+        <form id="authForm">
+          <h3 id="credentialsFormTitle">Acesse sua conta para continuar</h3>
+          <label for="email">E-mail: </label>
+          <input type="email" id="email" placeholder="E-mail">
+          <label for="password">Senha: </label>
+          <input type="password" id="password" placeholder="Senha">
+          <button type="submit" id="submitAuth">Acessar</button>
+        </form>
         <p>Esqueceu sua senha? <button id="resetPassword">Redefinir minha senha</button></p>
         <p>Não possui uma conta? <button id="toggleRegister">Cadastrar uma nova conta</button></p>
         <p>Já possui uma conta? <button id="toggleAccess">Acesse sua conta</button></p>
-        <p id="social">
+        <p>
           Ou acesse usando:<br>
           <img id="facebook" src="img/facebook.png">
           <img id="github" src="img/github.png">
@@ -42,11 +42,11 @@
         <button id="removeAccountBtn" class="danger">Excluir minha conta</button>
         <button id="logOutBtn" class="alternative">Sair</button>
         <button id="updateUserName" class="alternative" title="Editar o nome do do usuário"
-          onclick="updateUserName()">✎</button>
+          onclick="updateUserName()">Atualizar nome</button>
         <hr>
       </div>
     </div>
-    <div id="SignedIn">
+    <div id="signedIn" class="startHidden">
       <div id="todoList">
         <h3>Tarefas: </h3>
         <form>
@@ -59,45 +59,27 @@
             <span class="todoBtns delete">Excluir</span>
             <span class="todoBtns update">Editar</span>
           </li>
-          <li>
-            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
-            <span class="name">Tarefa de exemplo</span>
-            <span class="todoBtns delete">Excluir</span>
-            <span class="todoBtns update">Editar</span>
-          </li>
-          <li>
-            <img class="imgTodo" src="../img/defaultTodo.png" height="16px">
-            <span class="name">Tarefa de exemplo</span>
-            <span class="todoBtns delete">Excluir</span>
-            <span class="todoBtns update">Editar</span>
-          </li>
         </ul>
-        <div id="inputs" class="startHiddens">
-          <form>
-            <p id="addUpdateTodoText">Adicionar tarefa:</p>
-            <label for="todo">Tarefa: </label>
-            <input type="text" id="todo" placeholder="Tarefa">
-            <label for="img">Figura: </label>
-            <input type="file" name="img" value="Upload" id="fileBtn">
-          </form>
-        </div>
-        <div id="uploaderFeedback" class="startHiddens">
-          <progress value="0" max="100" id="progress"></progress>
-          <button id="playPauseBtn" class="alternative">Pausar</button>
-          <button id="calcelBtn" class="danger">Cancelar</button>
-        </div>
-
-        <div id="addTodo" class="startHiddens">
-          <button id="addTodoBtn">Adicionar tarefa</button>
-        </div>
-
-        <div id="updateTodoBtns" class="startHiddens">
-          <button id="updateTodoBtn">Atualizar tarefa</button>
-          <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
-          <br><br>
-        </div>
-
-
+        <hr>
+      </div>
+      <div id="inputs" class="startHidden">
+        <form>
+          <p id="addUpdateTodoText">Adicionar tarefa:</p>
+          <label for="todo">Tarefa: </label>
+          <input type="text" id="todo" placeholder="Tarefa">
+          <label for="img">Figura: </label>
+          <input type="file" name="img" value="Upload" id="fileBtn">
+          <button type="submit">Adicionar tarefa</button>
+        </form>
+      </div>
+      <div id="updateTodoBtns" class="startHidden">
+        <button id="updateTodoBtn">Atualizar tarefa</button>
+        <button id="cancelUpdateTodoBtn" class="alternative">Cancelar modificação</button>
+      </div>
+      <div id="progressFeedback" class="startHidden">
+        <progress value="0" max="100" id="progress"></progress>
+        <button id="playPauseBtn" class="alternative">Pausar</button>
+        <button id="calcelBtn" class="danger">Cancelar</button>
       </div>
     </div>
   </div>
@@ -106,9 +88,6 @@
     <img src="img/loading.gif">
   </div>
 
-  <script>
-
-  </script>
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
   <script src="js/firebase.js"></script>

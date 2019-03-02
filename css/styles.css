@@ -38,21 +38,21 @@ li:hover {
   background-color: #eee;
 }
 
-form {
-  text-align: center;
+.imgCircle {
+  border-radius: 100%;
 }
 
 #app {
-  width: 90%;
-  max-width: 480px;
-  min-width: 512px;
+  /* width: 90%; */
+  max-width: 600px;
+  min-width: 500px;
   margin: 20px auto;
   border: 2px solid #ccc;
   border-radius: 4px;
   box-shadow: 4px 4px 12px #ccc;
 }
 
-#brand, #accessOrRegisterOrSocial, #userInfo {
+form, #progressFeedback, #updateTodoBtns, #addTodo, #brand, #accessOrRegisterOrSocial, #userInfo {
   text-align: center;
   padding: 10px;
 }
@@ -136,11 +136,11 @@ p {
   margin: 5px;
 }
 
-#social img {
+#accessOrRegisterOrSocial img {
   margin: 10px;
   cursor: pointer;
 }
 
-#social img:hover {
+#accessOrRegisterOrSocial img:hover {
   opacity: 0.8;
 }
