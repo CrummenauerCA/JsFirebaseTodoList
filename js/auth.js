@@ -21,7 +21,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 resetPassword.onclick = function() {
   var email = prompt('Redefinir senha! Informe o seuendereço de email!', userName.innerHTML)
-  if (email != '') {
+  if (email) {
     showItem(loading)
     firebase.auth().sendPasswordResetEmail(email, actionCodeSettings).then(function() {
       hideItem(loading)
