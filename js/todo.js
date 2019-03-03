@@ -47,11 +47,12 @@ function updateTodo(key) {
 
 todoForm.onsubmit = function (event) {
   event.preventDefault()
+  hideItem(todoForm.submitTodo)
   if (todoForm.submitTodo.innerHTML == 'Adicionar tarefa') {
     console.log('passou pela criação...')
     addOrUpdateTodo()
   } else {
-    console.log('passou pela atualização...')
+    console.log('passou pela atualização... keyTodoUpdate: ', keyTodoUpdate)
     addOrUpdateTodo(keyTodoUpdate)
   }
 }
@@ -62,10 +63,11 @@ function addOrUpdateTodo(key) {
     if (file != null) {
       if (file.type.includes('image')) {
         hideItem(cancelUpdateTodo)
+        showItem(progressFeedback)
+        showItem(loading)
         var imgPath = 'todoListFiles/' + firebase.database().ref().push().key + '-' + file.name
         var storageRef = firebase.storage().ref(imgPath)
         var uploadTask = storageRef.put(file)
-        showItem(progressFeedback)
 
         var playPauseuploadTask = true
         playPauseBtn.innerHTML = 'Pausar'
@@ -91,8 +93,6 @@ function addOrUpdateTodo(key) {
         }, function (error) {
           showError(error, 'Upload cancelado ou erro no upload do arquivo...')
         }, function () {
-          hideItem(progressFeedback)
-          showItem(loading)
           storageRef.getDownloadURL().then(function (downloadURL) {
             var data = {
               todo: todo.value,
@@ -112,6 +112,7 @@ function addOrUpdateTodo(key) {
             } else {
               database.ref('todoList/' + uid).push(data)
             }
+            showSignedIn()
           })
         })
       } else {
@@ -131,11 +132,11 @@ function addOrUpdateTodo(key) {
         }
         database.ref('todoList/' + uid).push(data)
       }
+      showSignedIn()
     }
   } else {
     alert('O formulário não pode estar vazio para criar a tarefa!')
   }
-  showSignedIn()
 }
 
 function removeTodo(key) {

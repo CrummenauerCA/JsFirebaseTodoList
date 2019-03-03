@@ -19,29 +19,27 @@ function hideItem(element) {
 function showError(error, message) {
   console.log(error)
   alert(message)
-  loading.style.display = 'none'
+  hideItem(loading)
 }
 
 toggleRegisterBtn.onclick = function () {
   authForm.submitAuth.innerHTML = 'Cadastrar conta'
   credentialsFormTitle.innerHTML = 'Informe os dados para continuar'
-  toggleAccess.style.display = 'block'
-  toggleRegister.style.display = 'none'
-  resetPassword.style.display = 'none'
+  showItem(toggleAccess)
+  hideItem(toggleRegister)
+  hideItem(resetPassword)
 }
 
 toggleAccessBtn.onclick = function () {
   authForm.submitAuth.innerHTML = 'Acessar'
   credentialsFormTitle.innerHTML = 'Acesse sua conta para continuar'
-  toggleAccess.style.display = 'none'
-  toggleRegister.style.display = 'block'
-  resetPassword.style.display = 'block'
+  hideItem(toggleAccess)
+  showItem(toggleRegister)
+  showItem(resetPassword)
 }
 
 function showSignedOut() {
   hideItem(signedIn)
-  email.value = ''
-  password.value = ''
   showItem(signedOut)
   hideItem(loading)
 }
@@ -49,35 +47,12 @@ function showSignedOut() {
 function showSignedIn() {
   hideItem(signedOut)
   showItem(signedIn)
-  hideItem(loading)
+  todoForm.submitTodo.style.display = 'initial'
   addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
   todoForm.submitTodo.innerHTML = 'Adicionar tarefa'
   hideItem(cancelUpdateTodo)
   hideItem(progressFeedback)
-  /*todo.value = ''
-  fileBtn.value = ''*/
-  hideItem(loading)
-}
-
-function showAddOrUpdate() {
-  hideItem(signedOut)
-  showItem(signedIn)
-  hideItem(loading)
-  /*
-  addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
-  hideItem(authentication)
-  hideItem(updateTodoBtns)
-  hideItem(uploaderFeedback)
-  if (canEditTodoList) {
-    showItem(inputs)
-    showItem(addTodo)
-    showItem(privateCheckBox)
-    showItem(privateTodoList)
-  }
-  */
-  showItem(userInfo)
-  /*
   todo.value = ''
-  fileBtn.value = ''*/
+  fileBtn.value = ''
   hideItem(loading)
 }

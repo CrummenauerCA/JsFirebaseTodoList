@@ -96,7 +96,7 @@ button {
   margin-left: 5px;
 }
 
-.userImg {
+#userImg {
   height: 30px;
   border-radius: 100%;
 }
