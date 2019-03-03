@@ -32,9 +32,9 @@ function fillTodoList(dataSnapshot) {
   })
 }
 
-keyTodoUpdate = '0'
+var keyTodoUpdate = '0'
 function updateTodo(key) {
-  var keyTodoUpdate = key
+  keyTodoUpdate = key
   todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
   showItem(cancelUpdateTodo)
   var itemSelected = document.getElementById(key)
