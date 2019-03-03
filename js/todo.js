@@ -20,7 +20,7 @@ function fillTodoList(dataSnapshot) {
     liRemoveBtn.setAttribute('onclick', 'removeTodo(\"' + item.key + '\")')
     liRemoveBtn.setAttribute('class', 'todoBtn danger')
     li.appendChild(liRemoveBtn)
-    
+
     var liUpdateBtn = document.createElement('button')
     liUpdateBtn.appendChild(document.createTextNode('Editar'))
     liUpdateBtn.setAttribute('onclick', 'updateTodo(\"' + item.key + '\")')
@@ -32,27 +32,28 @@ function fillTodoList(dataSnapshot) {
   })
 }
 
-todoForm.onsubmit = function (event) {
-  event.preventDefault()
-  if (todoForm.submitTodo.innerHTML == 'Adicionar tarefa') {
-    addOrUpdateTodo()
-  }
-}
-
+keyTodoUpdate = '0'
 function updateTodo(key) {
+  var keyTodoUpdate = key
   todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
   showItem(cancelUpdateTodo)
   var itemSelected = document.getElementById(key)
   todo.value = itemSelected.innerHTML
   addUpdateTodoText.innerHTML = '<strong>Editar</strong> a tarefa: ' + itemSelected.innerHTML
-  todoForm.onsubmit = function (event) {
-    event.preventDefault()
-    addOrUpdateTodo(key)
+  cancelUpdateTodoBtn.onclick = function () {
+    showSignedIn()
   }
 }
 
-cancelUpdateTodoBtn.onclick = function () {
-  showSignedIn()
+todoForm.onsubmit = function (event) {
+  event.preventDefault()
+  if (todoForm.submitTodo.innerHTML == 'Adicionar tarefa') {
+    console.log('passou pela criação...')
+    addOrUpdateTodo()
+  } else {
+    console.log('passou pela atualização...')
+    addOrUpdateTodo(keyTodoUpdate)
+  }
 }
 
 function addOrUpdateTodo(key) {
@@ -82,7 +83,6 @@ function addOrUpdateTodo(key) {
 
         calcelBtn.onclick = function () {
           uploadTask.cancel()
-          showDefaultTodoList()
           showError(null, 'Upload cancelado!')
         }
 
@@ -112,7 +112,6 @@ function addOrUpdateTodo(key) {
             } else {
               database.ref('todoList/' + uid).push(data)
             }
-            showSignedIn()
           })
         })
       } else {
@@ -132,11 +131,11 @@ function addOrUpdateTodo(key) {
         }
         database.ref('todoList/' + uid).push(data)
       }
-      showSignedIn()
     }
   } else {
     alert('O formulário não pode estar vazio para criar a tarefa!')
   }
+  showSignedIn()
 }
 
 function removeTodo(key) {

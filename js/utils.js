@@ -38,16 +38,8 @@ toggleAccessBtn.onclick = function () {
   resetPassword.style.display = 'block'
 }
 
-
 function showSignedOut() {
   hideItem(signedIn)
-  /*hideItem(inputs)
-  hideItem(userInfo)
-  hideItem(publicTodoList)
-  hideItem(privateTodoList)
-  hideItem(addTodo)
-  hideItem(updateTodoBtns)
-  showItem(authentication)*/
   email.value = ''
   password.value = ''
   showItem(signedOut)
@@ -59,10 +51,11 @@ function showSignedIn() {
   showItem(signedIn)
   hideItem(loading)
   addUpdateTodoText.innerHTML = 'Adicionar tarefa:'
+  todoForm.submitTodo.innerHTML = 'Adicionar tarefa'
   hideItem(cancelUpdateTodo)
   hideItem(progressFeedback)
-  todo.value = ''
-  fileBtn.value = ''
+  /*todo.value = ''
+  fileBtn.value = ''*/
   hideItem(loading)
 }
 

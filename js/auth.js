@@ -15,12 +15,12 @@ authForm.onsubmit = function (event) {
 }
 
 resetPasswordBtn.onclick = function () {
-  var email = prompt('Redefinir senha! Informe o seuendereço de email!', userName.innerHTML)
+  var email = prompt('Redefinir senha! Informe o seu endereço de email!', authForm.email.value)
   if (email) {
     showItem(loading)
     firebase.auth().sendPasswordResetEmail(email, actionCodeSettings).then(function () {
       hideItem(loading)
-      alert('Email para redefinir a senha enviado para ' + email.value)
+      alert('Um e-mail para redefinir a senha foi enviado para ' + email.value)
     }).catch(function (error) {
       showError(error, 'Erro ao enviar o e-mail de redefinição de senha! Verifique o e-mail informado e tente novamente...')
     })
@@ -93,6 +93,7 @@ logOutBtn.onclick = function () {
   })
 }
 
+var uid = '0'
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     uid = firebase.auth().currentUser.uid
@@ -111,8 +112,6 @@ firebase.auth().onAuthStateChanged(function (user) {
       userEmailVerified.innerHTML = 'E-mail verificado'
     }
     database.ref('todoList/' + uid).on('value', function (dataSnapshot) {
-      console.log(uid)
-      console.log(dataSnapshot.val())
       fillTodoList(dataSnapshot)
     })
     showSignedIn();
