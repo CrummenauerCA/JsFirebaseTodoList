@@ -35,6 +35,7 @@ function fillTodoList(dataSnapshot) {
 var keyTodoUpdate = '0'
 function updateTodo(key) {
   keyTodoUpdate = key
+  todoForm.submitTodo.style.display = 'initial'
   todoForm.submitTodo.innerHTML = 'Atualizar tarefa'
   showItem(cancelUpdateTodo)
   var itemSelected = document.getElementById(key)
@@ -49,10 +50,8 @@ todoForm.onsubmit = function (event) {
   event.preventDefault()
   hideItem(todoForm.submitTodo)
   if (todoForm.submitTodo.innerHTML == 'Adicionar tarefa') {
-    console.log('passou pela criação...')
     addOrUpdateTodo()
   } else {
-    console.log('passou pela atualização... keyTodoUpdate: ', keyTodoUpdate)
     addOrUpdateTodo(keyTodoUpdate)
   }
 }

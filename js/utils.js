@@ -17,9 +17,9 @@ function hideItem(element) {
 }
 
 function showError(error, message) {
-  console.log(error)
+  console.log('Error: ', error)
   alert(message)
-  hideItem(loading)
+  showSignedIn()
 }
 
 toggleRegisterBtn.onclick = function () {
