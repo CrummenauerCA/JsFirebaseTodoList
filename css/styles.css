@@ -7,25 +7,18 @@ body {
   min-height: 100vh;
 }
 
+.startHidden {
+  display: none;
+}
+
 #app {
-  max-width: 648px;
-  min-width: 524px;
-  margin: 10px auto;
+  max-width: 600px;
+  min-width: 400px;
+  margin: auto;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 4px 4px 12px #ccc;
-}
-
-#signedOut {
-  padding: 0 20px 0 20px
-}
-
-#signedIn {
-  padding: 0 20px 0 20px
-}
-
-#brand {
-  padding-top: 8px;
 }
 
 .center {
@@ -51,32 +44,24 @@ h3, ul {
   margin: 6px;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
 li {
-  padding: 10px 5px 10px 5px;
+  padding: 10px;
 }
 
 li:hover {
   background-color: #eee;
+  border-radius: 10px;
 }
 
 .imgTodo {
   border-radius: 10%;
   margin-right: 5px;
   height: 20px;
-}
-
-#todoList {
-  padding: 0;
-  margin: 0;
-}
-
-#todoList, #addTodo, #tabbed-content, #userInfo, #signedIn, #signedOut {
-  margin: 0;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
 }
 
 button {
@@ -92,17 +77,12 @@ button {
 
 .todoBtn {
   float: right;
-  margin: 0;
-  margin-left: 5px;
+  margin: 0 0 0 5px;
 }
 
 #userImg {
   height: 30px;
   border-radius: 100%;
-}
-
-.startHidden {
-  display: none;
 }
 
 .social {
